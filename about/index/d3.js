@@ -198,7 +198,7 @@ var histogram = function() {
     if (!Array.isArray(tz)) tz = ticks(x0, x1, tz);
 
     // Remove any thresholds outside the domain.
-    //var m = tz.length;
+    var m = tz.length;
     //while (tz[0] <= x0)="" {tz.shift();="" --m;}="" while="" (tz[m="" -="" 1]="">= x1) 
       //{tz.pop(); --m;}
 
