@@ -137,7 +137,7 @@
 
     #map { width">
 <meta property="og:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
-<meta property="og:updated_time" content="2017-01-19T22:36:46.795Z">
+<meta property="og:updated_time" content="2017-01-19T23:37:20.048Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Me">
 <meta name="twitter:description" content="Data-driven quantThings I am interested…Data Visualization
@@ -550,18 +550,18 @@
   <script type="text/javascript">
 
   //New York Taxi Data Visualization
-  let map;
+  let map1;
   const createMap = () => {
-    map = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
-    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
+    map1 = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
+    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map1);
     setTimeout(() => {
       document.querySelector('.leaflet-tile-pane').style.opacity = 0.2;
     });
     //
-    map
+    map1
     .on('moveend', function(e){
-      var center = map.getCenter();
-      var zoom = map.getZoom();
+      var center = map1.getCenter();
+      var zoom = map1.getZoom();
       console.log(JSON.stringify({
         center: [center.lat, center.lng],
         zoom: zoom
