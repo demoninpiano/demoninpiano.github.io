@@ -198,12 +198,12 @@ var histogram = function() {
     if (!Array.isArray(tz)) tz = ticks(x0, x1, tz);
 
     // Remove any thresholds outside the domain.
-    var m = tz.length;
-    while (tz[0] <= x0)="" {tz.shift();="" --m;}="" while="" (tz[m="" -="" 1]="">= x1) 
-      {tz.pop(); --m;}
+    //var m = tz.length;
+    //while (tz[0] <= x0)="" {tz.shift();="" --m;}="" while="" (tz[m="" -="" 1]="">= x1) 
+      //{tz.pop(); --m;}
 
-    var bins = new Array(m + 1),
-        bin;
+    //var bins = new Array(m + 1),
+        //bin;
 
     // Initialize bins.
     for (i = 0; i <= m;="" ++i)="" {="" bin="bins[i]" =="" [];="" bin.x0="i"> 0 ? tz[i - 1] : x0;
