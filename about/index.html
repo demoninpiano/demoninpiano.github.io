@@ -137,7 +137,7 @@
 
     #map { width">
 <meta property="og:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
-<meta property="og:updated_time" content="2017-01-20T00:13:56.499Z">
+<meta property="og:updated_time" content="2017-01-20T00:28:20.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Me">
 <meta name="twitter:description" content="Data-driven quantThings I am interested…Data Visualization
@@ -523,21 +523,16 @@
   <title id="title">canvas flyingline</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css">
   <style>
-        #map1 {
-            width: 600px;
-            height: 400px;
-        }.container{
-    width: 100%;
-    height: 100%;
-    top: 0%;
-    left: 0%;
-    position: absolute;
-  }
+
    #canvas-container{
+   	width: 600px;
+    height: 400px;
     z-index: 1;
     pointer-events: none; /*注意这很重要， 如果缺少pointer-events，前面的canvas会遮挡后面的交互*/
   }
   #map-container{
+  	width: 600px;
+    height: 400px;
     background: #222;
   }
   </style>
@@ -550,15 +545,15 @@
   <script type="text/javascript">
 
   //New York Taxi Data Visualization
-  let map1;
+  let map;
   const createMap = () => {
-    map1 = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
-    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map1);
+    map = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
+    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
     setTimeout(() => {
       document.querySelector('.leaflet-tile-pane').style.opacity = 0.2;
     });
     //
-    map1
+    map
     .on('moveend', function(e){
       var center = map1.getCenter();
       var zoom = map1.getZoom();
@@ -711,7 +706,7 @@
     console.log(ds)
     ds = ds
     .filter(d => d && d.lpep_pickup_datetime && d.Pickup_latitude && d.Dropoff_latitude)
-    .map1(d => ({
+    .map(d => ({
       from: {
         lat: toFloat(d.Pickup_latitude),
         lng: toFloat(d.Pickup_longitude)
