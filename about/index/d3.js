@@ -206,14 +206,14 @@ var histogram = function() {
         //bin;
 
     // Initialize bins.
-    for (i = 0; i <= m;="" ++i)="" {="" bin="bins[i]" =="" [];="" bin.x0="i"> 0 ? tz[i - 1] : x0;
+    for (i = 0; i <= m;="" ++i){="" bin="bins[i]" =="" [];="" bin.x0="i"> 0 ? tz[i - 1] : x0;
       bin.x1 = i < m ? tz[i] : x1;
     }
 
     // Assign data to bins by value, ignoring any outside the domain.
-    for (i = 0; i < n; ++i) {
+    for (i = 0; i < n; ++i){
       x = values[i];
-      if (x0 <= x="" &&="" <="x1)" {="" bins[bisectright(tz,="" x,="" 0,="" m)].push(data[i]);="" }="" return="" bins;="" histogram.value="function(_)" arguments.length="" ?="" (value="typeof" _="==" "function"="" :="" constant$1(_),="" histogram)="" value;="" };="" histogram.domain="function(_)" (domain="typeof" constant$1([_[0],="" _[1]]),="" domain;="" histogram.thresholds="function(_)" (threshold="typeof" array.isarray(_)="" constant$1(slice.call(_))="" threshold;="" histogram;="" var="" threshold="function(array," p,="" f)="" if="" (f="=" null)="" f="number;" (!(n="array.length))" return;="" ((p="+p)" ||="" n="" 2)="" +f(array[0],="" array);="" (p="">= 1) return +f(array[n - 1], n - 1, array);
+      if (x0 <= x="" &&="" <="x1){" bins[bisectright(tz,="" x,="" 0,="" m)].push(data[i]);="" }="" return="" bins;="" histogram.value="function(_)" {="" arguments.length="" ?="" (value="typeof" _="==" "function"="" :="" constant$1(_),="" histogram)="" value;="" };="" histogram.domain="function(_)" (domain="typeof" constant$1([_[0],="" _[1]]),="" domain;="" histogram.thresholds="function(_)" (threshold="typeof" array.isarray(_)="" constant$1(slice.call(_))="" threshold;="" histogram;="" var="" threshold="function(array," p,="" f)="" if="" (f="=" null)="" f="number;" (!(n="array.length))" return;="" ((p="+p)" ||="" n="" 2)="" +f(array[0],="" array);="" (p="">= 1) return +f(array[n - 1], n - 1, array);
   var n,
       h = (n - 1) * p,
       i = Math.floor(h),
