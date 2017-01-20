@@ -96,15 +96,11 @@
   
   
 
-   body{
-
-
-   }.container{
-    width: 100%;
-    height: 100%;
-    top: 0%;
-    left: 0%;
-    position: absolu">
+   #canvas-container{
+   	width: 800px;
+   	height: 500px;
+    z-index: 4;
+    pointer-events: none; /*注意这很重要">
 <meta property="og:type" content="website">
 <meta property="og:title" content="About Me">
 <meta property="og:url" content="https://demoninpiano.github.io/about/index.html">
@@ -121,17 +117,13 @@
   
   
 
-   body{
-
-
-   }.container{
-    width: 100%;
-    height: 100%;
-    top: 0%;
-    left: 0%;
-    position: absolu">
+   #canvas-container{
+   	width: 800px;
+   	height: 500px;
+    z-index: 4;
+    pointer-events: none; /*注意这很重要">
 <meta property="og:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
-<meta property="og:updated_time" content="2017-01-20T17:18:49.431Z">
+<meta property="og:updated_time" content="2017-01-20T17:25:55.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Me">
 <meta name="twitter:description" content="Data-driven quantThings I am interested… New York Cab Data Visualization
@@ -146,15 +138,11 @@
   
   
 
-   body{
-
-
-   }.container{
-    width: 100%;
-    height: 100%;
-    top: 0%;
-    left: 0%;
-    position: absolu">
+   #canvas-container{
+   	width: 800px;
+   	height: 500px;
+    z-index: 4;
+    pointer-events: none; /*注意这很重要">
 <meta name="twitter:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
 
 
@@ -332,17 +320,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css">
   <style>
 
-   body{
-
-
-   }.container{
-    width: 100%;
-    height: 100%;
-    top: 0%;
-    left: 0%;
-    position: absolute;
-  }
-
    #canvas-container{
    	width: 800px;
    	height: 500px;
@@ -360,8 +337,8 @@
 </head>
 <body>
 <div style="position: relative">
-  <div class="container" id="canvas-container"></div>
-  <div class="container" id="map-container"></div>
+  <div style="position: relative" class="container" id="canvas-container"></div>
+  <div style="position: relative" class="container" id="map-container"></div>
 
   <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
   <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
