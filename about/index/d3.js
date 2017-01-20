@@ -206,9 +206,7 @@ var histogram = function() {
         //bin;
 
     // Initialize bins.
-    for (i = 0; i <= m;="" ++i){="" bin="bins[i]" =="" [];="" bin.x0="i"> 0 ? tz[i - 1] : x0;
-      bin.x1 = i < m ? tz[i] : x1;
-    }
+
 
     // Assign data to bins by value, ignoring any outside the domain.
     for (i = 0; i < n; ++i){
@@ -14021,4 +14019,4 @@ exports.geoTransverseMercatorRaw = transverseMercatorRaw;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-})));</=></=></=></=></=></=></=></=></=></=></=></=></=></=></=></=></=></=></":></=></=></=></=></=></=></=></=></=></=></=></=></=>
+})));</=></=></=></=></=></=></=></=></=></=></=></=></=></=></=></=></=></=></":></=></=></=></=></=></=></=></=></=></=></=></=>
