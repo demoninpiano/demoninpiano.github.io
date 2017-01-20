@@ -101,13 +101,13 @@
 
 
     
-        #map {
+        #map1 {
             width: 600px;
             height: 400px;
         }
     
 
-    #map { width">
+    #map1 { wid">
 <meta property="og:type" content="website">
 <meta property="og:title" content="About Me">
 <meta property="og:url" content="https://demoninpiano.github.io/about/index.html">
@@ -129,15 +129,15 @@
 
 
     
-        #map {
+        #map1 {
             width: 600px;
             height: 400px;
         }
     
 
-    #map { width">
+    #map1 { wid">
 <meta property="og:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
-<meta property="og:updated_time" content="2017-01-20T00:31:54.044Z">
+<meta property="og:updated_time" content="2017-01-20T01:17:06.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Me">
 <meta name="twitter:description" content="Data-driven quantThings I am interested…Data Visualization
@@ -157,13 +157,13 @@
 
 
     
-        #map {
+        #map1 {
             width: 600px;
             height: 400px;
         }
     
 
-    #map { width">
+    #map1 { wid">
 <meta name="twitter:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
 
 
@@ -346,13 +346,13 @@
 
 
     <style>
-        #map {
+        #map1 {
             width: 600px;
             height: 400px;
         }
     </style>
 
-    <style>#map { width: 800px; height: 500px; }
+    <style>#map1 { width: 800px; height: 500px; }
     .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
     .legend {
         line-height: 20px;
@@ -368,13 +368,13 @@
 </head>
 <body>
 
-<div id="map"></div>
+<div id="map1"></div>
 
 <script type="text/javascript" src="/about/index/us-states.js"></script>
 
 <script type="text/javascript">
 
-    var map = L.map('map').setView([37.8, -96], 4);
+    var map = L.map('map1').setView([37.8, -96], 4);
     //Add Layer
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
         maxZoom: 18,
@@ -545,18 +545,18 @@
   <script type="text/javascript">
 
   //New York Taxi Data Visualization
-  let map1;
+  let map;
   const createMap = () => {
-    map1 = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
-    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map1);
+    map = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
+    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
     setTimeout(() => {
       document.querySelector('.leaflet-tile-pane').style.opacity = 0.2;
     });
     //
-    map1
+    map
     .on('moveend', function(e){
-      var center = map1.getCenter();
-      var zoom = map1.getZoom();
+      var center = map.getCenter();
+      var zoom = map.getZoom();
       console.log(JSON.stringify({
         center: [center.lat, center.lng],
         zoom: zoom
