@@ -137,7 +137,7 @@
 
     #map1 { wid">
 <meta property="og:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
-<meta property="og:updated_time" content="2017-01-20T04:48:25.047Z">
+<meta property="og:updated_time" content="2017-01-20T04:58:06.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Me">
 <meta name="twitter:description" content="Data-driven quantThings I am interested…Data Visualization
@@ -530,7 +530,7 @@
     height: 100%;
     top: 0%;
     left: 0%;
-    position: relative;
+    position: absolute;
   }
 
    #canvas-container{
@@ -550,8 +550,10 @@
   </style>
 </head>
 <body>
+<div style="position: relative">
   <div class="container" id="canvas-container"></div>
   <div class="container" id="map-container"></div>
+
   <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
   <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
   <script type="text/javascript">
@@ -733,7 +735,8 @@
   });
 
   </script>
-</body>
+<div>
+</div></div></body>
 
 
 
