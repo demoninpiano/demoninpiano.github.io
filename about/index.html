@@ -137,7 +137,7 @@
 
     #map { width">
 <meta property="og:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
-<meta property="og:updated_time" content="2017-01-20T00:28:20.666Z">
+<meta property="og:updated_time" content="2017-01-20T00:31:54.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Me">
 <meta name="twitter:description" content="Data-driven quantThings I am interested…Data Visualization
@@ -540,20 +540,20 @@
 <body>
   <div class="container" id="canvas-container"></div>
   <div class="container" id="map-container"></div>
-  <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+  <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
   <script type="text/javascript">
 
   //New York Taxi Data Visualization
-  let map;
+  let map1;
   const createMap = () => {
-    map = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
-    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
+    map1 = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
+    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map1);
     setTimeout(() => {
       document.querySelector('.leaflet-tile-pane').style.opacity = 0.2;
     });
     //
-    map
+    map1
     .on('moveend', function(e){
       var center = map1.getCenter();
       var zoom = map1.getZoom();
