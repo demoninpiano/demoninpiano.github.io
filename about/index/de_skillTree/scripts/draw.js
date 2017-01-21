@@ -8,7 +8,7 @@ var tree = d3.layout.tree()
 var diagonal = d3.svg.diagonal.radial()
     .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
 
-var svg = d3.select("#skill_tree").append("svg")
+var svg = d3.select("#skilltree").append("svg")
     .attr("width", diameter + 280)
     .attr("height", diameter)
   .append("g")
