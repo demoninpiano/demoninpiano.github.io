@@ -14,7 +14,7 @@ var svg = d3.select("#skilltree").append("svg")
   .append("g")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
-d3.json("/about/index/de_skillTree/data/skills.json", function(error, root) {
+d3.json("/about/index/skills.json", function(error, root) {
   var nodes = tree.nodes(root),
       links = tree.links(nodes);
 
