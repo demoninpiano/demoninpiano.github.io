@@ -2,7 +2,7 @@ var diameter = 960;
 
 var tree = d3.layout.tree()
     // .size([360, diameter / 2 - 120])
-    .size([180, diameter  ])
+    .size([135, diameter  ])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 
 var diagonal = d3.svg.diagonal.radial()
@@ -10,7 +10,7 @@ var diagonal = d3.svg.diagonal.radial()
 
 var svg = d3.select("#skilltree").append("svg")
     .attr("width", diameter + 280)
-    .attr("height", diameter)
+    .attr("height", diameter * 2)
   .append("g")
     .attr("transform", "translate(" + 50 + "," + diameter + ")");
 
