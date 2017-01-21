@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="David's Blog">
 <meta property="og:description" content="EducationEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;B.S.&amp;emsp; The Ohio State UniversityEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;M.S.&amp;emsp; University of California - San DiegoComputer Science&amp;emsp; M.S. &amp;emsp;Geo">
 <meta property="og:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
-<meta property="og:updated_time" content="2017-01-20T23:13:14.247Z">
+<meta property="og:updated_time" content="2017-01-21T02:02:24.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Me">
 <meta name="twitter:description" content="EducationEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;B.S.&amp;emsp; The Ohio State UniversityEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;M.S.&amp;emsp; University of California - San DiegoComputer Science&amp;emsp; M.S. &amp;emsp;Geo">
@@ -482,7 +482,7 @@
   <script type="text/javascript">
 
   //New York Taxi Data Visualization
-  let map;
+  var map;
   const createMap = () => {
     map = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
     L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
@@ -575,7 +575,7 @@
     }
     updatePos(){
       const {particles} = this;
-      for(let i in particles){
+      for(var i in particles){
         particles[i].updatePos();
       }
     }
@@ -594,11 +594,11 @@
     updateParticles(){
       this.clean();
       const {particles} = this;
-      for(let i in particles){
-        let particle = particles[i];
-        let isRemain = particle.update();
+      for(var i in particles){
+        var particle = particles[i];
+        var isRemain = particle.update();
         if(!isRemain) {
-          let id = particle.id;
+          var id = particle.id;
           delete this.particles[id];
           continue;
         }
@@ -618,11 +618,11 @@
     }
     emit(){
       this.dataIndex = this.dataIndex || 0;
-      for(let i = 0; i < 2; i++){
+      for(var i = 0; i < 2; i++){
         this.dataIndex = (this.dataIndex + 1) % this.data.length;
-        let d  = this.data[this.dataIndex];
-        let id  = 'id_' + Math.floor(Math.random() * 1000000);
-        let p = new Particle(this.ctx, this.map, id);
+        var d  = this.data[this.dataIndex];
+        var id  = 'id_' + Math.floor(Math.random() * 1000000);
+        var p = new Particle(this.ctx, this.map, id);
         p.render(d);
         this.particles[id] = p;
       }
