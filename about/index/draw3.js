@@ -5,8 +5,8 @@ var tree = d3.layout.tree()
     .size([135, diameter - 240  ])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 
-var diagonal = d3.svg.diagonal.radial()
-    .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+var diagonal = d3.svg.diagonal
+    .projection(function(d) { return [d.y, d.x]; });
 
 var svg = d3.select("#skilltree").append("svg")
     .attr("width", diameter + 340)
