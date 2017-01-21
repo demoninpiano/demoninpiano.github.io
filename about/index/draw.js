@@ -2,7 +2,7 @@ var diameter = 960;
 
 var tree = d3.layout.tree()
     // .size([360, diameter / 2 - 120])
-    .size([360, diameter / 2])
+    .size([360, diameter / 2 - 240])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 
 var diagonal = d3.svg.diagonal.radial()
