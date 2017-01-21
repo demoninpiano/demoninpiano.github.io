@@ -2,7 +2,7 @@ var diameter = 960;
 
 var tree = d3.layout.tree()
     // .size([360, diameter / 2 - 120])
-    .size([180, diameter / 2])
+    .size([180, diameter / 2 - 120])
     .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
 
 var diagonal = d3.svg.diagonal.radial()
@@ -12,7 +12,7 @@ var svg = d3.select("#skilltree").append("svg")
     .attr("width", diameter + 280)
     .attr("height", diameter)
   .append("g")
-    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+    .attr("transform", "translate(" + 50 + "," + diameter / 2 + ")");
 
 d3.json("/about/index/skills1.json", function(error, root) {
   var nodes = tree.nodes(root),
