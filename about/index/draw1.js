@@ -40,4 +40,3 @@ d3.json("/about/index/skills1.json", function(error, root) {
       .text(function(d) { return d.name; });
 });
 
-d3.select(self.frameElement).style("height", diameter - 150 + "px");
