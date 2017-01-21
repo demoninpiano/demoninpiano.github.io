@@ -28,7 +28,7 @@ d3.json("/about/index/skills1.json", function(error, root) {
       .data(nodes)
     .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y +20 ")"; })
 
   node.append("circle")
       .attr("r", 4.5);
