@@ -34,7 +34,7 @@ d3.json("/about/index/skills1.json", function(error, root) {
       .attr("r", 4.5);
 
   node.append("text")
-      .attr("dy", ".31em")
+      .attr("dy", ".50em")
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
       .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
       .text(function(d) { return d.name; });
