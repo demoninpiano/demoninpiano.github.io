@@ -12,7 +12,7 @@ var svg = d3.select("#skilltree").append("svg")
     .attr("width", diameter + 340)
     .attr("height", diameter * 2)
   .append("g")
-    .attr("transform", "translate(" + 50 + "," + diameter + ")");
+    .attr("transform", "translate(" + 50 + "," + diameter+200 + ")");
 
 d3.json("/about/index/skills1.json", function(error, root) {
   var nodes = tree.nodes(root),
@@ -28,7 +28,6 @@ d3.json("/about/index/skills1.json", function(error, root) {
       .data(nodes)
     .enter().append("g")
       .attr("class", "node")
-      .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
 
   node.append("circle")
       .attr("r", 4.5);
@@ -36,6 +35,7 @@ d3.json("/about/index/skills1.json", function(error, root) {
   node.append("text")
       .attr("dy", ".31em")
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+      .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
       .text(function(d) { return d.name; });
 });
 
