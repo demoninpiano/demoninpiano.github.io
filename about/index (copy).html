@@ -87,13 +87,13 @@
 <meta name="description" content="EducationEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;B.S.&amp;emsp; The Ohio State UniversityEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;M.S.&amp;emsp; University of California - San DiegoComputer Science&amp;emsp; M.S. &amp;emsp;Geo">
 <meta property="og:type" content="website">
 <meta property="og:title" content="About Me">
-<meta property="og:url" content="https://demoninpiano.github.io/about/index.html">
+<meta property="og:url" content="https://demoninpiano.github.io/about/index (copy).html">
 <meta property="og:site_name" content="David's Blog">
 <meta property="og:description" content="EducationEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;B.S.&amp;emsp; The Ohio State UniversityEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;M.S.&amp;emsp; University of California - San DiegoComputer Science&amp;emsp; M.S. &amp;emsp;Geo">
 <meta property="og:image" content="https://demoninpiano.github.io/images/dw_image.jpg">
 <meta property="og:image" content="https://demoninpiano.github.io/images/CNN_acc.jpg">
 <meta property="og:image" content="https://demoninpiano.github.io/images/quantopian.png">
-<meta property="og:updated_time" content="2017-01-22T05:10:34.265Z">
+<meta property="og:updated_time" content="2017-01-21T07:31:49.331Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="About Me">
 <meta name="twitter:description" content="EducationEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;B.S.&amp;emsp; The Ohio State UniversityEngineering&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;M.S.&amp;emsp; University of California - San DiegoComputer Science&amp;emsp; M.S. &amp;emsp;Geo">
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="https://demoninpiano.github.io/about/"/>
+  <link rel="canonical" href="https://demoninpiano.github.io/about/index (copy).html"/>
 
 
 
@@ -485,7 +485,7 @@
 
   //New York Taxi Data Visualization
   var map;
-  var createMap = () => {
+  const createMap = () => {
     map = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
     L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
     setTimeout(() => {
@@ -503,10 +503,10 @@
     });
   };
 
-  var darken = (ctx, alpha) => {
-    var {width, height} = ctx.canvas;
-    var globalCompositeOperation = ctx.globalCompositeOperation;
-    var fillStyle = ctx.fillStyle;
+  const darken = (ctx, alpha) => {
+    const {width, height} = ctx.canvas;
+    const globalCompositeOperation = ctx.globalCompositeOperation;
+    const fillStyle = ctx.fillStyle;
     ctx.globalCompositeOperation = 'destination-out';
     ctx.fillStyle = `rgba(255,255,255,${1 - alpha})`;
     ctx.fillRect(0, 0, width, height);
@@ -531,14 +531,14 @@
       this.updatePos();
     }
     updatePos(){
-      var {data, map} = this;
-      var {from, to} = data;
+      const {data, map} = this;
+      const {from, to} = data;
       this.from = map.latLngToContainerPoint(from);
       this.to = map.latLngToContainerPoint(to);
       //console.log(this.to)
     }
     draw(){
-      var {ctx} = this;
+      const {ctx} = this;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
       ctx.fill();
@@ -547,9 +547,9 @@
     update(){
       this.life += this.lifeSpeed;
       if (this.life >= this.lifeMax) return false;
-      var {from, to, life} = this;
+      const {from, to, life} = this;
       this.x = from.x + (to.x - from.x) * life;
-      var dx  = -Math.abs(to.x - from.x);
+      const dx  = -Math.abs(to.x - from.x);
       //Flyingline Function
       this.y = from.y + (to.y - from.y) * life + this.hMax * dx * 4 * life * (1 - life);
       return true;
@@ -576,14 +576,14 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
     updatePos(){
-      var {particles} = this;
+      const {particles} = this;
       for(var i in particles){
         particles[i].updatePos();
       }
     }
     initCanvas(){
-      var {container} = this;
-      var canvas = this.canvas = document.createElement('canvas');
+      const {container} = this;
+      const canvas = this.canvas = document.createElement('canvas');
       canvas.width  = container.offsetWidth;
       canvas.height = container.offsetHeight;
       container.appendChild(canvas);
@@ -595,7 +595,7 @@
     }
     updateParticles(){
       this.clean();
-      var {particles} = this;
+      const {particles} = this;
       for(var i in particles){
         var particle = particles[i];
         var isRemain = particle.update();
@@ -637,10 +637,10 @@
   }
 
   createMap();
-  var container = document.querySelector('#canvas-container');
-  var ps = new Particles(container, map);
+  const container = document.querySelector('#canvas-container');
+  const ps = new Particles(container, map);
 
-  var toFloat = txt => parseFloat(txt, 10);//把字符串转成浮点数
+  const toFloat = txt => parseFloat(txt, 10);//把字符串转成浮点数
   d3.csv('/about/index/small.csv', (ds) => {
     console.log(ds)
     ds = ds
