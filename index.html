@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T17:24:38-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T17:34:29-08:00">
                 2017-01-26
               </time>
             
@@ -349,8 +349,7 @@
 
       
         
-          
-            <h1 id="Codelab-for-Convolutional-Neural-Net"><a href="#Codelab-for-Convolutional-Neural-Net" class="headerlink" title="Codelab for Convolutional Neural Net"></a>Codelab for Convolutional Neural Net</h1><p>All rights reserved.<br \=""><br>This material cannot be published, rewritten or redistributed in whole or part without the authors’ written permission.</p>
+          <h1 id="MNIST-digit-recognition-via-LeNet-t-CNN"><a href="#MNIST-digit-recognition-via-LeNet-t-CNN" class="headerlink" title="MNIST digit recognition via LeNet-t CNN"></a>MNIST digit recognition via LeNet-t CNN</h1><p>All rights reserved.<br \><br>This material cannot be published, rewritten or redistributed in whole or part without the authors’ written permission.</p>
 <p><strong>Convolutional Neural Net</strong> will be abbreviated to <strong>ConvNet</strong> in the following sections.</p>
 <h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><ol>
 <li><a href="#Pre-processing">Pre-processing</a></li>
@@ -369,97 +368,132 @@
 <li><a href="#Start-Training">Start Training</a> and <a href="#Observe-Training-Process">Observe Training Process</a></li>
 <li><a href="#Define-Testing-Procedure">Testing</a></li>
 </ol>
-<p>During tutorial/workshop, attendees will be separated into three groups. Each group will be conducting different activities.<br></p>
-<p>Activity: “Cell” $\rightarrow$ “Run All Below” for testing the enviroment.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line">print(sys.executable)</div><div class="line">sys.path.append(<span class="string">'/home/dawei/anaconda2/lib/python2.7/site-packages'</span>)</div></pre></td></tr></table></figure>
-<pre><code>/home/dawei/anaconda2/bin/python
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> tensorflow</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># All rights reserved.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># This is a codelab for Convolutional Neural Net.</span></div><div class="line"><span class="comment"># Details include:</span></div><div class="line"><span class="comment">#   - Pre-process dataset</span></div><div class="line"><span class="comment">#   - Elaborate recipes</span></div><div class="line"><span class="comment">#   - Define training procedures</span></div><div class="line"><span class="comment">#   - Train and test models</span></div><div class="line"><span class="comment">#   - Observe metrics</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">################################################################</span></div><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</div><div class="line"></div><div class="line"><span class="keyword">import</span> keras.callbacks <span class="keyword">as</span> cb</div><div class="line"><span class="keyword">from</span> keras.datasets <span class="keyword">import</span> mnist</div><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Activation, Dense, Dropout, Flatten</div><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Convolution2D, MaxPooling2D</div><div class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</div><div class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> SGD, Adam</div><div class="line"><span class="keyword">from</span> keras.regularizers <span class="keyword">import</span> l1, l2</div><div class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> np_utils</div><div class="line"></div><div class="line">%matplotlib inline</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> time</div></pre></td></tr></table></figure>
-<pre><code>Using TensorFlow backend.
-</code></pre><h2 id="Pre-processing"><a href="#Pre-processing" class="headerlink" title="Pre-processing"></a>Pre-processing</h2><p>Pre-processing for ConvNet is slightly different than that of FNNs. Here, you need to transform the data into a 3-D tensor with dimensions [width] $\times$ [height] $\times$  [channel].</p>
-<p>Width and height are from a image.<br>Each channel represents a color.</p>
-<p>Common techniques for data augmentation:</p>
-<ol>
-<li>Cropping</li>
-<li>Random cropping</li>
-<li>Rotation</li>
-<li>Add random noises</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">PreprocessDataset</span><span class="params">()</span>:</span></div><div class="line">    <span class="comment"># Load dataset</span></div><div class="line">    (x_train, y_train), (x_test, y_test) = mnist.load_data()</div><div class="line">    <span class="comment"># Set numeric type</span></div><div class="line">    x_train = x_train.astype(<span class="string">'float32'</span>)</div><div class="line">    x_test = x_test.astype(<span class="string">'float32'</span>)</div><div class="line">    <span class="comment"># Normalize value to [0, 1]</span></div><div class="line">    x_train /= <span class="number">255</span></div><div class="line">    x_test /= <span class="number">255</span></div><div class="line">    <span class="comment"># Transform lables to one-hot</span></div><div class="line">    y_train = np_utils.to_categorical(y_train, <span class="number">10</span>)</div><div class="line">    y_test = np_utils.to_categorical(y_test, <span class="number">10</span>)</div><div class="line">    <span class="comment"># Reshape: here x_train is re-shaped to [channel] × [width] × [height]</span></div><div class="line">    <span class="comment"># In other environment, the orders could be different; e.g., [height] × [width] × [channel].</span></div><div class="line">    x_train = x_train.reshape(x_train.shape[<span class="number">0</span>], <span class="number">28</span>,<span class="number">28</span>,<span class="number">1</span>)</div><div class="line">    x_test = x_test.reshape(x_test.shape[<span class="number">0</span>], <span class="number">28</span>,<span class="number">28</span>,<span class="number">1</span>)</div><div class="line">    <span class="keyword">return</span> [x_train, x_test, y_train, y_test]</div><div class="line"></div><div class="line">x_train, x_test, y_train, y_test = PreprocessDataset()</div></pre></td></tr></table></figure>
-<h2 id="Recipes-Exclusively-for-Convolutional-Neural-Nets"><a href="#Recipes-Exclusively-for-Convolutional-Neural-Nets" class="headerlink" title="Recipes Exclusively for Convolutional Neural Nets"></a>Recipes Exclusively for Convolutional Neural Nets</h2><h3 id="Convolutional-Layer"><a href="#Convolutional-Layer" class="headerlink" title="Convolutional Layer"></a>Convolutional Layer</h3><p>Network structure refers to components of a convnet.</p>
-<p>Ingredients:</p>
-<ol>
-<li><strong>Filters</strong>: define the size of a filter, and the total number of filters in a convolutional layer.</li>
-<li><strong>Depth</strong> represents the number of layers, usually 10-30.</li>
-<li><strong>Stride</strong> defines the step at which the filter moves.</li>
-<li><strong>Padding</strong> of the input data, either no padding or zero-padding.</li>
-</ol>
-<p>How to calculate the number of parameters</p>
-<p>Functionalityies of convolutional layers: </p>
-<ul>
-<li>Capture patterns</li>
-<li>Share parameters (otherwise too many parameters)</li>
-</ul>
-<h3 id="Pooling"><a href="#Pooling" class="headerlink" title="Pooling"></a>Pooling</h3><p>Pooling layer reduces the output of the previous layer.</p>
-<p>max-k pool (usually k = 1)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">num_filters = <span class="number">16</span></div><div class="line">filter_size = <span class="number">5</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">DefineModel</span><span class="params">()</span>:</span></div><div class="line">    model = Sequential()</div><div class="line">    <span class="comment"># First conv layer with filters of 3x3 pixels; also need to specify input shape.</span></div><div class="line">    <span class="comment"># The number of filters is set to 16 for shorter runtime.</span></div><div class="line">    <span class="comment"># Increase the number of filters for better accuracy.</span></div><div class="line">    <span class="comment"># Strides are defined as in subsample=(1, 1)</span></div><div class="line">    model.add(Convolution2D(<span class="number">32</span>, filter_size, filter_size, border_mode=<span class="string">'same'</span>, input_shape=(<span class="number">28</span>,<span class="number">28</span>,<span class="number">1</span>)))</div><div class="line">    <span class="comment"># The activation for first layer is ReLU</span></div><div class="line">    model.add(Activation(<span class="string">'relu'</span>))</div><div class="line">    <span class="comment"># Max pooling</span></div><div class="line">    model.add(MaxPooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>)))</div><div class="line">    model.add(Dropout(<span class="number">0.25</span>))</div><div class="line">    model.add(Convolution2D(num_filters, filter_size, filter_size, border_mode=<span class="string">'valid'</span>, input_shape=(<span class="number">14</span>,<span class="number">14</span>,<span class="number">1</span>)))</div><div class="line">    <span class="comment"># The activation for first layer is ReLU</span></div><div class="line">    model.add(Activation(<span class="string">'relu'</span>))</div><div class="line">    <span class="comment"># Max pooling</span></div><div class="line">    model.add(MaxPooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>)))</div><div class="line">    model.add(Dropout(<span class="number">0.25</span>))</div><div class="line">    model.add(Convolution2D(num_filters, filter_size, filter_size, border_mode=<span class="string">'valid'</span>, input_shape=(<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>)))</div><div class="line">    model.add(Flatten())</div><div class="line">    <span class="comment">#model.add(Dense(first_layer_width, input_dim=784, W_regularizer=weight_regularizer))</span></div><div class="line"></div><div class="line">    model.add(Dense(<span class="number">84</span>))</div><div class="line">    model.add(Activation(<span class="string">'relu'</span>))</div><div class="line">    model.add(Dropout(<span class="number">0.5</span>))</div><div class="line">    <span class="comment">#model.add(Dense(32))</span></div><div class="line">    <span class="comment">#model.add(Activation('relu'))</span></div><div class="line">    <span class="comment">#model.add(Dropout(0.2))</span></div><div class="line">    model.add(Dense(<span class="number">10</span>))</div><div class="line">    <span class="comment"># For classification, the activation is softmax</span></div><div class="line">    model.add(Activation(<span class="string">'softmax'</span>))</div><div class="line">    <span class="comment"># Define optimizer</span></div><div class="line">    <span class="comment">#optmzr = SGD(lr=0.1, clipnorm=5.)</span></div><div class="line">    optmzr = Adam(lr=<span class="number">0.001</span>, beta_1=<span class="number">0.9</span>, beta_2=<span class="number">0.999</span>, epsilon=<span class="number">1e-08</span>, decay=<span class="number">0.0</span>)</div><div class="line">    <span class="comment"># Define loss function = cross entropy</span></div><div class="line">    model.compile(loss=<span class="string">'categorical_crossentropy'</span>, optimizer=<span class="string">'adadelta'</span>, metrics=[<span class="string">"accuracy"</span>])</div><div class="line"></div><div class="line">    <span class="keyword">return</span> model</div></pre></td></tr></table></figure>
-<h2 id="Define-Training-Procedure"><a href="#Define-Training-Procedure" class="headerlink" title="Define Training Procedure"></a>Define Training Procedure</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">TrainModel</span><span class="params">(data=None, epochs=<span class="number">20</span>, batch=<span class="number">256</span>)</span>:</span></div><div class="line">    start_time = time.time()</div><div class="line">    model = DefineModel()</div><div class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide data."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    x_train, x_test, y_train, y_test = data</div><div class="line">    print(<span class="string">'Start training.'</span>)</div><div class="line">    history = model.fit(x_train, y_train, nb_epoch=epochs, batch_size=batch,</div><div class="line">              validation_data=(x_test, y_test), verbose=<span class="number">1</span>)</div><div class="line">    print(<span class="string">"Training took &#123;0&#125; seconds."</span>.format(time.time() - start_time))</div><div class="line">    <span class="keyword">return</span> model, history</div></pre></td></tr></table></figure>
-<h2 id="Start-Training"><a href="#Start-Training" class="headerlink" title="Start Training"></a>Start Training</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">trained_model, training_history = TrainModel(data=[x_train, x_test, y_train, y_test])</div></pre></td></tr></table></figure>
-<pre><code>Start training.
-Train on 60000 samples, validate on 10000 samples
-Epoch 1/20
-60000/60000 [==============================] - 26s - loss: 0.9502 - acc: 0.6765 - val_loss: 0.1874 - val_acc: 0.9470
-Epoch 2/20
-60000/60000 [==============================] - 24s - loss: 0.3017 - acc: 0.9086 - val_loss: 0.1059 - val_acc: 0.9659
-Epoch 3/20
-60000/60000 [==============================] - 27s - loss: 0.2161 - acc: 0.9359 - val_loss: 0.0776 - val_acc: 0.9745
-Epoch 4/20
-60000/60000 [==============================] - 26s - loss: 0.1809 - acc: 0.9472 - val_loss: 0.0654 - val_acc: 0.9777
-Epoch 5/20
-60000/60000 [==============================] - 28s - loss: 0.1581 - acc: 0.9542 - val_loss: 0.0568 - val_acc: 0.9822
-Epoch 6/20
-60000/60000 [==============================] - 27s - loss: 0.1421 - acc: 0.9585 - val_loss: 0.0497 - val_acc: 0.9848
-Epoch 7/20
-60000/60000 [==============================] - 27s - loss: 0.1334 - acc: 0.9609 - val_loss: 0.0469 - val_acc: 0.9851
-Epoch 8/20
-60000/60000 [==============================] - 27s - loss: 0.1242 - acc: 0.9630 - val_loss: 0.0445 - val_acc: 0.9850
-Epoch 9/20
-60000/60000 [==============================] - 28s - loss: 0.1175 - acc: 0.9649 - val_loss: 0.0435 - val_acc: 0.9855
-Epoch 10/20
-60000/60000 [==============================] - 28s - loss: 0.1124 - acc: 0.9665 - val_loss: 0.0398 - val_acc: 0.9869
-Epoch 11/20
-60000/60000 [==============================] - 25s - loss: 0.1061 - acc: 0.9686 - val_loss: 0.0376 - val_acc: 0.9875
-Epoch 12/20
-60000/60000 [==============================] - 24s - loss: 0.1045 - acc: 0.9694 - val_loss: 0.0368 - val_acc: 0.9882
-Epoch 13/20
-60000/60000 [==============================] - 25s - loss: 0.1007 - acc: 0.9704 - val_loss: 0.0356 - val_acc: 0.9877
-Epoch 14/20
-60000/60000 [==============================] - 24s - loss: 0.0957 - acc: 0.9721 - val_loss: 0.0363 - val_acc: 0.9883
-Epoch 15/20
-60000/60000 [==============================] - 25s - loss: 0.0973 - acc: 0.9724 - val_loss: 0.0323 - val_acc: 0.9892
-Epoch 16/20
-60000/60000 [==============================] - 26s - loss: 0.0907 - acc: 0.9732 - val_loss: 0.0315 - val_acc: 0.9889
-Epoch 17/20
-60000/60000 [==============================] - 25s - loss: 0.0906 - acc: 0.9731 - val_loss: 0.0335 - val_acc: 0.9874
-Epoch 18/20
-60000/60000 [==============================] - 25s - loss: 0.0894 - acc: 0.9735 - val_loss: 0.0318 - val_acc: 0.9892
-Epoch 19/20
-60000/60000 [==============================] - 25s - loss: 0.0862 - acc: 0.9744 - val_loss: 0.0315 - val_acc: 0.9891
-Epoch 20/20
-60000/60000 [==============================] - 25s - loss: 0.0811 - acc: 0.9754 - val_loss: 0.0308 - val_acc: 0.9898
-Training took 527.41219902 seconds.
-</code></pre><h2 id="Observe-Training-Process"><a href="#Observe-Training-Process" class="headerlink" title="Observe Training Process"></a>Observe Training Process</h2><p>Plot the variation of loss during each batch</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">PlotHistory</span><span class="params">(train_value, test_value, value_is_loss_or_acc)</span>:</span></div><div class="line">    f, ax = plt.subplots()</div><div class="line">    ax.plot([<span class="keyword">None</span>] + train_value, <span class="string">'o-'</span>)</div><div class="line">    ax.plot([<span class="keyword">None</span>] + test_value, <span class="string">'x-'</span>)</div><div class="line">    <span class="comment"># Plot legend and use the best location automatically: loc = 0.</span></div><div class="line">    ax.legend([<span class="string">'Train '</span> + value_is_loss_or_acc, <span class="string">'Validation '</span> + value_is_loss_or_acc], loc = <span class="number">0</span>) </div><div class="line">    ax.set_title(<span class="string">'Training/Validation '</span> + value_is_loss_or_acc + <span class="string">' per Epoch'</span>)</div><div class="line">    ax.set_xlabel(<span class="string">'Epoch'</span>)</div><div class="line">    ax.set_ylabel(value_is_loss_or_acc)  </div><div class="line">    </div><div class="line">PlotHistory(training_history.history[<span class="string">'loss'</span>], training_history.history[<span class="string">'val_loss'</span>], <span class="string">'Loss'</span>)</div><div class="line">PlotHistory(training_history.history[<span class="string">'acc'</span>], training_history.history[<span class="string">'val_acc'</span>], <span class="string">'Accuracy'</span>)</div></pre></td></tr></table></figure>
-<p><img src="output_14_0.png" alt="png"></p>
-<p><img src="output_14_1.png" alt="png"></p>
-<h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">TestModel</span><span class="params">(model=None, data=None)</span>:</span></div><div class="line">    <span class="keyword">if</span> model <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide a trained model."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide data."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    x_test, y_test = data</div><div class="line">    scores = model.evaluate(x_test, y_test)</div><div class="line">    <span class="keyword">return</span> scores</div></pre></td></tr></table></figure>
-<h2 id="Test-the-trained-model"><a href="#Test-the-trained-model" class="headerlink" title="Test the trained model"></a>Test the trained model</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test_score = TestModel(model=trained_model, data=[x_test, y_test])</div><div class="line">print(<span class="string">"Test loss &#123;:.4f&#125;, accuracy &#123;:.2f&#125;%"</span>.format(test_score[<span class="number">0</span>], test_score[<span class="number">1</span>] * <span class="number">100</span>))</div></pre></td></tr></table></figure>
-<pre><code>9984/10000 [============================&gt;.] - ETA: 0sTest loss 0.0308, accuracy 98.98%
-</code></pre><h2 id="Visualize-Convolutional-Layers"><a href="#Visualize-Convolutional-Layers" class="headerlink" title="Visualize Convolutional Layers"></a>Visualize Convolutional Layers</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShowConvolutionOutput</span><span class="params">(input_data, show_pic_idx)</span>:</span></div><div class="line">    <span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</div><div class="line">    first_conv = K.function(trained_model.inputs, [trained_model.layers[<span class="number">1</span>].output])</div><div class="line">    first_conv_out = first_conv([input_data])</div><div class="line">    fig, axes = plt.subplots(num_filters / <span class="number">4</span>, <span class="number">4</span>,figsize=(<span class="number">8</span>, <span class="number">8</span>))</div><div class="line">    <span class="keyword">for</span> filter_num <span class="keyword">in</span> range(num_filters):</div><div class="line">        fig_x, fig_y = divmod(filter_num, <span class="number">4</span>)</div><div class="line">        <span class="keyword">if</span> fig_y == <span class="number">0</span>: fig_x -= <span class="number">1</span></div><div class="line">        axes[fig_x][fig_y].imshow(first_conv_out[<span class="number">0</span>][show_pic_idx][filter_num])</div><div class="line">        plt.setp(axes[fig_x][fig_y].get_xticklabels(), visible=<span class="keyword">False</span>)</div><div class="line">        plt.setp(axes[fig_x][fig_y].get_yticklabels(), visible=<span class="keyword">False</span>)</div><div class="line">    fig.tight_layout(pad=<span class="number">0</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShowInputImage</span><span class="params">(data)</span>:</span></div><div class="line">    plot = plt.figure()</div><div class="line">    plot.set_size_inches(<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">    plt.imshow(np.reshape(-data, (<span class="number">28</span>,<span class="number">28</span>)), cmap=<span class="string">'Greys_r'</span>)</div><div class="line">    plt.title(<span class="string">"Input"</span>)</div><div class="line">    plt.axis(<span class="string">'off'</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShowFinalOutput</span><span class="params">(input_data, samp)</span>:</span></div><div class="line">    <span class="string">"""Calculate final prediction."""</span></div><div class="line">    <span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</div><div class="line">    <span class="comment"># Calculate final prediction.</span></div><div class="line">    last_layer = K.function(trained_model.inputs, [trained_model.layers[<span class="number">-1</span>].output])</div><div class="line">    last_layer_out = last_layer([input_data])</div><div class="line">    print(<span class="string">"Final prediction: "</span> + str(np.argmax(last_layer_out[<span class="number">0</span>][samp])) )</div></pre></td></tr></table></figure>
-<h2 id="Show-Random-Test-Data"><a href="#Show-Random-Test-Data" class="headerlink" title="Show Random Test Data"></a>Show Random Test Data</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">np.random.seed(<span class="number">1337</span>)</div><div class="line">show_which_ones = np.random.randint(<span class="number">0</span>, <span class="number">999</span>, <span class="number">5</span>)</div><div class="line"><span class="keyword">for</span> samp <span class="keyword">in</span> show_which_ones:</div><div class="line">    ShowInputImage(x_test[samp])</div><div class="line">    ShowConvolutionOutput(x_test, samp)</div><div class="line">    ShowFinalOutput(x_test, samp)</div></pre></td></tr></table></figure>
-<p><img src="output_22_0.png" alt="png"></p>
-<p><img src="output_22_1.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/01/26/MNIST LeNet-5/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/01/26/test/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dawei Wang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/dw_image.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="David's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="David's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/26/test/" itemprop="url">
+                  Untitled
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T17:25:09-08:00">
+                2017-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>title: hello-world<br>categories: Tech Article<br>toc: true<br>abbrlink: 9408</p>
+<h2 id="date-2014-01-07-08-55-29"><a href="#date-2014-01-07-08-55-29" class="headerlink" title="date: 2014-01-07 08:55:29"></a>date: 2014-01-07 08:55:29</h2><p>This is my new post</p>
+<p>Dawei Wang<br>Jan 14 2017</p>
 
           
         
@@ -540,7 +574,7 @@ Training took 527.41219902 seconds.
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T17:00:00-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T17:25:09-08:00">
                 2017-01-26
               </time>
             
@@ -579,127 +613,6 @@ Training took 527.41219902 seconds.
         
           
             
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/01/21/test/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Dawei Wang">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/dw_image.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="David's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="David's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/21/test/" itemprop="url">
-                  Untitled
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-21T21:17:32-08:00">
-                2017-01-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>title: hello-world<br>categories: Tech Article<br>toc: true<br>abbrlink: 9408</p>
-<h2 id="date-2014-01-07-08-55-29"><a href="#date-2014-01-07-08-55-29" class="headerlink" title="date: 2014-01-07 08:55:29"></a>date: 2014-01-07 08:55:29</h2><p>This is my new post</p>
-<p>Dawei Wang<br>Jan 14 2017</p>
-
           
         
       
@@ -860,148 +773,6 @@ Training took 527.41219902 seconds.
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/01/19/test2/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Dawei Wang">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/dw_image.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="David's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="David's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/19/test2/" itemprop="url">
-                  Second hello-world
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-19T08:55:29-08:00">
-                2017-01-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tech-Article/" itemprop="url" rel="index">
-                    <span itemprop="name">Tech Article</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>This is my second test post</p>
-<p>Dawei Wang<br>Jan 14 2017</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/01/19/test3/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1106,6 +877,148 @@ Training took 527.41219902 seconds.
           
             <p>This is my Third test post</p>
 <p>Dawei Wang<br>Jan 19 2017</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/01/19/test2/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dawei Wang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/dw_image.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="David's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="David's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/19/test2/" itemprop="url">
+                  Second hello-world
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-19T08:55:29-08:00">
+                2017-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech-Article/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech Article</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>This is my second test post</p>
+<p>Dawei Wang<br>Jan 14 2017</p>
 
           
         
