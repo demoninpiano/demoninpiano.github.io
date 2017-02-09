@@ -84,42 +84,18 @@
 
 
 
-<meta name="description" content="Codelab for FNN Soccer Result PredictionIndex
-Pre-Processing
-Recipes for Neural Nets
-Start Training
-Observe Training Process
-Observe Weight Distribution
-Define Testing Procedure
-
-12345678910111213impo">
+<meta name="description" content="Soccer Result PredictionPredict 2008-2016 soccer game results(Win/Draw/Lose) of 11 European lead league based on the 25K+ match result Kaggle datase here. The prediction is based on the bet odds and t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MNIST using LeNet-5 CNN">
 <meta property="og:url" content="https://demoninpiano.github.io/2017/02/08/Soccer/index.html">
 <meta property="og:site_name" content="David's Blog">
-<meta property="og:description" content="Codelab for FNN Soccer Result PredictionIndex
-Pre-Processing
-Recipes for Neural Nets
-Start Training
-Observe Training Process
-Observe Weight Distribution
-Define Testing Procedure
-
-12345678910111213impo">
+<meta property="og:description" content="Soccer Result PredictionPredict 2008-2016 soccer game results(Win/Draw/Lose) of 11 European lead league based on the 25K+ match result Kaggle datase here. The prediction is based on the bet odds and t">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/08/Soccer/output_11_0.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/08/Soccer/output_14_0.png">
-<meta property="og:updated_time" content="2017-02-09T06:41:42.280Z">
+<meta property="og:updated_time" content="2017-02-09T06:43:10.429Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MNIST using LeNet-5 CNN">
-<meta name="twitter:description" content="Codelab for FNN Soccer Result PredictionIndex
-Pre-Processing
-Recipes for Neural Nets
-Start Training
-Observe Training Process
-Observe Weight Distribution
-Define Testing Procedure
-
-12345678910111213impo">
+<meta name="twitter:description" content="Soccer Result PredictionPredict 2008-2016 soccer game results(Win/Draw/Lose) of 11 European lead league based on the 25K+ match result Kaggle datase here. The prediction is based on the bet odds and t">
 <meta name="twitter:image" content="https://demoninpiano.github.io/2017/02/08/Soccer/output_11_0.png">
 
 
@@ -316,7 +292,7 @@ Define Testing Procedure
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T22:41:42-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T22:43:10-08:00">
                 2017-02-08
               </time>
             
@@ -374,7 +350,56 @@ Define Testing Procedure
       
 
       
-        <h1 id="Codelab-for-FNN-Soccer-Result-Prediction"><a href="#Codelab-for-FNN-Soccer-Result-Prediction" class="headerlink" title="Codelab for FNN Soccer Result Prediction"></a>Codelab for FNN Soccer Result Prediction</h1><h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><ol>
+        <h2 id="Soccer-Result-Prediction"><a href="#Soccer-Result-Prediction" class="headerlink" title="Soccer Result Prediction"></a>Soccer Result Prediction</h2><p>Predict 2008-2016 soccer game results(Win/Draw/Lose) of 11 European lead league based on the 25K+ match result Kaggle datase <a href="https://www.kaggle.com/hugomathien/soccer" target="_blank" rel="external">here</a>. The prediction is based on the bet odds and the FIFA game team attribute.</p>
+<p>*+25,000 matches</p>
+<p>*+10,000 players</p>
+<p>*11 European Countries with their lead championship</p>
+<p>*Seasons 2008 to 2016</p>
+<p><em>Players and Teams’ attributes</em> sourced from EA Sports’ FIFA video game series, including the weekly updates</p>
+<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>The Deep FNN gives us 53.86% Accuracy in test set and 53.12% accuracy in validation set.<br>The Random Forest gives us 50.42% Accuracy in test set and 50.33% accuracy in validation set.</p>
+<a id="more"></a>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><h3 id="Download-the-data"><a href="#Download-the-data" class="headerlink" title="Download the data"></a>Download the data</h3><ul>
+<li><p>Clone this repo to your computer.</p>
+</li>
+<li><p>Get into the folder using <code>cd soccer-prediction</code>.</p>
+</li>
+<li><p>Switch into the <code>data</code> directory using <code>cd data</code>.</p>
+</li>
+<li><p>Download the data files from Kaggle into the <code>data</code> directory.  </p>
+<ul>
+<li>You can find the data <a href="https://www.kaggle.com/hugomathien/soccer" target="_blank" rel="external">here</a>.</li>
+</ul>
+</li>
+<li><p>Extract all of the <code>.zip</code> files you downloaded.</p>
+</li>
+<li><p>Remove all the zip files by running <code>rm *.zip</code>.</p>
+</li>
+<li><p>Switch back into the <code>loan-prediction</code> directory using <code>cd ..</code>.</p>
+</li>
+</ul>
+<h3 id="Install-the-requirements"><a href="#Install-the-requirements" class="headerlink" title="Install the requirements"></a>Install the requirements</h3><ul>
+<li>Install the requirements using <code>pip install -r requirements.txt</code>.<ul>
+<li>Make sure you use Python 2.7.</li>
+<li>You may want to use a virtual environment for this.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><ul>
+<li>Run <code>mkdir Processed</code> to create a directory for our processed datasets.</li>
+<li>Run  <code>clean.ipynb</code> in jupyter notebook to combine the <code>Acquisition</code> and <code>Performance</code> datasets.<ul>
+<li>This will create <code>clean_data.csv</code> in the <code>Processed</code> folder.</li>
+</ul>
+</li>
+<li>Run <code>classic.ipynd</code>.<ul>
+<li>This will create random forest prediction results</li>
+</ul>
+</li>
+<li>Run <code>FNN.ipynd</code>.<ul>
+<li>This will cread Forward Neural network prediction results</li>
+</ul>
+</li>
+</ul>
+<h1 id="Codelab-for-FNN-Soccer-Result-Prediction"><a href="#Codelab-for-FNN-Soccer-Result-Prediction" class="headerlink" title="Codelab for FNN Soccer Result Prediction"></a>Codelab for FNN Soccer Result Prediction</h1><h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><ol>
 <li><a href="#Pre-processing">Pre-Processing</a></li>
 <li><a href="#Recipes-for-Neural-Nets">Recipes for Neural Nets</a></li>
 <li><a href="#Start-Training">Start Training</a></li>
@@ -675,7 +700,7 @@ Training took 32.060739994 seconds.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Codelab-for-FNN-Soccer-Result-Prediction"><span class="nav-number">1.</span> <span class="nav-text">Codelab for FNN Soccer Result Prediction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Index"><span class="nav-number">1.0.1.</span> <span class="nav-text">Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pre-processing"><span class="nav-number">1.1.</span> <span class="nav-text">Pre-processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recipes-for-Neural-Nets"><span class="nav-number">1.2.</span> <span class="nav-text">Recipes for Neural Nets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-Training"><span class="nav-number">1.3.</span> <span class="nav-text">Start Training</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observe-Training-Process"><span class="nav-number">1.4.</span> <span class="nav-text">Observe Training Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observe-Weight-Distribution"><span class="nav-number">1.5.</span> <span class="nav-text">Observe Weight Distribution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Define-Testing-Procedure"><span class="nav-number">1.6.</span> <span class="nav-text">Define Testing Procedure</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Soccer-Result-Prediction"><span class="nav-number">1.</span> <span class="nav-text">Soccer Result Prediction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Result"><span class="nav-number">2.</span> <span class="nav-text">Result</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">3.</span> <span class="nav-text">Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-the-data"><span class="nav-number">3.1.</span> <span class="nav-text">Download the data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-the-requirements"><span class="nav-number">3.2.</span> <span class="nav-text">Install the requirements</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">4.</span> <span class="nav-text">Usage</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Codelab-for-FNN-Soccer-Result-Prediction"><span class="nav-number"></span> <span class="nav-text">Codelab for FNN Soccer Result Prediction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Index"><span class="nav-number">0.1.</span> <span class="nav-text">Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pre-processing"><span class="nav-number">1.</span> <span class="nav-text">Pre-processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recipes-for-Neural-Nets"><span class="nav-number">2.</span> <span class="nav-text">Recipes for Neural Nets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-Training"><span class="nav-number">3.</span> <span class="nav-text">Start Training</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observe-Training-Process"><span class="nav-number">4.</span> <span class="nav-text">Observe Training Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observe-Weight-Distribution"><span class="nav-number">5.</span> <span class="nav-text">Observe Weight Distribution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Define-Testing-Procedure"><span class="nav-number">6.</span> <span class="nav-text">Define Testing Procedure</span></a></li></ol></div>
             
 
           </div>

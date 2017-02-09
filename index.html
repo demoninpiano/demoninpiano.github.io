@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T22:41:42-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T22:43:10-08:00">
                 2017-02-08
               </time>
             
@@ -349,160 +349,20 @@
 
       
         
-          
-            <h1 id="Codelab-for-FNN-Soccer-Result-Prediction"><a href="#Codelab-for-FNN-Soccer-Result-Prediction" class="headerlink" title="Codelab for FNN Soccer Result Prediction"></a>Codelab for FNN Soccer Result Prediction</h1><h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><ol>
-<li><a href="#Pre-processing">Pre-Processing</a></li>
-<li><a href="#Recipes-for-Neural-Nets">Recipes for Neural Nets</a></li>
-<li><a href="#Start-Training">Start Training</a></li>
-<li><a href="#Observe-Training-Process">Observe Training Process</a></li>
-<li><a href="#Observe-Weight-Distribution">Observe Weight Distribution</a></li>
-<li><a href="#Define-Testing-Procedure">Define Testing Procedure</a></li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> keras.callbacks <span class="keyword">as</span> cb</div><div class="line"><span class="keyword">from</span> keras.datasets <span class="keyword">import</span> mnist</div><div class="line"><span class="keyword">from</span> keras.layers.core <span class="keyword">import</span> Activation, Dense, Dropout</div><div class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</div><div class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> SGD,Adam</div><div class="line"><span class="keyword">from</span> keras.regularizers <span class="keyword">import</span> l1, l2</div><div class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> np_utils</div><div class="line"></div><div class="line">%matplotlib inline</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div></pre></td></tr></table></figure>
-<pre><code>Using TensorFlow backend.
-</code></pre><h2 id="Pre-processing"><a href="#Pre-processing" class="headerlink" title="Pre-processing"></a>Pre-processing</h2><ul>
-<li><p>proceed w/ standardizing datasets by z-scoring (de-mean, uni-variance).</p>
-</li>
-<li><p>Training Data Ratio = 0.9</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">PreprocessDataset</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</div><div class="line">    data = pd.read_csv(<span class="string">'Processed/cleaned_data.csv'</span>,index_col=<span class="keyword">False</span>,low_memory=<span class="keyword">False</span>)</div><div class="line">    data = data.reindex(np.random.permutation(data.index))</div><div class="line">    cols = data.columns</div><div class="line">    x_columns = cols.drop(<span class="string">"match_result"</span>)</div><div class="line">    </div><div class="line">    x = data[x_columns]</div><div class="line">    y = data[<span class="string">'match_result'</span>]</div><div class="line">    </div><div class="line">    train_max_row = int(data.shape[<span class="number">0</span>]*<span class="number">0.9</span>)</div><div class="line">    </div><div class="line">    x_train = x.iloc[:train_max_row]</div><div class="line">    x_test = x.iloc[train_max_row:]</div><div class="line">    </div><div class="line">    y_train = y.iloc[:train_max_row]</div><div class="line">    y_test = y.iloc[train_max_row:]</div><div class="line">    </div><div class="line">    y_train = np_utils.to_categorical(y_train)</div><div class="line">    y_test = np_utils.to_categorical(y_test)</div><div class="line">    </div><div class="line">    <span class="comment">################Pre-processing###########</span></div><div class="line">    x_train = preprocessing.scale(x_train)</div><div class="line">    x_test = preprocessing.scale(x_test)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> x_train, x_test, y_train, y_test</div><div class="line"></div><div class="line">x_train, x_test, y_train, y_test = PreprocessDataset()</div></pre></td></tr></table></figure>
-<h2 id="Recipes-for-Neural-Nets"><a href="#Recipes-for-Neural-Nets" class="headerlink" title="Recipes for Neural Nets"></a>Recipes for Neural Nets</h2><ul>
-<li><p>Number of Layer: 5</p>
-</li>
-<li><p>Activation Fuction: ReLU</p>
-</li>
-<li><p>Droupout Rate: 0.5 for 1st Layer and 0.4 for the rest four Layer</p>
-</li>
-<li><p>Learning Rate: 0.005</p>
-</li>
-<li><p>Weight Regularizer: None</p>
-</li>
-<li><p>Optimization Methon: Adam</p>
-</li>
-<li><p>Number of Batch: 128</p>
-</li>
-<li><p>Number of epoch: 50</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">DefineModel</span><span class="params">()</span>:</span></div><div class="line"></div><div class="line"></div><div class="line">    activation_func = <span class="string">'relu'</span> </div><div class="line">    loss_function = <span class="string">'categorical_crossentropy'</span></div><div class="line">    <span class="comment">#loss_function = 'mean_squared_error'</span></div><div class="line">      </div><div class="line">    dropout_rate = <span class="number">0.4</span></div><div class="line">    weight_regularizer = <span class="keyword">None</span></div><div class="line"></div><div class="line">    learning_rate = <span class="number">0.005</span></div><div class="line">    </div><div class="line">    <span class="comment">## Initialize model.</span></div><div class="line">    model = Sequential()</div><div class="line"></div><div class="line">    <span class="comment">## 1st Layer</span></div><div class="line">    <span class="comment">## Dense' means fully-connected.</span></div><div class="line">    model.add(Dense(<span class="number">128</span>, input_dim=<span class="number">52</span>, W_regularizer=weight_regularizer))</div><div class="line">    model.add(Activation(activation_func))</div><div class="line">    model.add(Dropout(<span class="number">0.5</span>))</div><div class="line">    </div><div class="line">    <span class="comment">## 2nd Layer</span></div><div class="line">    model.add(Dense(<span class="number">64</span>, input_dim=<span class="number">128</span>, W_regularizer=weight_regularizer))</div><div class="line">    model.add(Activation(activation_func))</div><div class="line">    model.add(Dropout(dropout_rate))</div><div class="line">    </div><div class="line">    <span class="comment">## 3rd Layer</span></div><div class="line">    model.add(Dense(<span class="number">32</span>))</div><div class="line">    model.add(Activation(activation_func))   </div><div class="line">    model.add(Dropout(dropout_rate))</div><div class="line">    </div><div class="line">    <span class="comment">## 4th Layer</span></div><div class="line">    model.add(Dense(<span class="number">16</span>))</div><div class="line">    model.add(Activation(activation_func))   </div><div class="line">    model.add(Dropout(dropout_rate))</div><div class="line">    </div><div class="line">    <span class="comment">## 5th Layer</span></div><div class="line">    model.add(Dense(<span class="number">8</span>))</div><div class="line">    model.add(Activation(activation_func))   </div><div class="line">    model.add(Dropout(dropout_rate))</div><div class="line"></div><div class="line">    </div><div class="line">    <span class="comment">## Adding Softmax Layer</span></div><div class="line">    <span class="comment">## Last layer has the same dimension as the number of classes</span></div><div class="line">    model.add(Dense(<span class="number">3</span>))</div><div class="line">    </div><div class="line">    <span class="comment">## For classification, the activation is softmax</span></div><div class="line">    model.add(Activation(<span class="string">'softmax'</span>))</div><div class="line">    </div><div class="line">    <span class="comment">## Define optimizer. we select Adam</span></div><div class="line">    opt = Adam(lr=learning_rate, beta_1=<span class="number">0.9</span>, beta_2=<span class="number">0.999</span>, epsilon=<span class="number">1e-08</span>, decay=<span class="number">0.0</span>)</div><div class="line">    <span class="comment">#opt = SGD(lr=learning_rate, clipnorm=5.)</span></div><div class="line">    </div><div class="line">    <span class="comment">## Define loss function = 'categorical_crossentropy' or 'mean_squared_error'</span></div><div class="line">    model.compile(loss=loss_function, optimizer=opt, metrics=[<span class="string">"accuracy"</span>])</div><div class="line"></div><div class="line">    <span class="keyword">return</span> model</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">TrainModel</span><span class="params">(data=None, epochs=<span class="number">20</span>)</span>:</span></div><div class="line"></div><div class="line">    batch=<span class="number">128</span></div><div class="line">    start_time = time.time()</div><div class="line">    model = DefineModel()</div><div class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide data."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    x_train, x_test, y_train, y_test = data</div><div class="line">    print(<span class="string">'Start training.'</span>)</div><div class="line">    <span class="comment">## Use the first 55,000 (out of 60,000) samples to train, last 5,500 samples to validate.</span></div><div class="line">    history = model.fit(x_train[:<span class="number">17500</span>], y_train[:<span class="number">17500</span>], nb_epoch=epochs, batch_size=batch,</div><div class="line">              validation_data=(x_train[<span class="number">17500</span>:], y_train[<span class="number">17500</span>:]))</div><div class="line">    print(<span class="string">"Training took &#123;0&#125; seconds."</span>.format(time.time() - start_time))</div><div class="line">    <span class="keyword">return</span> model, history</div></pre></td></tr></table></figure>
-<h2 id="Start-Training"><a href="#Start-Training" class="headerlink" title="Start Training"></a>Start Training</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">trained_model, training_history = TrainModel(data=[x_train, x_test, y_train, y_test],epochs = <span class="number">50</span>)</div></pre></td></tr></table></figure>
-<pre><code>Start training.
-Train on 17500 samples, validate on 2417 samples
-Epoch 1/50
-17500/17500 [==============================] - 1s - loss: 1.0616 - acc: 0.4574 - val_loss: 1.0088 - val_acc: 0.4936
-Epoch 2/50
-17500/17500 [==============================] - 0s - loss: 1.0301 - acc: 0.4874 - val_loss: 0.9998 - val_acc: 0.5139
-Epoch 3/50
-17500/17500 [==============================] - 0s - loss: 1.0191 - acc: 0.4991 - val_loss: 1.0002 - val_acc: 0.5168
-Epoch 4/50
-17500/17500 [==============================] - 0s - loss: 1.0129 - acc: 0.5009 - val_loss: 0.9902 - val_acc: 0.5225
-Epoch 5/50
-17500/17500 [==============================] - 0s - loss: 1.0136 - acc: 0.5013 - val_loss: 0.9933 - val_acc: 0.5118
-Epoch 6/50
-17500/17500 [==============================] - 0s - loss: 1.0067 - acc: 0.5063 - val_loss: 0.9937 - val_acc: 0.5188
-Epoch 7/50
-17500/17500 [==============================] - 0s - loss: 1.0079 - acc: 0.5038 - val_loss: 0.9830 - val_acc: 0.5279
-Epoch 8/50
-17500/17500 [==============================] - 0s - loss: 1.0073 - acc: 0.5069 - val_loss: 0.9962 - val_acc: 0.5283
-Epoch 9/50
-17500/17500 [==============================] - 0s - loss: 1.0079 - acc: 0.5058 - val_loss: 0.9966 - val_acc: 0.5168
-Epoch 10/50
-17500/17500 [==============================] - 0s - loss: 1.0045 - acc: 0.5077 - val_loss: 0.9930 - val_acc: 0.5242
-Epoch 11/50
-17500/17500 [==============================] - 0s - loss: 1.0055 - acc: 0.5046 - val_loss: 0.9794 - val_acc: 0.5308
-Epoch 12/50
-17500/17500 [==============================] - 0s - loss: 1.0063 - acc: 0.5030 - val_loss: 0.9846 - val_acc: 0.5250
-Epoch 13/50
-17500/17500 [==============================] - 0s - loss: 1.0054 - acc: 0.5113 - val_loss: 0.9937 - val_acc: 0.5275
-Epoch 14/50
-17500/17500 [==============================] - 0s - loss: 0.9996 - acc: 0.5138 - val_loss: 0.9889 - val_acc: 0.5263
-Epoch 15/50
-17500/17500 [==============================] - 0s - loss: 1.0051 - acc: 0.5061 - val_loss: 0.9910 - val_acc: 0.5246
-Epoch 16/50
-17500/17500 [==============================] - 0s - loss: 1.0046 - acc: 0.5129 - val_loss: 0.9800 - val_acc: 0.5250
-Epoch 17/50
-17500/17500 [==============================] - 0s - loss: 1.0038 - acc: 0.5080 - val_loss: 0.9905 - val_acc: 0.5267
-Epoch 18/50
-17500/17500 [==============================] - 0s - loss: 1.0041 - acc: 0.5087 - val_loss: 0.9840 - val_acc: 0.5238
-Epoch 19/50
-17500/17500 [==============================] - 0s - loss: 1.0010 - acc: 0.5108 - val_loss: 0.9934 - val_acc: 0.5209
-Epoch 20/50
-17500/17500 [==============================] - 0s - loss: 1.0031 - acc: 0.5088 - val_loss: 0.9890 - val_acc: 0.5283
-Epoch 21/50
-17500/17500 [==============================] - 0s - loss: 1.0019 - acc: 0.5137 - val_loss: 0.9877 - val_acc: 0.5230
-Epoch 22/50
-17500/17500 [==============================] - 0s - loss: 1.0040 - acc: 0.5109 - val_loss: 0.9846 - val_acc: 0.5209
-Epoch 23/50
-17500/17500 [==============================] - 0s - loss: 1.0036 - acc: 0.5108 - val_loss: 0.9857 - val_acc: 0.5238
-Epoch 24/50
-17500/17500 [==============================] - 0s - loss: 1.0047 - acc: 0.5102 - val_loss: 0.9910 - val_acc: 0.5275
-Epoch 25/50
-17500/17500 [==============================] - 0s - loss: 1.0058 - acc: 0.5121 - val_loss: 0.9849 - val_acc: 0.5296
-Epoch 26/50
-17500/17500 [==============================] - 0s - loss: 1.0028 - acc: 0.5107 - val_loss: 0.9851 - val_acc: 0.5288
-Epoch 27/50
-17500/17500 [==============================] - 0s - loss: 1.0018 - acc: 0.5116 - val_loss: 1.0011 - val_acc: 0.5283
-Epoch 28/50
-17500/17500 [==============================] - 0s - loss: 1.0035 - acc: 0.5068 - val_loss: 0.9830 - val_acc: 0.5308
-Epoch 29/50
-17500/17500 [==============================] - 0s - loss: 1.0034 - acc: 0.5166 - val_loss: 0.9888 - val_acc: 0.5283
-Epoch 30/50
-17500/17500 [==============================] - 0s - loss: 1.0054 - acc: 0.5092 - val_loss: 0.9791 - val_acc: 0.5275
-Epoch 31/50
-17500/17500 [==============================] - 0s - loss: 1.0010 - acc: 0.5122 - val_loss: 0.9877 - val_acc: 0.5254
-Epoch 32/50
-17500/17500 [==============================] - 0s - loss: 1.0026 - acc: 0.5143 - val_loss: 0.9822 - val_acc: 0.5254
-Epoch 33/50
-17500/17500 [==============================] - 0s - loss: 1.0044 - acc: 0.5132 - val_loss: 0.9875 - val_acc: 0.5213
-Epoch 34/50
-17500/17500 [==============================] - 0s - loss: 1.0049 - acc: 0.5146 - val_loss: 0.9812 - val_acc: 0.5238
-Epoch 35/50
-17500/17500 [==============================] - 0s - loss: 1.0021 - acc: 0.5158 - val_loss: 0.9868 - val_acc: 0.5242
-Epoch 36/50
-17500/17500 [==============================] - 0s - loss: 0.9993 - acc: 0.5169 - val_loss: 0.9741 - val_acc: 0.5263
-Epoch 37/50
-17500/17500 [==============================] - 0s - loss: 1.0026 - acc: 0.5181 - val_loss: 0.9875 - val_acc: 0.5234
-Epoch 38/50
-17500/17500 [==============================] - 0s - loss: 1.0013 - acc: 0.5146 - val_loss: 0.9845 - val_acc: 0.5217
-Epoch 39/50
-17500/17500 [==============================] - 0s - loss: 1.0035 - acc: 0.5133 - val_loss: 0.9857 - val_acc: 0.5250
-Epoch 40/50
-17500/17500 [==============================] - 0s - loss: 1.0056 - acc: 0.5095 - val_loss: 0.9827 - val_acc: 0.5213
-Epoch 41/50
-17500/17500 [==============================] - 0s - loss: 1.0026 - acc: 0.5124 - val_loss: 0.9778 - val_acc: 0.5234
-Epoch 42/50
-17500/17500 [==============================] - 0s - loss: 1.0035 - acc: 0.5109 - val_loss: 0.9882 - val_acc: 0.5254
-Epoch 43/50
-17500/17500 [==============================] - 0s - loss: 1.0045 - acc: 0.5111 - val_loss: 0.9862 - val_acc: 0.5238
-Epoch 44/50
-17500/17500 [==============================] - 0s - loss: 1.0063 - acc: 0.5059 - val_loss: 0.9939 - val_acc: 0.5263
-Epoch 45/50
-17500/17500 [==============================] - 0s - loss: 1.0017 - acc: 0.5164 - val_loss: 0.9884 - val_acc: 0.5238
-Epoch 46/50
-17500/17500 [==============================] - 0s - loss: 1.0019 - acc: 0.5154 - val_loss: 0.9825 - val_acc: 0.5238
-Epoch 47/50
-17500/17500 [==============================] - 0s - loss: 1.0023 - acc: 0.5114 - val_loss: 0.9857 - val_acc: 0.5192
-Epoch 48/50
-17500/17500 [==============================] - 0s - loss: 1.0005 - acc: 0.5117 - val_loss: 0.9928 - val_acc: 0.5259
-Epoch 49/50
-17500/17500 [==============================] - 0s - loss: 1.0041 - acc: 0.5159 - val_loss: 0.9835 - val_acc: 0.5263
-Epoch 50/50
-17500/17500 [==============================] - 0s - loss: 1.0029 - acc: 0.5142 - val_loss: 0.9789 - val_acc: 0.5259
-Training took 32.060739994 seconds.
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">PlotHistory</span><span class="params">(train_value, test_value, value_is_loss_or_acc)</span>:</span></div><div class="line">    f, ax = plt.subplots()</div><div class="line">    ax.plot([<span class="keyword">None</span>] + train_value, <span class="string">'o-'</span>)</div><div class="line">    ax.plot([<span class="keyword">None</span>] + test_value, <span class="string">'x-'</span>)</div><div class="line">    <span class="comment">## Plot legend and use the best location automatically: loc = 0.</span></div><div class="line">    ax.legend([<span class="string">'Train '</span> + value_is_loss_or_acc, <span class="string">'Validation '</span> + value_is_loss_or_acc], loc = <span class="number">0</span>) </div><div class="line">    ax.set_title(<span class="string">'Training/Validation '</span> + value_is_loss_or_acc + <span class="string">' per Epoch'</span>)</div><div class="line">    ax.set_xlabel(<span class="string">'Epoch'</span>)</div><div class="line">    ax.set_ylabel(value_is_loss_or_acc)</div></pre></td></tr></table></figure>
-<h2 id="Observe-Training-Process"><a href="#Observe-Training-Process" class="headerlink" title="Observe Training Process"></a>Observe Training Process</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">    </div><div class="line">PlotHistory(training_history.history[<span class="string">'loss'</span>], training_history.history[<span class="string">'val_loss'</span>], <span class="string">'Loss'</span>)</div><div class="line">PlotHistory(training_history.history[<span class="string">'acc'</span>], training_history.history[<span class="string">'val_acc'</span>], <span class="string">'Accuracy'</span>)</div></pre></td></tr></table></figure>
-<img src="/2017/02/08/Soccer/output_11_0.png" alt="output_11_0.png" title="">
-
-<h2 id="Observe-Weight-Distribution"><a href="#Observe-Weight-Distribution" class="headerlink" title="Observe Weight Distribution"></a>Observe Weight Distribution</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">drawWeightHistogram</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="comment">## the histogram of the data</span></div><div class="line">    fig = plt.subplots()</div><div class="line">    n, bins, patches = plt.hist(x, <span class="number">50</span>)</div><div class="line">    plt.xlim(<span class="number">-0.5</span>, <span class="number">0.5</span>)</div><div class="line">    plt.xlabel(<span class="string">'Weight'</span>)</div><div class="line">    plt.ylabel(<span class="string">'Count'</span>)</div><div class="line">    zero_counts = (x == <span class="number">0.0</span>).sum()</div><div class="line">    plt.title(<span class="string">"Weight Histogram. Num of '0's: %d"</span> % zero_counts)</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w1 = trained_model.layers[<span class="number">0</span>].get_weights()[<span class="number">0</span>].flatten()</div><div class="line">drawWeightHistogram(w1)</div></pre></td></tr></table></figure>
-<img src="/2017/02/08/Soccer/output_14_0.png" alt="output_14_0.png" title="">
-<h2 id="Define-Testing-Procedure"><a href="#Define-Testing-Procedure" class="headerlink" title="Define Testing Procedure"></a>Define Testing Procedure</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">TestModel</span><span class="params">(model=None, data=None)</span>:</span></div><div class="line">    <span class="keyword">if</span> model <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide a trained model."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide data."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    x_test, y_test = data</div><div class="line">    scores = model.evaluate(x_test, y_test)</div><div class="line">    <span class="keyword">return</span> scores</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test_score = TestModel(model=trained_model, data=[x_test, y_test])</div><div class="line">print(<span class="string">"Test loss &#123;:.4f&#125;, accuracy &#123;:.2f&#125;%"</span>.format(test_score[<span class="number">0</span>], test_score[<span class="number">1</span>] * <span class="number">100</span>))</div></pre></td></tr></table></figure>
-<pre><code>1984/2213 [=========================&gt;....] - ETA: 0sTest loss 0.9763, accuracy 53.86%
-</code></pre>
-          
+          <h2 id="Soccer-Result-Prediction"><a href="#Soccer-Result-Prediction" class="headerlink" title="Soccer Result Prediction"></a>Soccer Result Prediction</h2><p>Predict 2008-2016 soccer game results(Win/Draw/Lose) of 11 European lead league based on the 25K+ match result Kaggle datase <a href="https://www.kaggle.com/hugomathien/soccer">here</a>. The prediction is based on the bet odds and the FIFA game team attribute.</p>
+<p>*+25,000 matches</p>
+<p>*+10,000 players</p>
+<p>*11 European Countries with their lead championship</p>
+<p>*Seasons 2008 to 2016</p>
+<p><em>Players and Teams’ attributes</em> sourced from EA Sports’ FIFA video game series, including the weekly updates</p>
+<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>The Deep FNN gives us 53.86% Accuracy in test set and 53.12% accuracy in validation set.<br>The Random Forest gives us 50.42% Accuracy in test set and 50.33% accuracy in validation set.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/08/Soccer/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -581,7 +441,7 @@ Training took 32.060739994 seconds.
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T22:39:13-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T22:41:52-08:00">
                 2017-02-08
               </time>
             
