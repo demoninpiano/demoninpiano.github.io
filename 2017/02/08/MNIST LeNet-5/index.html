@@ -84,24 +84,45 @@
 
 
 
-<meta name="description" content="MNIST digit recognition via LeNet-t CNNAll rights reserved.This material cannot be published, rewritten or redistributed in whole or part without the authors’ written permission.
-Convolutional Neural">
+<meta name="description" content="MNIST digit recognition via LeNet-5 CNNConvolutional Neural Net will be abbreviated to ConvNet in the following sections.
+Index
+Pre-processing
+Recipes for ConvNet
+Network Structure
+Pooling
+
+
+Define Tr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MNIST using LeNet-5 CNN">
-<meta property="og:url" content="https://demoninpiano.github.io/2017/01/26/MNIST LeNet-5/index.html">
+<meta property="og:url" content="https://demoninpiano.github.io/2017/02/08/MNIST LeNet-5/index.html">
 <meta property="og:site_name" content="David's Blog">
-<meta property="og:description" content="MNIST digit recognition via LeNet-t CNNAll rights reserved.This material cannot be published, rewritten or redistributed in whole or part without the authors’ written permission.
-Convolutional Neural">
-<meta property="og:image" content="https://demoninpiano.github.io/2017/01/26/MNIST%20LeNet-5/output_14_0.png">
-<meta property="og:image" content="https://demoninpiano.github.io/2017/01/26/MNIST%20LeNet-5/output_14_1.png">
-<meta property="og:image" content="https://demoninpiano.github.io/2017/01/26/MNIST%20LeNet-5/output_22_0.png">
-<meta property="og:image" content="https://demoninpiano.github.io/2017/01/26/MNIST%20LeNet-5/output_22_1.png">
-<meta property="og:updated_time" content="2017-01-27T01:35:56.021Z">
+<meta property="og:description" content="MNIST digit recognition via LeNet-5 CNNConvolutional Neural Net will be abbreviated to ConvNet in the following sections.
+Index
+Pre-processing
+Recipes for ConvNet
+Network Structure
+Pooling
+
+
+Define Tr">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/02/08/MNIST%20LeNet-5/output_14_0.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/02/08/MNIST%20LeNet-5/output_14_1.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/02/08/MNIST%20LeNet-5/output_22_0.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/02/08/MNIST%20LeNet-5/output_22_1.png">
+<meta property="og:updated_time" content="2017-02-09T06:52:04.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MNIST using LeNet-5 CNN">
-<meta name="twitter:description" content="MNIST digit recognition via LeNet-t CNNAll rights reserved.This material cannot be published, rewritten or redistributed in whole or part without the authors’ written permission.
-Convolutional Neural">
-<meta name="twitter:image" content="https://demoninpiano.github.io/2017/01/26/MNIST%20LeNet-5/output_14_0.png">
+<meta name="twitter:description" content="MNIST digit recognition via LeNet-5 CNNConvolutional Neural Net will be abbreviated to ConvNet in the following sections.
+Index
+Pre-processing
+Recipes for ConvNet
+Network Structure
+Pooling
+
+
+Define Tr">
+<meta name="twitter:image" content="https://demoninpiano.github.io/2017/02/08/MNIST%20LeNet-5/output_14_0.png">
 
 
 
@@ -129,7 +150,7 @@ Convolutional Neural">
 
 
 
-  <link rel="canonical" href="https://demoninpiano.github.io/2017/01/26/MNIST LeNet-5/"/>
+  <link rel="canonical" href="https://demoninpiano.github.io/2017/02/08/MNIST LeNet-5/"/>
 
 
 
@@ -258,7 +279,7 @@ Convolutional Neural">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/01/26/MNIST LeNet-5/">
+  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/02/08/MNIST LeNet-5/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Dawei Wang">
@@ -297,8 +318,8 @@ Convolutional Neural">
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T17:35:56-08:00">
-                2017-01-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T22:52:04-08:00">
+                2017-02-08
               </time>
             
 
@@ -355,19 +376,12 @@ Convolutional Neural">
       
 
       
-        <h1 id="MNIST-digit-recognition-via-LeNet-t-CNN"><a href="#MNIST-digit-recognition-via-LeNet-t-CNN" class="headerlink" title="MNIST digit recognition via LeNet-t CNN"></a>MNIST digit recognition via LeNet-t CNN</h1><p>All rights reserved.<br \=""><br>This material cannot be published, rewritten or redistributed in whole or part without the authors’ written permission.</p>
-<p><strong>Convolutional Neural Net</strong> will be abbreviated to <strong>ConvNet</strong> in the following sections.</p>
+        <h1 id="MNIST-digit-recognition-via-LeNet-5-CNN"><a href="#MNIST-digit-recognition-via-LeNet-5-CNN" class="headerlink" title="MNIST digit recognition via LeNet-5 CNN"></a>MNIST digit recognition via LeNet-5 CNN</h1><p><strong>Convolutional Neural Net</strong> will be abbreviated to <strong>ConvNet</strong> in the following sections.</p>
 <h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><ol>
 <li><a href="#Pre-processing">Pre-processing</a></li>
 <li><a href="#Recipes-Exclusively-for-Convolutional-Neural-Nets">Recipes for ConvNet</a><ol>
-<li><a href="#Network-Structure">Network Structure</a><ol>
-<li><a href="#Tutorial/workshop-activity-1">Activity 1</a></li>
-</ol>
-</li>
-<li><a href="#Pooling">Pooling</a><ol>
-<li><a href="#Tutorial/workshop-activity-2">Activity 2</a></li>
-</ol>
-</li>
+<li><a href="#Network-Structure">Network Structure</a></li>
+<li><a href="#Pooling">Pooling</a></li>
 </ol>
 </li>
 <li><a href="#Define-Training-Procedure">Define Training Procedure</a>     </li>
@@ -375,7 +389,7 @@ Convolutional Neural">
 <li><a href="#Define-Testing-Procedure">Testing</a></li>
 </ol>
 <a id="more"></a>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># All rights reserved.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># This is a codelab for Convolutional Neural Net.</span></div><div class="line"><span class="comment"># Details include:</span></div><div class="line"><span class="comment">#   - Pre-process dataset</span></div><div class="line"><span class="comment">#   - Elaborate recipes</span></div><div class="line"><span class="comment">#   - Define training procedures</span></div><div class="line"><span class="comment">#   - Train and test models</span></div><div class="line"><span class="comment">#   - Observe metrics</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">################################################################</span></div><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</div><div class="line"></div><div class="line"><span class="keyword">import</span> keras.callbacks <span class="keyword">as</span> cb</div><div class="line"><span class="keyword">from</span> keras.datasets <span class="keyword">import</span> mnist</div><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Activation, Dense, Dropout, Flatten</div><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Convolution2D, MaxPooling2D</div><div class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</div><div class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> SGD, Adam</div><div class="line"><span class="keyword">from</span> keras.regularizers <span class="keyword">import</span> l1, l2</div><div class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> np_utils</div><div class="line"></div><div class="line">%matplotlib inline</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> time</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># </span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># This is a codelab for LeNet-5 CNN.</span></div><div class="line"><span class="comment"># Details include:</span></div><div class="line"><span class="comment">#   - Pre-process dataset</span></div><div class="line"><span class="comment">#   - Elaborate recipes</span></div><div class="line"><span class="comment">#   - Define training procedures</span></div><div class="line"><span class="comment">#   - Train and test models</span></div><div class="line"><span class="comment">#   - Observe metrics</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">################################################################</span></div><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</div><div class="line"></div><div class="line"><span class="keyword">import</span> keras.callbacks <span class="keyword">as</span> cb</div><div class="line"><span class="keyword">from</span> keras.datasets <span class="keyword">import</span> mnist</div><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Activation, Dense, Dropout, Flatten</div><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Convolution2D, MaxPooling2D</div><div class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</div><div class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> SGD, Adam</div><div class="line"><span class="keyword">from</span> keras.regularizers <span class="keyword">import</span> l1, l2</div><div class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> np_utils</div><div class="line"></div><div class="line">%matplotlib inline</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> time</div></pre></td></tr></table></figure>
 <pre><code>Using TensorFlow backend.
 </code></pre><h2 id="Pre-processing"><a href="#Pre-processing" class="headerlink" title="Pre-processing"></a>Pre-processing</h2><p>Pre-processing for ConvNet is slightly different than that of FNNs. Here, you need to transform the data into a 3-D tensor with dimensions [width] $\times$ [height] $\times$  [channel].</p>
 <p>Width and height are from a image.<br>Each channel represents a color.</p>
@@ -451,15 +465,15 @@ Epoch 20/20
 Training took 527.41219902 seconds.
 </code></pre><h2 id="Observe-Training-Process"><a href="#Observe-Training-Process" class="headerlink" title="Observe Training Process"></a>Observe Training Process</h2><p>Plot the variation of loss during each batch</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">PlotHistory</span><span class="params">(train_value, test_value, value_is_loss_or_acc)</span>:</span></div><div class="line">    f, ax = plt.subplots()</div><div class="line">    ax.plot([<span class="keyword">None</span>] + train_value, <span class="string">'o-'</span>)</div><div class="line">    ax.plot([<span class="keyword">None</span>] + test_value, <span class="string">'x-'</span>)</div><div class="line">    <span class="comment"># Plot legend and use the best location automatically: loc = 0.</span></div><div class="line">    ax.legend([<span class="string">'Train '</span> + value_is_loss_or_acc, <span class="string">'Validation '</span> + value_is_loss_or_acc], loc = <span class="number">0</span>) </div><div class="line">    ax.set_title(<span class="string">'Training/Validation '</span> + value_is_loss_or_acc + <span class="string">' per Epoch'</span>)</div><div class="line">    ax.set_xlabel(<span class="string">'Epoch'</span>)</div><div class="line">    ax.set_ylabel(value_is_loss_or_acc)  </div><div class="line">    </div><div class="line">PlotHistory(training_history.history[<span class="string">'loss'</span>], training_history.history[<span class="string">'val_loss'</span>], <span class="string">'Loss'</span>)</div><div class="line">PlotHistory(training_history.history[<span class="string">'acc'</span>], training_history.history[<span class="string">'val_acc'</span>], <span class="string">'Accuracy'</span>)</div></pre></td></tr></table></figure>
-<img src="/2017/01/26/MNIST%20LeNet-5/output_14_0.png" alt="output_14_0.png" title="">
-<img src="/2017/01/26/MNIST%20LeNet-5/output_14_1.png" alt="output_14_1.png" title="">
+<img src="/2017/02/08/MNIST%20LeNet-5/output_14_0.png" alt="output_14_0.png" title="">
+<img src="/2017/02/08/MNIST%20LeNet-5/output_14_1.png" alt="output_14_1.png" title="">
 <h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">TestModel</span><span class="params">(model=None, data=None)</span>:</span></div><div class="line">    <span class="keyword">if</span> model <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide a trained model."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide data."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    x_test, y_test = data</div><div class="line">    scores = model.evaluate(x_test, y_test)</div><div class="line">    <span class="keyword">return</span> scores</div></pre></td></tr></table></figure>
 <h2 id="Test-the-trained-model"><a href="#Test-the-trained-model" class="headerlink" title="Test the trained model"></a>Test the trained model</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test_score = TestModel(model=trained_model, data=[x_test, y_test])</div><div class="line">print(<span class="string">"Test loss &#123;:.4f&#125;, accuracy &#123;:.2f&#125;%"</span>.format(test_score[<span class="number">0</span>], test_score[<span class="number">1</span>] * <span class="number">100</span>))</div></pre></td></tr></table></figure>
 <pre><code>9984/10000 [============================&gt;.] - ETA: 0sTest loss 0.0308, accuracy 98.98%
 </code></pre><h2 id="Visualize-Convolutional-Layers"><a href="#Visualize-Convolutional-Layers" class="headerlink" title="Visualize Convolutional Layers"></a>Visualize Convolutional Layers</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShowConvolutionOutput</span><span class="params">(input_data, show_pic_idx)</span>:</span></div><div class="line">    <span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</div><div class="line">    first_conv = K.function(trained_model.inputs, [trained_model.layers[<span class="number">1</span>].output])</div><div class="line">    first_conv_out = first_conv([input_data])</div><div class="line">    fig, axes = plt.subplots(num_filters / <span class="number">4</span>, <span class="number">4</span>,figsize=(<span class="number">8</span>, <span class="number">8</span>))</div><div class="line">    <span class="keyword">for</span> filter_num <span class="keyword">in</span> range(num_filters):</div><div class="line">        fig_x, fig_y = divmod(filter_num, <span class="number">4</span>)</div><div class="line">        <span class="keyword">if</span> fig_y == <span class="number">0</span>: fig_x -= <span class="number">1</span></div><div class="line">        axes[fig_x][fig_y].imshow(first_conv_out[<span class="number">0</span>][show_pic_idx][filter_num])</div><div class="line">        plt.setp(axes[fig_x][fig_y].get_xticklabels(), visible=<span class="keyword">False</span>)</div><div class="line">        plt.setp(axes[fig_x][fig_y].get_yticklabels(), visible=<span class="keyword">False</span>)</div><div class="line">    fig.tight_layout(pad=<span class="number">0</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShowInputImage</span><span class="params">(data)</span>:</span></div><div class="line">    plot = plt.figure()</div><div class="line">    plot.set_size_inches(<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">    plt.imshow(np.reshape(-data, (<span class="number">28</span>,<span class="number">28</span>)), cmap=<span class="string">'Greys_r'</span>)</div><div class="line">    plt.title(<span class="string">"Input"</span>)</div><div class="line">    plt.axis(<span class="string">'off'</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShowFinalOutput</span><span class="params">(input_data, samp)</span>:</span></div><div class="line">    <span class="string">"""Calculate final prediction."""</span></div><div class="line">    <span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</div><div class="line">    <span class="comment"># Calculate final prediction.</span></div><div class="line">    last_layer = K.function(trained_model.inputs, [trained_model.layers[<span class="number">-1</span>].output])</div><div class="line">    last_layer_out = last_layer([input_data])</div><div class="line">    print(<span class="string">"Final prediction: "</span> + str(np.argmax(last_layer_out[<span class="number">0</span>][samp])) )</div></pre></td></tr></table></figure>
 <h2 id="Show-Random-Test-Data"><a href="#Show-Random-Test-Data" class="headerlink" title="Show Random Test Data"></a>Show Random Test Data</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">np.random.seed(<span class="number">1337</span>)</div><div class="line">show_which_ones = np.random.randint(<span class="number">0</span>, <span class="number">999</span>, <span class="number">5</span>)</div><div class="line"><span class="keyword">for</span> samp <span class="keyword">in</span> show_which_ones:</div><div class="line">    ShowInputImage(x_test[samp])</div><div class="line">    ShowConvolutionOutput(x_test, samp)</div><div class="line">    ShowFinalOutput(x_test, samp)</div></pre></td></tr></table></figure>
-<img src="/2017/01/26/MNIST%20LeNet-5/output_22_0.png" alt="output_22_0.png" title="">
-<img src="/2017/01/26/MNIST%20LeNet-5/output_22_1.png" alt="output_22_1.png" title="">
+<img src="/2017/02/08/MNIST%20LeNet-5/output_22_0.png" alt="output_22_0.png" title="">
+<img src="/2017/02/08/MNIST%20LeNet-5/output_22_1.png" alt="output_22_1.png" title="">
 
       
     </div>
@@ -486,15 +500,15 @@ Training took 527.41219902 seconds.
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/08/Soccer/" rel="next" title="Soccer Game Result predicting using Deep learning">
+                <i class="fa fa-chevron-left"></i> Soccer Game Result predicting using Deep learning
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/08/Soccer/" rel="prev" title="Soccer Game Result predicting using Deep learning">
-                Soccer Game Result predicting using Deep learning <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -610,7 +624,7 @@ Training took 527.41219902 seconds.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MNIST-digit-recognition-via-LeNet-t-CNN"><span class="nav-number">1.</span> <span class="nav-text">MNIST digit recognition via LeNet-t CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Index"><span class="nav-number">1.0.1.</span> <span class="nav-text">Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pre-processing"><span class="nav-number">1.1.</span> <span class="nav-text">Pre-processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recipes-Exclusively-for-Convolutional-Neural-Nets"><span class="nav-number">1.2.</span> <span class="nav-text">Recipes Exclusively for Convolutional Neural Nets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Convolutional-Layer"><span class="nav-number">1.2.1.</span> <span class="nav-text">Convolutional Layer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pooling"><span class="nav-number">1.2.2.</span> <span class="nav-text">Pooling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Define-Training-Procedure"><span class="nav-number">1.3.</span> <span class="nav-text">Define Training Procedure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-Training"><span class="nav-number">1.4.</span> <span class="nav-text">Start Training</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observe-Training-Process"><span class="nav-number">1.5.</span> <span class="nav-text">Observe Training Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing"><span class="nav-number">1.6.</span> <span class="nav-text">Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-the-trained-model"><span class="nav-number">1.7.</span> <span class="nav-text">Test the trained model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visualize-Convolutional-Layers"><span class="nav-number">1.8.</span> <span class="nav-text">Visualize Convolutional Layers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Show-Random-Test-Data"><span class="nav-number">1.9.</span> <span class="nav-text">Show Random Test Data</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MNIST-digit-recognition-via-LeNet-5-CNN"><span class="nav-number">1.</span> <span class="nav-text">MNIST digit recognition via LeNet-5 CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Index"><span class="nav-number">1.0.1.</span> <span class="nav-text">Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pre-processing"><span class="nav-number">1.1.</span> <span class="nav-text">Pre-processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recipes-Exclusively-for-Convolutional-Neural-Nets"><span class="nav-number">1.2.</span> <span class="nav-text">Recipes Exclusively for Convolutional Neural Nets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Convolutional-Layer"><span class="nav-number">1.2.1.</span> <span class="nav-text">Convolutional Layer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pooling"><span class="nav-number">1.2.2.</span> <span class="nav-text">Pooling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Define-Training-Procedure"><span class="nav-number">1.3.</span> <span class="nav-text">Define Training Procedure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-Training"><span class="nav-number">1.4.</span> <span class="nav-text">Start Training</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observe-Training-Process"><span class="nav-number">1.5.</span> <span class="nav-text">Observe Training Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing"><span class="nav-number">1.6.</span> <span class="nav-text">Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-the-trained-model"><span class="nav-number">1.7.</span> <span class="nav-text">Test the trained model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visualize-Convolutional-Layers"><span class="nav-number">1.8.</span> <span class="nav-text">Visualize Convolutional Layers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Show-Random-Test-Data"><span class="nav-number">1.9.</span> <span class="nav-text">Show Random Test Data</span></a></li></ol></li></ol></div>
             
 
           </div>
