@@ -96,7 +96,7 @@ Convolutional Neural">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/01/26/MNIST%20LeNet-5/output_14_1.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/01/26/MNIST%20LeNet-5/output_22_0.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/01/26/MNIST%20LeNet-5/output_22_1.png">
-<meta property="og:updated_time" content="2017-01-27T01:34:29.766Z">
+<meta property="og:updated_time" content="2017-01-27T01:35:56.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MNIST using LeNet-5 CNN">
 <meta name="twitter:description" content="MNIST digit recognition via LeNet-t CNNAll rights reserved.This material cannot be published, rewritten or redistributed in whole or part without the authors’ written permission.
@@ -297,7 +297,7 @@ Convolutional Neural">
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T17:34:29-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T17:35:56-08:00">
                 2017-01-26
               </time>
             
@@ -375,9 +375,6 @@ Convolutional Neural">
 <li><a href="#Define-Testing-Procedure">Testing</a></li>
 </ol>
 <a id="more"></a>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line">print(sys.executable)</div><div class="line">sys.path.append(<span class="string">'/home/dawei/anaconda2/lib/python2.7/site-packages'</span>)</div></pre></td></tr></table></figure>
-<pre><code>/home/dawei/anaconda2/bin/python
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> tensorflow</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># All rights reserved.</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># This is a codelab for Convolutional Neural Net.</span></div><div class="line"><span class="comment"># Details include:</span></div><div class="line"><span class="comment">#   - Pre-process dataset</span></div><div class="line"><span class="comment">#   - Elaborate recipes</span></div><div class="line"><span class="comment">#   - Define training procedures</span></div><div class="line"><span class="comment">#   - Train and test models</span></div><div class="line"><span class="comment">#   - Observe metrics</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">################################################################</span></div><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</div><div class="line"></div><div class="line"><span class="keyword">import</span> keras.callbacks <span class="keyword">as</span> cb</div><div class="line"><span class="keyword">from</span> keras.datasets <span class="keyword">import</span> mnist</div><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Activation, Dense, Dropout, Flatten</div><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Convolution2D, MaxPooling2D</div><div class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</div><div class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> SGD, Adam</div><div class="line"><span class="keyword">from</span> keras.regularizers <span class="keyword">import</span> l1, l2</div><div class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> np_utils</div><div class="line"></div><div class="line">%matplotlib inline</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> time</div></pre></td></tr></table></figure>
 <pre><code>Using TensorFlow backend.
 </code></pre><h2 id="Pre-processing"><a href="#Pre-processing" class="headerlink" title="Pre-processing"></a>Pre-processing</h2><p>Pre-processing for ConvNet is slightly different than that of FNNs. Here, you need to transform the data into a 3-D tensor with dimensions [width] $\times$ [height] $\times$  [channel].</p>
@@ -486,22 +483,6 @@ Training took 527.41219902 seconds.
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/01/26/test/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
-      
 
       
       
@@ -567,7 +548,7 @@ Training took 527.41219902 seconds.
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -576,7 +557,7 @@ Training took 527.41219902 seconds.
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
