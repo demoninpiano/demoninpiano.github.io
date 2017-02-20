@@ -87,7 +87,7 @@
 <meta name="description" content="NYC Public High School SAT Score AnalysisAnalysis of 2011 SAT scores of NYC 13 district high schoolers, among with various demographic and other information about them
 *479 High School SAT score with">
 <meta property="og:type" content="article">
-<meta property="og:title" content="David's Blog">
+<meta property="og:title" content="NYC Public High School SAT Score Analysis">
 <meta property="og:url" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/index.html">
 <meta property="og:site_name" content="David's Blog">
 <meta property="og:description" content="NYC Public High School SAT Score AnalysisAnalysis of 2011 SAT scores of NYC 13 district high schoolers, among with various demographic and other information about them
@@ -95,14 +95,15 @@
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/clustering.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/heatMap.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/ell.png">
-<meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/ell_precentage.png">
+<meta property="og:image" content="https://demoninpiano.github.io/_posts/NYCHighschool/ell_precentage.png">
+<meta property="og:image" content="https://demoninpiano.github.io/_posts/NYCHighschool/SATvisul.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/race_diff.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/asian.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/white.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/hispanic.png">
-<meta property="og:updated_time" content="2017-02-20T21:03:43.900Z">
+<meta property="og:updated_time" content="2017-02-20T21:14:46.387Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="David's Blog">
+<meta name="twitter:title" content="NYC Public High School SAT Score Analysis">
 <meta name="twitter:description" content="NYC Public High School SAT Score AnalysisAnalysis of 2011 SAT scores of NYC 13 district high schoolers, among with various demographic and other information about them
 *479 High School SAT score with">
 <meta name="twitter:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/clustering.png">
@@ -139,7 +140,7 @@
 
 
 
-  <title>  | David's Blog </title>
+  <title> NYC Public High School SAT Score Analysis | David's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -286,7 +287,7 @@
             
             
               
-                
+                NYC Public High School SAT Score Analysis
               
             
           </h1>
@@ -301,7 +302,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T13:03:43-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T13:14:46-08:00">
                 2017-02-20
               </time>
             
@@ -311,6 +312,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech-Article/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech Article</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -341,6 +364,7 @@
 <p>*479 High School SAT score with demographic and graduation data</p>
 <p>*District Level Data Visulization</p>
 <p>*District Level NYC High School Clustering</p>
+<a id="more"></a>
 <h2 id="Background-Information"><a href="#Background-Information" class="headerlink" title="Background Information"></a>Background Information</h2><p>1.New York City is divided into 5 boroughs, which are essentially distinct regions.</p>
 <p>2.Schools in New York City are divided into several school district, each of which can contains dozens of schools.</p>
 <p>3.Not all the schools in all of the datasets are high schools, so we’ll need to do some data cleaning.</p>
@@ -409,8 +433,13 @@
 <h2 id="Correlating-English-Learner-and-SAT-scores"><a href="#Correlating-English-Learner-and-SAT-scores" class="headerlink" title="Correlating English Learner and SAT scores"></a>Correlating English Learner and SAT scores</h2><p>Analyzing the precentage of English learner in District level; correlating the precentage of English learner to the overall SAT scores. The precentage of English learner is the percentage of students in each school who are learning English.</p>
 <p>Group of schools with a high precentage of English Learner have low average SAT scores</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">full.plot.scatter(x=<span class="string">'ell_percent'</span>, y=<span class="string">'sat_score'</span>)</div><div class="line">show_district_map(<span class="string">"ell_percent"</span>)</div></pre></td></tr></table></figure>
+<h3 style="text-align:center"> Corelation between precentage of english learner and SAt score</h3>
+
 <img src="/2017/02/20/NYCHighschool/ell.png" alt="ell.png" title="">
-<p>!<img src="/2017/02/20/NYCHighschool/ell_precentage.png" alt="ell_precentage.png" title=""> ! </p>
+<h3 style="text-align:center"> District level ell_precentage and SAT score</h3>
+
+<tr><br>    <td> <img src="/_posts/NYCHighschool/ell_precentage.png" alt="Drawing" style="width: 250px;"> </td><br>    <td> <img src="/_posts/NYCHighschool/SATvisul.png" alt="Drawing" style="width: 250px;"> </td><br></tr>
+
 <h2 id="Correlating-race-and-SAT-scores"><a href="#Correlating-race-and-SAT-scores" class="headerlink" title="Correlating race and SAT scores"></a>Correlating race and SAT scores</h2><p>Correlating the race and SAT scores. We can find that higher percentages of white and asian students correlate with higher SAT scores, but higher percentages of black and hispanic students correlate with lower SAT scores. </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">full.corr()[<span class="string">"sat_score"</span>][[<span class="string">"white_per"</span>, <span class="string">"asian_per"</span>, <span class="string">"black_per"</span>, <span class="string">"hispanic_per"</span>]].plot.bar()</div><div class="line">show_district_map(<span class="string">"white_per"</span>)</div><div class="line">show_district_map(<span class="string">"asian_per"</span>)</div><div class="line">show_district_map(<span class="string">"black_per"</span>)</div><div class="line">show_district_map(<span class="string">"hispanic_per"</span>)</div></pre></td></tr></table></figure>
 <img src="/2017/02/20/NYCHighschool/race_diff.png" alt="race_diff.png" title="">
@@ -444,7 +473,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/17/gdelt/" rel="next" title="Gdelt Global News Tone Analysis and Visualization">
+              <a href="/2017/02/20/gdelt/" rel="next" title="Gdelt Global News Tone Analysis and Visualization">
                 <i class="fa fa-chevron-left"></i> Gdelt Global News Tone Analysis and Visualization
               </a>
             
@@ -568,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NYC-Public-High-School-SAT-Score-Analysis"><span class="nav-number">1.</span> <span class="nav-text">NYC Public High School SAT Score Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background-Information"><span class="nav-number">2.</span> <span class="nav-text">Background Information</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data"><span class="nav-number">3.</span> <span class="nav-text">Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">4.</span> <span class="nav-text">Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-the-Repo"><span class="nav-number">4.1.</span> <span class="nav-text">Download the Repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-the-requirements"><span class="nav-number">4.2.</span> <span class="nav-text">Install the requirements</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">5.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Indexing"><span class="nav-number">6.</span> <span class="nav-text">Indexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-Data"><span class="nav-number">7.</span> <span class="nav-text">Input Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unifing-Data"><span class="nav-number">8.</span> <span class="nav-text">Unifing Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Condensing-Data"><span class="nav-number">9.</span> <span class="nav-text">Condensing Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-Datasets"><span class="nav-number">10.</span> <span class="nav-text">Combining Datasets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#School-Location-Clustering"><span class="nav-number">11.</span> <span class="nav-text">School Location Clustering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#School-Location-Heat-Map"><span class="nav-number">12.</span> <span class="nav-text">School Location Heat Map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#District-Leavl-SAT-Scores-Mapping"><span class="nav-number">13.</span> <span class="nav-text">District Leavl SAT Scores Mapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Correlating-English-Learner-and-SAT-scores"><span class="nav-number">14.</span> <span class="nav-text">Correlating English Learner and SAT scores</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Correlating-race-and-SAT-scores"><span class="nav-number">15.</span> <span class="nav-text">Correlating race and SAT scores</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NYC-Public-High-School-SAT-Score-Analysis"><span class="nav-number">1.</span> <span class="nav-text">NYC Public High School SAT Score Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background-Information"><span class="nav-number">2.</span> <span class="nav-text">Background Information</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data"><span class="nav-number">3.</span> <span class="nav-text">Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">4.</span> <span class="nav-text">Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-the-Repo"><span class="nav-number">4.1.</span> <span class="nav-text">Download the Repo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-the-requirements"><span class="nav-number">4.2.</span> <span class="nav-text">Install the requirements</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">5.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Indexing"><span class="nav-number">6.</span> <span class="nav-text">Indexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-Data"><span class="nav-number">7.</span> <span class="nav-text">Input Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unifing-Data"><span class="nav-number">8.</span> <span class="nav-text">Unifing Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Condensing-Data"><span class="nav-number">9.</span> <span class="nav-text">Condensing Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-Datasets"><span class="nav-number">10.</span> <span class="nav-text">Combining Datasets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#School-Location-Clustering"><span class="nav-number">11.</span> <span class="nav-text">School Location Clustering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#School-Location-Heat-Map"><span class="nav-number">12.</span> <span class="nav-text">School Location Heat Map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#District-Leavl-SAT-Scores-Mapping"><span class="nav-number">13.</span> <span class="nav-text">District Leavl SAT Scores Mapping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Correlating-English-Learner-and-SAT-scores"><span class="nav-number">14.</span> <span class="nav-text">Correlating English Learner and SAT scores</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">14.1.</span> <span class="nav-text"> Corelation between precentage of english learner and SAt score</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">14.2.</span> <span class="nav-text"> District level ell_precentage and SAT score</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Correlating-race-and-SAT-scores"><span class="nav-number">15.</span> <span class="nav-text">Correlating race and SAT scores</span></a></li></ol></div>
             
 
           </div>

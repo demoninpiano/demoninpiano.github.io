@@ -274,7 +274,7 @@
               
                 
                 <a class="post-title-link" href="/2017/02/20/NYCHighschool/" itemprop="url">
-                  Untitled
+                  NYC Public High School SAT Score Analysis
                 </a>
               
             
@@ -290,7 +290,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T13:03:43-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T13:14:46-08:00">
                 2017-02-20
               </time>
             
@@ -300,6 +300,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech-Article/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech Article</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -327,90 +349,17 @@
 
       
         
-          
-            <h2 id="NYC-Public-High-School-SAT-Score-Analysis"><a href="#NYC-Public-High-School-SAT-Score-Analysis" class="headerlink" title="NYC Public High School SAT Score Analysis"></a>NYC Public High School SAT Score Analysis</h2><p>Analysis of 2011 SAT scores of NYC 13 district high schoolers, among with various demographic and other information about them</p>
+          <h2 id="NYC-Public-High-School-SAT-Score-Analysis"><a href="#NYC-Public-High-School-SAT-Score-Analysis" class="headerlink" title="NYC Public High School SAT Score Analysis"></a>NYC Public High School SAT Score Analysis</h2><p>Analysis of 2011 SAT scores of NYC 13 district high schoolers, among with various demographic and other information about them</p>
 <p>*479 High School SAT score with demographic and graduation data</p>
 <p>*District Level Data Visulization</p>
 <p>*District Level NYC High School Clustering</p>
-<h2 id="Background-Information"><a href="#Background-Information" class="headerlink" title="Background Information"></a>Background Information</h2><p>1.New York City is divided into 5 boroughs, which are essentially distinct regions.</p>
-<p>2.Schools in New York City are divided into several school district, each of which can contains dozens of schools.</p>
-<p>3.Not all the schools in all of the datasets are high schools, so we’ll need to do some data cleaning.</p>
-<p>4.Each school in New York City has a unique code called a DBN, or District Borough Number.</p>
-<p>5.By aggregating data by district, we can use the district mapping data to plot district-by-district differences.</p>
-<h2 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h2><p>The Detail information of Data and its download link are list below</p>
-<p>1.<a href="https://data.cityofnewyork.us/Education/AP-College-Board-2010-School-Level-Results/itfs-ms3e" target="_blank" rel="external">2010 ap test resut</a></p>
-<p>2.<a href="https://data.cityofnewyork.us/Education/2010-2011-Class-Size-School-level-detail/urz7-pzb3" target="_blank" rel="external">2010-11 class size</a></p>
-<p>3.<a href="https://data.cityofnewyork.us/Education/School-Demographics-and-Accountability-Snapshot-20/ihfw-zy9j" target="_blank" rel="external">2006-12 demographic</a></p>
-<p>4.<a href="https://data.cityofnewyork.us/Education/Graduation-Outcomes-Classes-Of-2005-2010-School-Le/vh2h-md7a" target="_blank" rel="external">2005-10 graduation outcomes</a></p>
-<p>5.<a href="https://data.cityofnewyork.us/Education/School-Attendance-and-Enrollment-Statistics-by-Dis/7z8d-msnt" target="_blank" rel="external">2010-11 School Attendance and Enrollment Statistics by District (hs_directory.csv)</a></p>
-<p>6.<a href="https://data.cityofnewyork.us/Education/NYS-Math-Test-Results-By-Grade-2006-2011-School-Le/jufi-gzgp" target="_blank" rel="external">2006-10 Math Result</a></p>
-<p>7.<a href="https://data.cityofnewyork.us/Education/SAT-Results/f9bf-2cp4" target="_blank" rel="external">2012 SAT Score Result</a></p>
-<p>8.<a href="https://data.cityofnewyork.us/Education/School-Districts/r8nu-ymqj" target="_blank" rel="external">school district map</a></p>
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><h3 id="Download-the-Repo"><a href="#Download-the-Repo" class="headerlink" title="Download the Repo"></a>Download the Repo</h3><ul>
-<li><p>Clone this repo to your computer.</p>
-</li>
-<li><p>Get into the folder using <code>cd NYC Public School SAT Analysis</code>.</p>
-</li>
-<li><p>Data already in the Data folder</p>
-</li>
-</ul>
-<h3 id="Install-the-requirements"><a href="#Install-the-requirements" class="headerlink" title="Install the requirements"></a>Install the requirements</h3><ul>
-<li>Install the requirements using <code>pip install -r requirements.txt</code>.<ul>
-<li>Make sure you use Python 2.7.</li>
-<li>You may want to use a virtual environment for this.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><ul>
-<li>Run  <code>main.ipynb</code> in jupyter notebook to do the analysis</li>
-</ul>
-<h2 id="Indexing"><a href="#Indexing" class="headerlink" title="Indexing"></a>Indexing</h2><ol>
-<li><a href="#Input-Data">Input Data</a></li>
-<li><a href="#Merging-Dataset">Merging Dataset</a></li>
-<li><a href="#Unifing-Data">Unifing Data</a></li>
-<li><a href="#Condensing-Data">Condensing Data </a></li>
-<li><a href="#Combining-Datasets">Combining Datasets</a></li>
-<li><a href="#School-Location-Clustering">School Location Clustering</a></li>
-<li><a href="#School-Location-Hea-Map">School Location Heat Map</a></li>
-<li><a href="#District-Leavl-SAT-Scores-Mapping">District Leavl SAT Scores Mapping</a></li>
-<li><a href="#Correlating-English-Learner-and-SAT-scores">Correlating English Learner and SAT scores</a></li>
-<li><a href="#District-Leavl-English-Learner-Mapping">District Leavl English Learner Mapping</a></li>
-<li><a href="#Correlating-race-and-SAT-scores">Correlating race and SAT scores</a></li>
-<li><a href="#District-Leavl-Race-Mapping">District Leavl Race Mapping</a></li>
-</ol>
-<h2 id="Input-Data"><a href="#Input-Data" class="headerlink" title="Input Data"></a>Input Data</h2><p>Firstly, we input raw data from the dataset discussed above.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">%matplotlib inline</div><div class="line"></div><div class="line"><span class="keyword">import</span> folium</div><div class="line"><span class="keyword">from</span> folium <span class="keyword">import</span> plugins</div><div class="line"></div><div class="line"></div><div class="line">files = [<span class="string">"2010 ap.csv"</span>, <span class="string">"2010-11 class_size.csv"</span>, <span class="string">"2006-12 demographics.csv"</span>, <span class="string">"2003-06 Graduation_Outcomes.csv"</span>, <span class="string">"2010-11 hs_directory.csv"</span>, <span class="string">"2006-10 math_test_results.csv"</span>, <span class="string">"2012 sat_results.csv"</span>]</div><div class="line"></div><div class="line">data = &#123;&#125;</div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> files:</div><div class="line">    d = pandas.read_csv(<span class="string">"Data/&#123;0&#125;"</span>.format(f))</div><div class="line">    data[f.replace(<span class="string">".csv"</span>, <span class="string">""</span>)] = d</div><div class="line">    </div><div class="line">data[<span class="string">"ap"</span>] = data.pop(<span class="string">"2010 ap"</span>)</div><div class="line">data[<span class="string">"class_size"</span>] = data.pop(<span class="string">"2010-11 class_size"</span>)</div><div class="line">data[<span class="string">"demographics"</span>] = data.pop(<span class="string">"2006-12 demographics"</span>)</div><div class="line">data[<span class="string">"graduation"</span>] = data.pop(<span class="string">"2003-06 Graduation_Outcomes"</span>)</div><div class="line">data[<span class="string">"hs_directory"</span>] = data.pop(<span class="string">"2010-11 hs_directory"</span>)</div><div class="line">data[<span class="string">'math_test_results'</span>] = data.pop(<span class="string">"2006-10 math_test_results"</span>)</div><div class="line">data[<span class="string">"sat_results"</span>] = data.pop(<span class="string">"2012 sat_results"</span>)</div><div class="line"></div><div class="line"><span class="comment">#Input Survey data</span></div><div class="line">survey1 = pandas.read_csv(<span class="string">"Data/2011 survey data/masterfile11_gened_final.txt"</span>, delimiter=<span class="string">"\t"</span>, encoding=<span class="string">'windows-1252'</span>)</div><div class="line">survey2 = pandas.read_csv(<span class="string">"Data/2011 survey data/masterfile11_d75_final.txt"</span>, delimiter=<span class="string">"\t"</span>, encoding=<span class="string">'windows-1252'</span>)</div><div class="line">survey1[<span class="string">"d75"</span>] = <span class="keyword">False</span></div><div class="line">survey2[<span class="string">"d75"</span>] = <span class="keyword">True</span></div><div class="line">survey = pandas.concat([survey1, survey2], axis=<span class="number">0</span>)</div><div class="line"></div><div class="line">survey[<span class="string">"DBN"</span>] = survey[<span class="string">"dbn"</span>]</div><div class="line">survey_fields = [<span class="string">"DBN"</span>, <span class="string">"rr_s"</span>, <span class="string">"rr_t"</span>, <span class="string">"rr_p"</span>, <span class="string">"N_s"</span>, <span class="string">"N_t"</span>, <span class="string">"N_p"</span>, <span class="string">"saf_p_11"</span>, <span class="string">"com_p_11"</span>, <span class="string">"eng_p_11"</span>, <span class="string">"aca_p_11"</span>, <span class="string">"saf_t_11"</span>, <span class="string">"com_t_11"</span>, <span class="string">"eng_t_10"</span>, <span class="string">"aca_t_11"</span>, <span class="string">"saf_s_11"</span>, <span class="string">"com_s_11"</span>, <span class="string">"eng_s_11"</span>, <span class="string">"aca_s_11"</span>, <span class="string">"saf_tot_11"</span>, <span class="string">"com_tot_11"</span>, <span class="string">"eng_tot_11"</span>, <span class="string">"aca_tot_11"</span>,]</div><div class="line">survey = survey.loc[:,survey_fields]</div><div class="line">data[<span class="string">"survey"</span>] = survey</div><div class="line">survey.shape</div></pre></td></tr></table></figure>
-<h2 id="Unifing-Data"><a href="#Unifing-Data" class="headerlink" title="Unifing Data"></a>Unifing Data</h2><p>Before merging data set, we need to unify all dataset that has the same column name</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#class_size Data sets hasn't the uniform shcool code. Need to clean the feature</span></div><div class="line">data[<span class="string">"class_size"</span>][<span class="string">"DBN"</span>] = data[<span class="string">"class_size"</span>].apply(<span class="keyword">lambda</span> x: <span class="string">"&#123;0:02d&#125;&#123;1&#125;"</span>.format(x[<span class="string">"CSD"</span>], x[<span class="string">"SCHOOL CODE"</span>]), axis=<span class="number">1</span>)</div><div class="line">data[<span class="string">"hs_directory"</span>][<span class="string">"DBN"</span>] = data[<span class="string">"hs_directory"</span>][<span class="string">"dbn"</span>]</div></pre></td></tr></table></figure>
-<h2 id="Condensing-Data"><a href="#Condensing-Data" class="headerlink" title="Condensing Data"></a>Condensing Data</h2><p>Since different raw data has different range of date. Using latest available data for all datasets.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">##########################################################################</span></div><div class="line"><span class="comment">##############For Each dataset, using most recent year data###############</span></div><div class="line"><span class="comment">##########################################################################</span></div><div class="line"></div><div class="line"><span class="comment">#Group class size based on school code(DBN)</span></div><div class="line"></div><div class="line">class_size = data[<span class="string">"class_size"</span>]</div><div class="line">class_size = class_size[class_size[<span class="string">"GRADE "</span>] == <span class="string">"09-12"</span>]</div><div class="line">class_size = class_size[class_size[<span class="string">"PROGRAM TYPE"</span>] == <span class="string">"GEN ED"</span>]</div><div class="line">class_size = class_size.groupby(<span class="string">"DBN"</span>).agg(np.mean)</div><div class="line"></div><div class="line"><span class="comment">#Put DBN back to columns instead of index</span></div><div class="line">class_size.reset_index(inplace=<span class="keyword">True</span>)</div><div class="line">data[<span class="string">"class_size"</span>] = class_size</div><div class="line"></div><div class="line"><span class="comment">## Collect most recent Data</span></div><div class="line">demographics = data[<span class="string">"demographics"</span>]</div><div class="line">demographics = demographics[demographics[<span class="string">"schoolyear"</span>] == <span class="number">20112012</span>]</div><div class="line">data[<span class="string">"demographics"</span>] = demographics</div><div class="line"></div><div class="line"><span class="comment">## Filter Function</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">mask</span><span class="params">(df, key, value)</span>:</span></div><div class="line">    <span class="keyword">return</span> df[df[key] == value]</div><div class="line">pandas.DataFrame.mask = mask</div><div class="line"></div><div class="line">data[<span class="string">"math_test_results"</span>] = (data[<span class="string">"math_test_results"</span>].mask(<span class="string">"Year"</span>,<span class="number">2011</span>)).mask(<span class="string">"Grade"</span>,<span class="string">"8"</span>)</div><div class="line">data[<span class="string">"graduation"</span>] = data[<span class="string">"graduation"</span>].mask(<span class="string">"Demographic"</span>,<span class="string">"Total Cohort"</span>).mask(<span class="string">"Cohort"</span>,<span class="string">"2006"</span>)</div><div class="line"></div><div class="line">data[<span class="string">"graduation"</span>] = data[<span class="string">"graduation"</span>][data[<span class="string">"graduation"</span>][<span class="string">"Demographic"</span>] == <span class="string">"Total Cohort"</span>]</div><div class="line"><span class="comment">## Using last recent data</span></div><div class="line">data[<span class="string">"graduation"</span>] = data[<span class="string">"graduation"</span>][data[<span class="string">"graduation"</span>][<span class="string">"Cohort"</span>] == <span class="string">"2006"</span>]</div></pre></td></tr></table></figure>
-<p>Calculating Overall SAT score based on the SAT Math, Reading, Writing Data.<br>Convert the raw geojson data from string type to numeric type</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## Calculate Total SAT score</span></div><div class="line">cols = [<span class="string">'SAT Math Avg. Score'</span>, <span class="string">'SAT Critical Reading Avg. Score'</span>, <span class="string">'SAT Writing Avg. Score'</span>]</div><div class="line"><span class="keyword">for</span> c <span class="keyword">in</span> cols:</div><div class="line">    data[<span class="string">"sat_results"</span>][c] = data[<span class="string">"sat_results"</span>][c].convert_objects(convert_numeric=<span class="keyword">True</span>)</div><div class="line">data[<span class="string">'sat_results'</span>][<span class="string">'sat_score'</span>] = data[<span class="string">'sat_results'</span>][cols[<span class="number">0</span>]] + data[<span class="string">'sat_results'</span>][cols[<span class="number">1</span>]] + data[<span class="string">'sat_results'</span>][cols[<span class="number">2</span>]]</div><div class="line"></div><div class="line"><span class="comment">## Clean GeoJso data,convert str geojson data to numeric lat/lon</span></div><div class="line">data[<span class="string">"hs_directory"</span>][<span class="string">'lat'</span>] = data[<span class="string">"hs_directory"</span>][<span class="string">'Location 1'</span>].apply(<span class="keyword">lambda</span> x: x.split(<span class="string">"\n"</span>)[<span class="number">-1</span>].replace(<span class="string">"("</span>, <span class="string">""</span>).replace(<span class="string">")"</span>, <span class="string">""</span>).split(<span class="string">", "</span>)[<span class="number">0</span>])</div><div class="line">data[<span class="string">"hs_directory"</span>][<span class="string">'lon'</span>] = data[<span class="string">"hs_directory"</span>][<span class="string">'Location 1'</span>].apply(<span class="keyword">lambda</span> x: x.split(<span class="string">"\n"</span>)[<span class="number">-1</span>].replace(<span class="string">"("</span>, <span class="string">""</span>).replace(<span class="string">")"</span>, <span class="string">""</span>).split(<span class="string">", "</span>)[<span class="number">1</span>])</div><div class="line"></div><div class="line"><span class="keyword">for</span> c <span class="keyword">in</span> [<span class="string">'lat'</span>, <span class="string">'lon'</span>]:</div><div class="line">    data[<span class="string">"hs_directory"</span>][c] = data[<span class="string">"hs_directory"</span>][c].convert_objects(convert_numeric=<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
-<h2 id="Combining-Datasets"><a href="#Combining-Datasets" class="headerlink" title="Combining Datasets"></a>Combining Datasets</h2><p>Merging all dataset to one. Drop the rows with Null value</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">flat_data_names = [k <span class="keyword">for</span> k,v <span class="keyword">in</span> data.items()]</div><div class="line">flat_data = [data[k] <span class="keyword">for</span> k <span class="keyword">in</span> flat_data_names]</div><div class="line">full = flat_data[<span class="number">0</span>]</div><div class="line"><span class="keyword">for</span> i, f <span class="keyword">in</span> enumerate(flat_data[<span class="number">1</span>:]):</div><div class="line">    name = flat_data_names[i+<span class="number">1</span>]</div><div class="line">    <span class="comment">#print(name)</span></div><div class="line">    <span class="comment">#print(len(f["DBN"]) - len(f["DBN"].unique()))</span></div><div class="line">    join_type = <span class="string">"inner"</span></div><div class="line">    <span class="keyword">if</span> name <span class="keyword">in</span> [<span class="string">"sat_results"</span>, <span class="string">"ap_2010"</span>, <span class="string">"graduation"</span>]:</div><div class="line">        join_type = <span class="string">"outer"</span></div><div class="line">    <span class="keyword">if</span> name <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">"math_test_results"</span>]:</div><div class="line">        full = full.merge(f, on=<span class="string">"DBN"</span>, how=join_type)</div><div class="line"></div><div class="line"><span class="comment">#Clean Nan value</span></div><div class="line">cols = [<span class="string">'AP Test Takers '</span>, <span class="string">'Total Exams Taken'</span>, <span class="string">'Number of Exams with scores 3 4 or 5'</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> col <span class="keyword">in</span> cols:</div><div class="line">    full[col] = full[col].convert_objects(convert_numeric=<span class="keyword">True</span>)</div><div class="line"></div><div class="line">full[cols] = full[cols].fillna(value=<span class="number">0</span>)</div><div class="line">full = full.fillna(full.mean())</div><div class="line"></div><div class="line"><span class="comment">#First Two Dight of DBN is District Number</span></div><div class="line">full[<span class="string">"school_dist"</span>] = full[<span class="string">"DBN"</span>].apply(<span class="keyword">lambda</span> x: x[:<span class="number">2</span>])</div></pre></td></tr></table></figure>
-<h2 id="School-Location-Clustering"><a href="#School-Location-Clustering" class="headerlink" title="School Location Clustering"></a>School Location Clustering</h2><p>Clustering School Location based on the Lattitude and Longtitude data</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">######################################################################</span></div><div class="line"><span class="comment">####################School Location Clustering########################</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">schools_map = folium.Map(location=[full[<span class="string">'lat'</span>].mean(), full[<span class="string">'lon'</span>].mean()], zoom_start=<span class="number">10</span>)</div><div class="line">marker_cluster = folium.MarkerCluster().add_to(schools_map)</div><div class="line"><span class="keyword">for</span> name, row <span class="keyword">in</span> full.iterrows():</div><div class="line">    folium.Marker([row[<span class="string">"lat"</span>], row[<span class="string">"lon"</span>]], popup=<span class="string">"&#123;0&#125;: &#123;1&#125;"</span>.format(row[<span class="string">"DBN"</span>], row[<span class="string">"school_name"</span>])).add_to(marker_cluster)</div><div class="line">schools_map.create_map(<span class="string">'schools.html'</span>)</div><div class="line">schools_map</div></pre></td></tr></table></figure>
-<img src="/2017/02/20/NYCHighschool/clustering.png" alt="clustering.png" title="">
-<h2 id="School-Location-Heat-Map"><a href="#School-Location-Heat-Map" class="headerlink" title="School Location Heat Map"></a>School Location Heat Map</h2><p>Visualizating the Clustering results from heat map</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">######################################################################</span></div><div class="line"><span class="comment">####################School Location Clustering########################</span></div><div class="line"></div><div class="line">schools_heatmap = folium.Map(location=[full[<span class="string">'lat'</span>].mean(), full[<span class="string">'lon'</span>].mean()], zoom_start=<span class="number">10</span>)</div><div class="line">schools_heatmap.add_children(plugins.HeatMap([[row[<span class="string">"lat"</span>], row[<span class="string">"lon"</span>]] <span class="keyword">for</span> name, row <span class="keyword">in</span> full.iterrows()]))</div><div class="line">schools_heatmap.save(<span class="string">"heatmap.html"</span>)</div><div class="line">schools_heatmap</div></pre></td></tr></table></figure>
-<img src="/2017/02/20/NYCHighschool/heatMap.png" alt="heatMap.png" title="">
-<h2 id="District-Leavl-SAT-Scores-Mapping"><a href="#District-Leavl-SAT-Scores-Mapping" class="headerlink" title="District Leavl SAT Scores Mapping"></a>District Leavl SAT Scores Mapping</h2><p>Analyzing the SAT Scores from the district Level. Group by the data based on the district.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">###################################################################</span></div><div class="line"><span class="comment">########################District Map###############################</span></div><div class="line"><span class="comment">###################################################################</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_district_map</span><span class="params">(col)</span>:</span></div><div class="line">    geo_path = <span class="string">'Data/School Districts.geojson'</span></div><div class="line">    districts = folium.Map(location=[full[<span class="string">'lat'</span>].mean(), full[<span class="string">'lon'</span>].mean()], zoom_start=<span class="number">10</span>)</div><div class="line">    districts.geo_json(</div><div class="line">        geo_path=geo_path,</div><div class="line">        data=district_data,</div><div class="line">        columns=[<span class="string">'school_dist'</span>, col],</div><div class="line">        key_on=<span class="string">'feature.properties.school_dist'</span>,</div><div class="line">        fill_color=<span class="string">'YlGn'</span>,</div><div class="line">        fill_opacity=<span class="number">0.7</span>,</div><div class="line">        line_opacity=<span class="number">0.2</span>,</div><div class="line">    )</div><div class="line">    districts.save(col+<span class="string">".html"</span>)</div><div class="line">    <span class="keyword">return</span> districts</div><div class="line"></div><div class="line">show_district_map(<span class="string">"sat_score"</span>)</div></pre></td></tr></table></figure>
-
-<h2 id="Correlating-English-Learner-and-SAT-scores"><a href="#Correlating-English-Learner-and-SAT-scores" class="headerlink" title="Correlating English Learner and SAT scores"></a>Correlating English Learner and SAT scores</h2><p>Analyzing the precentage of English learner in District level; correlating the precentage of English learner to the overall SAT scores. The precentage of English learner is the percentage of students in each school who are learning English.</p>
-<p>Group of schools with a high precentage of English Learner have low average SAT scores</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">full.plot.scatter(x=<span class="string">'ell_percent'</span>, y=<span class="string">'sat_score'</span>)</div><div class="line">show_district_map(<span class="string">"ell_percent"</span>)</div></pre></td></tr></table></figure>
-<img src="/2017/02/20/NYCHighschool/ell.png" alt="ell.png" title="">
-<p>!<img src="/2017/02/20/NYCHighschool/ell_precentage.png" alt="ell_precentage.png" title=""> ! </p>
-<h2 id="Correlating-race-and-SAT-scores"><a href="#Correlating-race-and-SAT-scores" class="headerlink" title="Correlating race and SAT scores"></a>Correlating race and SAT scores</h2><p>Correlating the race and SAT scores. We can find that higher percentages of white and asian students correlate with higher SAT scores, but higher percentages of black and hispanic students correlate with lower SAT scores. </p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">full.corr()[<span class="string">"sat_score"</span>][[<span class="string">"white_per"</span>, <span class="string">"asian_per"</span>, <span class="string">"black_per"</span>, <span class="string">"hispanic_per"</span>]].plot.bar()</div><div class="line">show_district_map(<span class="string">"white_per"</span>)</div><div class="line">show_district_map(<span class="string">"asian_per"</span>)</div><div class="line">show_district_map(<span class="string">"black_per"</span>)</div><div class="line">show_district_map(<span class="string">"hispanic_per"</span>)</div></pre></td></tr></table></figure>
-<img src="/2017/02/20/NYCHighschool/race_diff.png" alt="race_diff.png" title="">
-<p>!<img src="/2017/02/20/NYCHighschool/asian.png" alt="asian.png" title=""> ! </p>
-<p>!<img src="/2017/02/20/NYCHighschool/white.png" alt="white.png" title=""> ! </p>
-<p>! ! </p>
-<p>!<img src="/2017/02/20/NYCHighschool/hispanic.png" alt="hispanic.png" title=""> ! </p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/20/NYCHighschool/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -447,7 +396,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/02/17/gdelt/">
+  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/02/20/gdelt/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Dawei Wang">
@@ -472,7 +421,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/17/gdelt/" itemprop="url">
+                <a class="post-title-link" href="/2017/02/20/gdelt/" itemprop="url">
                   Gdelt Global News Tone Analysis and Visualization
                 </a>
               
@@ -489,8 +438,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-17T14:36:04-08:00">
-                2017-02-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T13:04:16-08:00">
+                2017-02-20
               </time>
             
 
