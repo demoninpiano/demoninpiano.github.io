@@ -95,13 +95,13 @@
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/clustering.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/heatMap.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/ell.png">
-<meta property="og:image" content="https://demoninpiano.github.io/_posts/NYCHighschool/ell_precentage.png">
-<meta property="og:image" content="https://demoninpiano.github.io/_posts/NYCHighschool/SATvisul.png">
+<meta property="og:image" content="https://demoninpiano.github.io/images/ell_precentage.png">
+<meta property="og:image" content="https://demoninpiano.github.io/images/SATvisul.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/race_diff.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/asian.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/white.png">
 <meta property="og:image" content="https://demoninpiano.github.io/2017/02/20/NYCHighschool/hispanic.png">
-<meta property="og:updated_time" content="2017-02-20T21:14:46.387Z">
+<meta property="og:updated_time" content="2017-02-20T21:20:11.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NYC Public High School SAT Score Analysis">
 <meta name="twitter:description" content="NYC Public High School SAT Score AnalysisAnalysis of 2011 SAT scores of NYC 13 district high schoolers, among with various demographic and other information about them
@@ -302,7 +302,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T13:14:46-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-20T13:20:11-08:00">
                 2017-02-20
               </time>
             
@@ -438,7 +438,7 @@
 <img src="/2017/02/20/NYCHighschool/ell.png" alt="ell.png" title="">
 <h3 style="text-align:center"> District level ell_precentage and SAT score</h3>
 
-<tr><br>    <td> <img src="/_posts/NYCHighschool/ell_precentage.png" alt="Drawing" style="width: 250px;"> </td><br>    <td> <img src="/_posts/NYCHighschool/SATvisul.png" alt="Drawing" style="width: 250px;"> </td><br></tr>
+<tr><br>    <td> <img src="/images/ell_precentage.png" alt="Drawing" style="width: 250px;"> </td><br>    <td> <img src="/images/SATvisul.png" alt="Drawing" style="width: 250px;"> </td><br></tr>
 
 <h2 id="Correlating-race-and-SAT-scores"><a href="#Correlating-race-and-SAT-scores" class="headerlink" title="Correlating race and SAT scores"></a>Correlating race and SAT scores</h2><p>Correlating the race and SAT scores. We can find that higher percentages of white and asian students correlate with higher SAT scores, but higher percentages of black and hispanic students correlate with lower SAT scores. </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">full.corr()[<span class="string">"sat_score"</span>][[<span class="string">"white_per"</span>, <span class="string">"asian_per"</span>, <span class="string">"black_per"</span>, <span class="string">"hispanic_per"</span>]].plot.bar()</div><div class="line">show_district_map(<span class="string">"white_per"</span>)</div><div class="line">show_district_map(<span class="string">"asian_per"</span>)</div><div class="line">show_district_map(<span class="string">"black_per"</span>)</div><div class="line">show_district_map(<span class="string">"hispanic_per"</span>)</div></pre></td></tr></table></figure>
