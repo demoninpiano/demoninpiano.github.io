@@ -86,17 +86,17 @@
 
 <meta name="description" content="Soccer Result PredictionPredict 2008-2016 soccer game results(Win/Draw/Lose) of 11 European lead league based on the 25K+ match result Kaggle datase here. The prediction is based on the bet odds and t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Soccer Game Result predicting using Deep learning">
-<meta property="og:url" content="https://demoninpiano.github.io/2017/02/08/Soccer/index.html">
+<meta property="og:title" content="Soccer Game prediction using Deep learning">
+<meta property="og:url" content="https://demoninpiano.github.io/2017/02/23/Soccer/index.html">
 <meta property="og:site_name" content="David's Blog">
 <meta property="og:description" content="Soccer Result PredictionPredict 2008-2016 soccer game results(Win/Draw/Lose) of 11 European lead league based on the 25K+ match result Kaggle datase here. The prediction is based on the bet odds and t">
-<meta property="og:image" content="https://demoninpiano.github.io/2017/02/08/Soccer/output_11_0.png">
-<meta property="og:image" content="https://demoninpiano.github.io/2017/02/08/Soccer/output_14_0.png">
-<meta property="og:updated_time" content="2017-02-09T06:44:46.811Z">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/02/23/Soccer/output_11_0.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/02/23/Soccer/output_14_0.png">
+<meta property="og:updated_time" content="2017-02-23T18:42:41.895Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Soccer Game Result predicting using Deep learning">
+<meta name="twitter:title" content="Soccer Game prediction using Deep learning">
 <meta name="twitter:description" content="Soccer Result PredictionPredict 2008-2016 soccer game results(Win/Draw/Lose) of 11 European lead league based on the 25K+ match result Kaggle datase here. The prediction is based on the bet odds and t">
-<meta name="twitter:image" content="https://demoninpiano.github.io/2017/02/08/Soccer/output_11_0.png">
+<meta name="twitter:image" content="https://demoninpiano.github.io/2017/02/23/Soccer/output_11_0.png">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="https://demoninpiano.github.io/2017/02/08/Soccer/"/>
+  <link rel="canonical" href="https://demoninpiano.github.io/2017/02/23/Soccer/"/>
 
 
 
 
 
-  <title> Soccer Game Result predicting using Deep learning | David's Blog </title>
+  <title> Soccer Game prediction using Deep learning | David's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -253,7 +253,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/02/08/Soccer/">
+  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/02/23/Soccer/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Dawei Wang">
@@ -277,7 +277,7 @@
             
             
               
-                Soccer Game Result predicting using Deep learning
+                Soccer Game prediction using Deep learning
               
             
           </h1>
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T22:44:46-08:00">
-                2017-02-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-23T10:42:41-08:00">
+                2017-02-23
               </time>
             
 
@@ -542,11 +542,11 @@ Epoch 50/50
 Training took 32.060739994 seconds.
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">PlotHistory</span><span class="params">(train_value, test_value, value_is_loss_or_acc)</span>:</span></div><div class="line">    f, ax = plt.subplots()</div><div class="line">    ax.plot([<span class="keyword">None</span>] + train_value, <span class="string">'o-'</span>)</div><div class="line">    ax.plot([<span class="keyword">None</span>] + test_value, <span class="string">'x-'</span>)</div><div class="line">    <span class="comment">## Plot legend and use the best location automatically: loc = 0.</span></div><div class="line">    ax.legend([<span class="string">'Train '</span> + value_is_loss_or_acc, <span class="string">'Validation '</span> + value_is_loss_or_acc], loc = <span class="number">0</span>) </div><div class="line">    ax.set_title(<span class="string">'Training/Validation '</span> + value_is_loss_or_acc + <span class="string">' per Epoch'</span>)</div><div class="line">    ax.set_xlabel(<span class="string">'Epoch'</span>)</div><div class="line">    ax.set_ylabel(value_is_loss_or_acc)</div></pre></td></tr></table></figure>
 <h2 id="Observe-Training-Process"><a href="#Observe-Training-Process" class="headerlink" title="Observe Training Process"></a>Observe Training Process</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">    </div><div class="line">PlotHistory(training_history.history[<span class="string">'loss'</span>], training_history.history[<span class="string">'val_loss'</span>], <span class="string">'Loss'</span>)</div><div class="line">PlotHistory(training_history.history[<span class="string">'acc'</span>], training_history.history[<span class="string">'val_acc'</span>], <span class="string">'Accuracy'</span>)</div></pre></td></tr></table></figure>
-<img src="/2017/02/08/Soccer/output_11_0.png" alt="output_11_0.png" title="">
+<img src="/2017/02/23/Soccer/output_11_0.png" alt="output_11_0.png" title="">
 
 <h2 id="Observe-Weight-Distribution"><a href="#Observe-Weight-Distribution" class="headerlink" title="Observe Weight Distribution"></a>Observe Weight Distribution</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">drawWeightHistogram</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="comment">## the histogram of the data</span></div><div class="line">    fig = plt.subplots()</div><div class="line">    n, bins, patches = plt.hist(x, <span class="number">50</span>)</div><div class="line">    plt.xlim(<span class="number">-0.5</span>, <span class="number">0.5</span>)</div><div class="line">    plt.xlabel(<span class="string">'Weight'</span>)</div><div class="line">    plt.ylabel(<span class="string">'Count'</span>)</div><div class="line">    zero_counts = (x == <span class="number">0.0</span>).sum()</div><div class="line">    plt.title(<span class="string">"Weight Histogram. Num of '0's: %d"</span> % zero_counts)</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w1 = trained_model.layers[<span class="number">0</span>].get_weights()[<span class="number">0</span>].flatten()</div><div class="line">drawWeightHistogram(w1)</div></pre></td></tr></table></figure>
-<img src="/2017/02/08/Soccer/output_14_0.png" alt="output_14_0.png" title="">
+<img src="/2017/02/23/Soccer/output_14_0.png" alt="output_14_0.png" title="">
 <h2 id="Define-Testing-Procedure"><a href="#Define-Testing-Procedure" class="headerlink" title="Define Testing Procedure"></a>Define Testing Procedure</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">TestModel</span><span class="params">(model=None, data=None)</span>:</span></div><div class="line">    <span class="keyword">if</span> model <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide a trained model."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide data."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    x_test, y_test = data</div><div class="line">    scores = model.evaluate(x_test, y_test)</div><div class="line">    <span class="keyword">return</span> scores</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test_score = TestModel(model=trained_model, data=[x_test, y_test])</div><div class="line">print(<span class="string">"Test loss &#123;:.4f&#125;, accuracy &#123;:.2f&#125;%"</span>.format(test_score[<span class="number">0</span>], test_score[<span class="number">1</span>] * <span class="number">100</span>))</div></pre></td></tr></table></figure>
 <pre><code>1984/2213 [=========================&gt;....] - ETA: 0sTest loss 0.9763, accuracy 53.86%
@@ -576,15 +576,15 @@ Training took 32.060739994 seconds.
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/02/23/gdelt/" rel="next" title="Gdelt Global News Tone Analysis and Visualization">
+                <i class="fa fa-chevron-left"></i> Gdelt Global News Tone Analysis and Visualization
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/08/MNIST LeNet-5/" rel="prev" title="MNIST using LeNet-5 CNN">
-                MNIST using LeNet-5 CNN <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
