@@ -1,0 +1,850 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Credit modelling using linancial lending data from Lending ClubModeling Credit status by making predictions about whether or not a loan will be paid off on time, which is contained in the loan_status">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Credit modelling using linancial lending data from Lending Club">
+<meta property="og:url" content="https://demoninpiano.github.io/2017/03/01/credit_prediction/index.html">
+<meta property="og:site_name" content="David's Blog">
+<meta property="og:description" content="Credit modelling using linancial lending data from Lending ClubModeling Credit status by making predictions about whether or not a loan will be paid off on time, which is contained in the loan_status">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/03/01/credit_prediction/output_21_0.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/03/01/credit_prediction/output_21_1.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/03/01/credit_prediction/output_24_0.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/03/01/credit_prediction/output_25_0.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/03/01/credit_prediction/output_25_1.png">
+<meta property="og:image" content="https://demoninpiano.github.io/2017/03/01/credit_prediction/output_28_0.png">
+<meta property="og:updated_time" content="2017-03-01T20:12:38.874Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Credit modelling using linancial lending data from Lending Club">
+<meta name="twitter:description" content="Credit modelling using linancial lending data from Lending ClubModeling Credit status by making predictions about whether or not a loan will be paid off on time, which is contained in the loan_status">
+<meta name="twitter:image" content="https://demoninpiano.github.io/2017/03/01/credit_prediction/output_21_0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://demoninpiano.github.io/2017/03/01/credit_prediction/"/>
+
+
+
+
+
+  <title> Credit modelling using linancial lending data from Lending Club | David's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">David's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://demoninpiano.github.io/2017/03/01/credit_prediction/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dawei Wang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/dw_image.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="David's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="David's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Credit modelling using linancial lending data from Lending Club
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-01T00:00:00-08:00">
+                2017-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tech-Article/" itemprop="url" rel="index">
+                    <span itemprop="name">Tech Article</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Credit-modelling-using-linancial-lending-data-from-Lending-Club"><a href="#Credit-modelling-using-linancial-lending-data-from-Lending-Club" class="headerlink" title="Credit modelling using linancial lending data from Lending Club"></a>Credit modelling using linancial lending data from Lending Club</h2><p>Modeling Credit status by making predictions about whether or not a loan will be paid off on time, which is contained in the <em>loan_status</em> column of the clean dataset.</p>
+<p>40000 approved loan data with loan status feature from 2017 to 2011 are analyzed in the project. The datasets using in the project is in the Data folder.</p>
+<p>Using False Positive Rate(fpr) and Accuracy as error metric. With a false positive, we predict that a loan will be paid off on time, but it actually isn’t. This costs us money. Our objective in this is to make money – we want to fund enough loans that are paid off on time to offset our losses from loans that aren’t paid.</p>
+<p>Prediction Goal: Minimize the fpr results to reduce the risk; Maximize the Accuracy to maximize the potential money.</p>
+<a id="more"></a>
+<h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><ul>
+<li><p>Linear Regression with self defined weight penality</p>
+<ul>
+<li>33.02% Accuracy</li>
+<li>8.41% fpr</li>
+</ul>
+</li>
+<li><p>Random Forest tree with balance weight penality</p>
+<ul>
+<li>85.19% Accuracy</li>
+<li>97.34% fpr</li>
+</ul>
+</li>
+<li><p>Deep Forward Neural network(FNN) with self defined weight penality</p>
+<ul>
+<li>85.14% Accuracy</li>
+<li>14.86% fpr</li>
+</ul>
+</li>
+<li><p>Pre-trained Deep Forward Neural network(FNN) with self defined weight penality</p>
+<ul>
+<li>86.27% Accuracy</li>
+<li>13.37% fpr</li>
+</ul>
+</li>
+</ul>
+<p>Based on the overall performance, we can treat Logistic Regression algorithm as a conservative strategy since it is trying to avoid lossing money by classifying majority of data as default credit. It gives us the minimized fpr, which means if the average interesting rat greater than 8.41%, we can make money from it.</p>
+<p>The Random Forest algorithm is more likely a aggresive strategy. It has both high accuracy and high fpr. In order to maximize the accuracy performance, the Random Forest algorithm trends to classify the data as non-default results. The high fpr results will cause significant loss of money.</p>
+<p>The Deep FNN is a tradeoff between the above two algorithm, it has both high accuracy and low fpr. Compared to Logistic Regression algorithm, FNN it’s less conservative but it seizes more opportunities to make potential money based on the accuracy performance.</p>
+<p>The Autoencoder pre-trained FNN overperform the FNN with random initial weight.</p>
+<p>The Optimal strategy depends on the size of available credit and the averagy market interesting rate. Both FNN and logistic regression have opportunities to make money in the market based on our performance analysis</p>
+<h2 id="Background-Information"><a href="#Background-Information" class="headerlink" title="Background Information"></a>Background Information</h2><p>Lending Club is a marketplace for personal loans that matches borrowers who are seeking a loan with investors looking to lend money and make a return. Each borrower fills out a comprehensive application, providing their past financial history, the reason for the loan, and more. Lending Club evaluates each borrower’s credit score using past historical data (and their own data science process!) and assign an interest rate to the borrower.</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><ul>
+<li>Run <code>mkdir Processed</code> to create a directory for our processed datasets.</li>
+<li>Run  <code>clean.ipynb</code> in jupyter notebook to combine the sql dataset and clean the data<ul>
+<li>This will create <code>clean_loan_2007.csv</code> in the <code>Processed</code> folder.</li>
+</ul>
+</li>
+<li>Run <code>prediction.ipynd</code>.<ul>
+<li>This will create logistic regression,random forest, and FNN prediction results</li>
+</ul>
+</li>
+</ul>
+<h1 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h1><ol>
+<li><a href="#Reading-Raw-Data">Reading Raw Data</a></li>
+<li><a href="#Cleaning-Data">Cleaning Data</a></li>
+<li><a href="#Algorithm-1:-Logistic-Regression">Algorithm 1: Logistic Regression</a></li>
+<li><a href="#Algorithm-2:-Random-Forest">Algorithm 2: Random Forest</a></li>
+<li><a href="#Algorithm-3:-Deep-FNN">Algorithm 3: Deep FNN</a></li>
+<li><a href="#AutoEncoder-pre-trained-Deep-FNN">Algorithm 4: AutoEncoder pre-trained Deep FNN</a></li>
+</ol>
+<h2 id="Reading-Raw-Data"><a href="#Reading-Raw-Data" class="headerlink" title="Reading Raw Data"></a>Reading Raw Data</h2><ul>
+<li>removing the first line:<ul>
+<li>because it contains the extraneous text Notes offered by Prospectus<br>(<a href="https://www.lendingclub.com/info/prospectus.action" target="_blank" rel="external">https://www.lendingclub.com/info/prospectus.action</a>) instead of the column titles, which prevents the dataset from being parsed by the pandas library properly</li>
+</ul>
+</li>
+<li>removing the desc column:<ul>
+<li>which contains a long text explanation for each loan</li>
+</ul>
+</li>
+<li>removing the url column:<ul>
+<li>which contains a link to each loan on Lending Club which can only be accessed with an investor account</li>
+</ul>
+</li>
+<li>removing all columns containing more than 50% missing values:<ul>
+<li>which allows us to move faster since we can spend less time trying to fill these values</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#######Filtering Function########</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">Filter</span><span class="params">(df, key, value)</span>:</span></div><div class="line">	<span class="keyword">return</span> df[df[key] == value]</div><div class="line">pd.DataFrame.Filter = Filter</div><div class="line"></div><div class="line"></div><div class="line">loans_2007 = pd.read_csv(<span class="string">'Data/rawData.csv'</span>, skiprows=<span class="number">1</span>)</div><div class="line">half_count = len(loans_2007) / <span class="number">2</span></div><div class="line">loans_2007 = loans_2007.dropna(thresh=half_count, axis=<span class="number">1</span>)</div><div class="line">loans_2007 = loans_2007.drop([<span class="string">'desc'</span>, <span class="string">'url'</span>],axis=<span class="number">1</span>)</div><div class="line">loans_2007.to_csv(<span class="string">'Data/loans_2007.csv'</span>, index=<span class="keyword">False</span>)</div></pre></td></tr></table></figure>
+<pre><code>/home/dawei/anaconda2/lib/python2.7/site-packages/IPython/core/interactiveshell.py:2717: DtypeWarning: Columns (0,47) have mixed types. Specify dtype option on import or set low_memory=False.
+  interactivity=interactivity, compiler=compiler, result=result)
+</code></pre><h2 id="Cleaning-Data"><a href="#Cleaning-Data" class="headerlink" title="Cleaning Data"></a>Cleaning Data</h2><p>Breaking up the columns into 3 groups of 18 columns and use the data dictionary to become familiar with what each column represents. After understanding each feature, we want to pay attention to any features that:</p>
+<ul>
+<li>leak information from the future (after the loan has already been funded)</li>
+<li>don’t affect a borrower’s ability to pay back a loan (e.g. a randomly generated ID value by Lending Club)</li>
+<li>formatted poorly and need to be cleaned up</li>
+<li>require more data or a lot of processing to turn into a useful feature</li>
+<li>contain redundant information</li>
+</ul>
+<h3 id="Cleaning-redundent-features-and-features-leak-future-information"><a href="#Cleaning-redundent-features-and-features-leak-future-information" class="headerlink" title="Cleaning redundent features and features leak future information"></a>Cleaning redundent features and features leak future information</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">loan_2007 = pd.read_csv(<span class="string">'Data/loans_2007.csv'</span>)</div><div class="line"></div><div class="line"><span class="comment">## Remove redundent and leak feature in first group</span></div><div class="line">loans_2007 = loans_2007.drop([<span class="string">"pymnt_plan"</span>,<span class="string">"id"</span>, <span class="string">"member_id"</span>, <span class="string">"funded_amnt"</span>, <span class="string">"funded_amnt_inv"</span>, <span class="string">"grade"</span>, <span class="string">"sub_grade"</span>, <span class="string">"emp_title"</span>, <span class="string">"issue_d"</span>], axis=<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="comment">## Remove redundent and leak featured in second group</span></div><div class="line">loans_2007 = loans_2007.drop([<span class="string">"zip_code"</span>, <span class="string">"out_prncp"</span>, <span class="string">"out_prncp_inv"</span>, <span class="string">"total_pymnt"</span>, <span class="string">"total_pymnt_inv"</span>, <span class="string">"total_rec_prncp"</span>], axis=<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="comment">## Remove redundent and leak featured in third group</span></div><div class="line">loans_2007 = loans_2007.drop([<span class="string">"total_rec_int"</span>, <span class="string">"total_rec_late_fee"</span>, <span class="string">"recoveries"</span>, <span class="string">"collection_recovery_fee"</span>, <span class="string">"last_pymnt_d"</span>, <span class="string">"last_pymnt_amnt"</span>], axis=<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<pre><code>/home/dawei/anaconda2/lib/python2.7/site-packages/IPython/core/interactiveshell.py:2717: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
+  interactivity=interactivity, compiler=compiler, result=result)
+</code></pre><h3 id="Cleaning-target-Column"><a href="#Cleaning-target-Column" class="headerlink" title="Cleaning target Column"></a>Cleaning target Column</h3><ul>
+<li>Discovering the imbalance of Loan_status column</li>
+<li>Converting the loan status string to binary classfication features</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">loans_2007.loan_status.value_counts()</div></pre></td></tr></table></figure>
+<pre><code>Fully Paid                                             33314
+Charged Off                                             5640
+Does not meet the credit policy. Status:Fully Paid      1988
+Current                                                  781
+Does not meet the credit policy. Status:Charged Off      761
+In Grace Period                                           22
+Late (31-120 days)                                        17
+Late (16-30 days)                                          8
+Default                                                    4
+Name: loan_status, dtype: int64
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## Convert the Loan Status string to numeric value</span></div><div class="line"></div><div class="line">loans_2007=loans_2007[(loans_2007.loan_status == <span class="string">'Fully Paid'</span>) | (loans_2007.loan_status==<span class="string">'Charged Off'</span>)]</div><div class="line"></div><div class="line">status_replace = &#123;</div><div class="line">    <span class="string">"loan_status"</span> : &#123;</div><div class="line">        <span class="string">"Fully Paid"</span>: <span class="number">1</span>,</div><div class="line">        <span class="string">"Charged Off"</span>: <span class="number">0</span>,</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">loans_2007 = loans_2007.replace(status_replace)</div></pre></td></tr></table></figure>
+<h3 id="Remove-Single-Value-Columns"><a href="#Remove-Single-Value-Columns" class="headerlink" title="Remove Single Value Columns"></a>Remove Single Value Columns</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## Remove Single Value Columns</span></div><div class="line"></div><div class="line">orig_columns = loans_2007.columns</div><div class="line">drop_columns = []</div><div class="line"><span class="keyword">for</span> col <span class="keyword">in</span> orig_columns:</div><div class="line">    col_series = loans_2007[col].dropna().unique()</div><div class="line">    <span class="keyword">if</span> len(col_series) == <span class="number">1</span>:</div><div class="line">        drop_columns.append(col)</div><div class="line">loans_2007 = loans_2007.drop(drop_columns, axis=<span class="number">1</span>)</div><div class="line">print(drop_columns)</div></pre></td></tr></table></figure>
+<pre><code>[&apos;initial_list_status&apos;, &apos;collections_12_mths_ex_med&apos;, &apos;policy_code&apos;, &apos;application_type&apos;, &apos;acc_now_delinq&apos;, &apos;chargeoff_within_12_mths&apos;, &apos;delinq_amnt&apos;, &apos;tax_liens&apos;]
+</code></pre><h3 id="Handing-Missing-Value"><a href="#Handing-Missing-Value" class="headerlink" title="Handing Missing Value"></a>Handing Missing Value</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">null_counts = loans_2007.isnull().sum()</div><div class="line">print(null_counts)</div><div class="line"></div><div class="line"><span class="comment">## Drop pub_rec_bankruptcies Column since it has 697 Null value</span></div><div class="line">loans_2007 = loans_2007.drop(<span class="string">"pub_rec_bankruptcies"</span>, axis=<span class="number">1</span>)</div><div class="line">loans_2007 = loans_2007.dropna(axis=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<pre><code>loan_amnt                 0
+term                      0
+int_rate                  0
+installment               0
+emp_length                0
+home_ownership            0
+annual_inc                0
+verification_status       0
+loan_status               0
+purpose                   0
+title                    10
+addr_state                0
+dti                       0
+delinq_2yrs               0
+earliest_cr_line          0
+inq_last_6mths            0
+open_acc                  0
+pub_rec                   0
+revol_bal                 0
+revol_util               50
+total_acc                 0
+last_credit_pull_d        2
+pub_rec_bankruptcies    697
+dtype: int64
+</code></pre><h3 id="Converting-the-Object-Columns-to-Numerical"><a href="#Converting-the-Object-Columns-to-Numerical" class="headerlink" title="Converting the Object Columns to Numerical"></a>Converting the Object Columns to Numerical</h3><ul>
+<li>Drop % Sign</li>
+<li>Convert categorical features to Numeric features</li>
+<li>Convert One-hot features</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## Printing Object Columns</span></div><div class="line"></div><div class="line">object_columns_df=loans_2007.select_dtypes(include=[<span class="string">'object'</span>])</div><div class="line">loans_2007 = loans_2007.drop([<span class="string">"last_credit_pull_d"</span>, <span class="string">"earliest_cr_line"</span>, <span class="string">"addr_state"</span>, <span class="string">"title"</span>], axis=<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## Delete % Sign</span></div><div class="line">loans_2007[<span class="string">"int_rate"</span>] = loans_2007[<span class="string">"int_rate"</span>].str.rstrip(<span class="string">"%"</span>).astype(<span class="string">"float"</span>)</div><div class="line">loans_2007[<span class="string">"revol_util"</span>] = loans_2007[<span class="string">"revol_util"</span>].str.rstrip(<span class="string">"%"</span>).astype(<span class="string">"float"</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">## Convert categorical features to Numeric features</span></div><div class="line">mapping_dict = &#123;</div><div class="line">    <span class="string">"emp_length"</span>: &#123;</div><div class="line">        <span class="string">"10+ years"</span>: <span class="number">10</span>,</div><div class="line">        <span class="string">"9 years"</span>: <span class="number">9</span>,</div><div class="line">        <span class="string">"8 years"</span>: <span class="number">8</span>,</div><div class="line">        <span class="string">"7 years"</span>: <span class="number">7</span>,</div><div class="line">        <span class="string">"6 years"</span>: <span class="number">6</span>,</div><div class="line">        <span class="string">"5 years"</span>: <span class="number">5</span>,</div><div class="line">        <span class="string">"4 years"</span>: <span class="number">4</span>,</div><div class="line">        <span class="string">"3 years"</span>: <span class="number">3</span>,</div><div class="line">        <span class="string">"2 years"</span>: <span class="number">2</span>,</div><div class="line">        <span class="string">"1 year"</span>: <span class="number">1</span>,</div><div class="line">        <span class="string">"&lt; 1 year"</span>: <span class="number">0</span>,</div><div class="line">        <span class="string">"n/a"</span>: <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">loans_2007 = loans_2007.replace(mapping_dict)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## Convert One-hot Features</span></div><div class="line"></div><div class="line">col=[<span class="string">'home_ownership'</span>,<span class="string">'verification_status'</span>,<span class="string">'purpose'</span>,<span class="string">'term'</span>]</div><div class="line"><span class="keyword">for</span> c <span class="keyword">in</span> col:</div><div class="line">    loans_2007[c]=loans_2007[c].astype(<span class="string">'category'</span>)</div><div class="line">dummy_df=pd.get_dummies(loans_2007[col])</div><div class="line">loans_2007=pd.concat([loans_2007,dummy_df],axis=<span class="number">1</span>)</div><div class="line">dummy_df.head()</div><div class="line">loans_2007 = loans_2007.drop(col, axis=<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<h2 id="Exporting-the-processed-Data"><a href="#Exporting-the-processed-Data" class="headerlink" title="Exporting the processed Data"></a>Exporting the processed Data</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">loans_2007.to_csv(<span class="string">'Processed/Cleaned_loans_2007.csv'</span>, index=<span class="keyword">False</span>)</div></pre></td></tr></table></figure>
+<h2 id="Algorithm-1-Logistic-Regression"><a href="#Algorithm-1-Logistic-Regression" class="headerlink" title="Algorithm 1: Logistic Regression"></a>Algorithm 1: Logistic Regression</h2><ul>
+<li>Class weight with balanced penality to solve the imbalance target columbn</li>
+<li>Class weight with self-defined penality to solve the imbalance target columbn</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</div><div class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> cross_val_predict, KFold</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#######Filtering Function########</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">Filter</span><span class="params">(df, key, value)</span>:</span></div><div class="line">	<span class="keyword">return</span> df[df[key] == value]</div><div class="line">pd.DataFrame.Filter = Filter</div><div class="line"></div><div class="line"><span class="comment">## Define Features Columns and target Columns</span></div><div class="line"></div><div class="line">loans=pd.read_csv(<span class="string">'Processed/Cleaned_loans_2007.csv'</span>,index_col=<span class="keyword">False</span>,low_memory=<span class="keyword">False</span>)</div><div class="line">cols = loans.columns</div><div class="line">train_cols = cols.drop(<span class="string">"loan_status"</span>)</div><div class="line">features = loans[train_cols]</div><div class="line">target = loans[<span class="string">"loan_status"</span>]</div></pre></td></tr></table></figure>
+<h3 id="Class-weight-with-balanced-penality-to-solve-the-imbalance-target-columbn"><a href="#Class-weight-with-balanced-penality-to-solve-the-imbalance-target-columbn" class="headerlink" title="Class weight with balanced penality to solve the imbalance target columbn"></a>Class weight with balanced penality to solve the imbalance target columbn</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">###########################################################</span></div><div class="line"><span class="comment">#################Weight with balanced penality#############</span></div><div class="line"></div><div class="line">lr = LogisticRegression(class_weight=<span class="string">"balanced"</span>)</div><div class="line">kf = KFold(features.shape[<span class="number">0</span>], random_state=<span class="number">1</span>)</div><div class="line">predictions = cross_val_predict(lr, features, target, cv=kf)</div><div class="line">predictions = pd.Series(predictions)</div><div class="line"></div><div class="line"><span class="comment"># False positives.</span></div><div class="line">fp_filter = (predictions == <span class="number">1</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">0</span>)</div><div class="line">fp = len(predictions[fp_filter])</div><div class="line"></div><div class="line"><span class="comment"># True positives.</span></div><div class="line">tp_filter = (predictions == <span class="number">1</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">1</span>)</div><div class="line">tp = len(predictions[tp_filter])</div><div class="line"></div><div class="line"><span class="comment"># False negatives.</span></div><div class="line">fn_filter = (predictions == <span class="number">0</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">1</span>)</div><div class="line">fn = len(predictions[fn_filter])</div><div class="line"></div><div class="line"><span class="comment"># True negatives</span></div><div class="line">tn_filter = (predictions == <span class="number">0</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">0</span>)</div><div class="line">tn = len(predictions[tn_filter])</div><div class="line"></div><div class="line"><span class="comment"># Rates</span></div><div class="line">tpr = tp / float(tp + fn)</div><div class="line">fpr = fp / float(fp + tn)</div><div class="line">accuracy = (tp+tn)/float(tp+fp+tn+fn)</div><div class="line"></div><div class="line">print(<span class="string">"Test tpr is &#123;:.2f&#125;%, fpr is &#123;:.2f&#125;%, Accuracy is &#123;:.2f&#125;%"</span>.format(tpr*<span class="number">100</span>, fpr*<span class="number">100</span>,accuracy*<span class="number">100</span>))</div></pre></td></tr></table></figure>
+<p>Test tpr is 66.52%, fpr is 38.93%, Accuracy is 65.73%</p>
+<h3 id="Class-weight-with-self-defined-penality-to-solve-the-imbalance-target-columbn"><a href="#Class-weight-with-self-defined-penality-to-solve-the-imbalance-target-columbn" class="headerlink" title="Class weight with self-defined penality to solve the imbalance target columbn"></a>Class weight with self-defined penality to solve the imbalance target columbn</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">###########################################################</span></div><div class="line"><span class="comment">#################Weight with manual penality###############</span></div><div class="line"></div><div class="line"></div><div class="line">penalty = &#123;</div><div class="line">    <span class="number">0</span>: <span class="number">10</span>,</div><div class="line">    <span class="number">1</span>: <span class="number">1</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">lr = LogisticRegression(class_weight=penalty)</div><div class="line">kf = KFold(features.shape[<span class="number">0</span>], random_state=<span class="number">1</span>)</div><div class="line">predictions = cross_val_predict(lr, features, target, cv=kf)</div><div class="line">predictions = pd.Series(predictions)</div><div class="line"></div><div class="line"><span class="comment"># False positives.</span></div><div class="line">fp_filter = (predictions == <span class="number">1</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">0</span>)</div><div class="line">fp = len(predictions[fp_filter])</div><div class="line"></div><div class="line"><span class="comment"># True positives.</span></div><div class="line">tp_filter = (predictions == <span class="number">1</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">1</span>)</div><div class="line">tp = len(predictions[tp_filter])</div><div class="line"></div><div class="line"><span class="comment"># False negatives.</span></div><div class="line">fn_filter = (predictions == <span class="number">0</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">1</span>)</div><div class="line">fn = len(predictions[fn_filter])</div><div class="line"></div><div class="line"><span class="comment"># True negatives</span></div><div class="line">tn_filter = (predictions == <span class="number">0</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">0</span>)</div><div class="line">tn = len(predictions[tn_filter])</div><div class="line"></div><div class="line"><span class="comment"># Rates</span></div><div class="line">tpr = tp / float(tp + fn)</div><div class="line">fpr = fp / float(fp + tn)</div><div class="line">accuracy = (tp+tn)/float(tp+fp+tn+fn)</div><div class="line"></div><div class="line">print(<span class="string">"Test tpr is &#123;:.2f&#125;%, fpr is &#123;:.2f&#125;%, Accuracy is &#123;:.2f&#125;%"</span>.format(tpr*<span class="number">100</span>, fpr*<span class="number">100</span>,accuracy*<span class="number">100</span>))</div></pre></td></tr></table></figure>
+<p>Test tpr is 23.13%, fpr is 8.41%, Accuracy is 33.02%</p>
+<h2 id="Algorithm-2-Random-Forest"><a href="#Algorithm-2-Random-Forest" class="headerlink" title="Algorithm 2: Random Forest"></a>Algorithm 2: Random Forest</h2><ul>
+<li>Class weight with balanced penality to solve the imbalance target columbn</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</div><div class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> cross_val_predict</div><div class="line">rf = RandomForestClassifier(n_estimators = <span class="number">30</span>,class_weight=<span class="string">"balanced"</span>, random_state=<span class="number">1</span>)</div><div class="line">kf = KFold(features.shape[<span class="number">0</span>], random_state=<span class="number">1</span>)</div><div class="line">predictions = cross_val_predict(rf, features, target, cv=kf)</div><div class="line">predictions = pd.Series(predictions)</div><div class="line"></div><div class="line"><span class="comment"># False positives.</span></div><div class="line">fp_filter = (predictions == <span class="number">1</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">0</span>)</div><div class="line">fp = len(predictions[fp_filter])</div><div class="line"></div><div class="line"><span class="comment"># True positives.</span></div><div class="line">tp_filter = (predictions == <span class="number">1</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">1</span>)</div><div class="line">tp = len(predictions[tp_filter])</div><div class="line"></div><div class="line"><span class="comment"># False negatives.</span></div><div class="line">fn_filter = (predictions == <span class="number">0</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">1</span>)</div><div class="line">fn = len(predictions[fn_filter])</div><div class="line"></div><div class="line"><span class="comment"># True negatives</span></div><div class="line">tn_filter = (predictions == <span class="number">0</span>) &amp; (loans[<span class="string">"loan_status"</span>] == <span class="number">0</span>)</div><div class="line">tn = len(predictions[tn_filter])</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Rates</span></div><div class="line">tpr = tp / float(tp + fn)</div><div class="line">fpr = fp / float(fp + tn)</div><div class="line">accuracy = (tp+tn)/float(tp+fp+tn+fn)</div><div class="line"></div><div class="line">print(<span class="string">"Test tpr is &#123;:.2f&#125;%, fpr is &#123;:.2f&#125;%, Accuracy is &#123;:.2f&#125;%"</span>.format(tpr*<span class="number">100</span>, fpr*<span class="number">100</span>,accuracy*<span class="number">100</span>))</div></pre></td></tr></table></figure>
+<p>Test tpr is 99.53%, fpr is 98.24%, Accuracy is 85.40%</p>
+<h2 id="Algorithm-3-Deep-FNN"><a href="#Algorithm-3-Deep-FNN" class="headerlink" title="Algorithm 3: Deep FNN"></a>Algorithm 3: Deep FNN</h2><h3 id="Pre-processing"><a href="#Pre-processing" class="headerlink" title="Pre-processing"></a>Pre-processing</h3><ul>
+<li><p>proceed w/ standardizing datasets by z-scoring (de-mean, uni-variance).</p>
+</li>
+<li><p>Training Data Ratio = 0.9</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">PreprocessDataset</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</div><div class="line">    data = pd.read_csv(<span class="string">'Processed/Cleaned_loans_2007.csv'</span>,index_col=<span class="keyword">False</span>,low_memory=<span class="keyword">False</span>)</div><div class="line">    data = data.reindex(np.random.permutation(data.index))</div><div class="line">    cols = data.columns</div><div class="line">    x_columns = cols.drop(<span class="string">"loan_status"</span>)</div><div class="line">    </div><div class="line">    x = data[x_columns]</div><div class="line">    y = data[<span class="string">"loan_status"</span>]</div><div class="line">    </div><div class="line">    train_max_row = int(data.shape[<span class="number">0</span>]*<span class="number">0.9</span>)</div><div class="line">    </div><div class="line">    x_train = x.iloc[:train_max_row]</div><div class="line">    x_test = x.iloc[train_max_row:]</div><div class="line">    </div><div class="line">    y_train = y.iloc[:train_max_row]</div><div class="line">    y_test = y.iloc[train_max_row:]</div><div class="line">    </div><div class="line">    y_train = np_utils.to_categorical(y_train)</div><div class="line">    y_test = np_utils.to_categorical(y_test)</div><div class="line">    </div><div class="line">    <span class="comment">################Pre-processing###########</span></div><div class="line">    x_train = preprocessing.scale(x_train)</div><div class="line">    x_test = preprocessing.scale(x_test)</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> x_train, x_test, y_train, y_test</div><div class="line"></div><div class="line">x_train, x_test, y_train, y_test = PreprocessDataset()</div></pre></td></tr></table></figure>
+<h2 id="Recipes-for-Neural-Nets"><a href="#Recipes-for-Neural-Nets" class="headerlink" title="Recipes for Neural Nets"></a>Recipes for Neural Nets</h2><ul>
+<li><p>Number of Layer: 6</p>
+</li>
+<li><p>Activation Fuction: ReLU</p>
+</li>
+<li><p>Droupout Rate: 0.7 for layer 1,2; 0.5 for layer 3,4; 0.3 for layer 5</p>
+</li>
+<li><p>Learning Rate: 0.01</p>
+</li>
+<li><p>Weight Regularizer: None</p>
+</li>
+<li><p>Optimization Methon: Adam</p>
+</li>
+<li><p>Number of Batch: 256</p>
+</li>
+<li><p>Number of epoch: 20</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">DefineModel</span><span class="params">()</span>:</span></div><div class="line"></div><div class="line"></div><div class="line">    activation_func = <span class="string">'relu'</span> </div><div class="line">    loss_function = <span class="string">'categorical_crossentropy'</span></div><div class="line">    <span class="comment">#loss_function = 'mean_squared_error'</span></div><div class="line">      </div><div class="line">    dropout_rate = <span class="number">0.5</span></div><div class="line">    weight_regularizer = <span class="keyword">None</span></div><div class="line"></div><div class="line">    learning_rate = <span class="number">0.005</span></div><div class="line">    </div><div class="line">    <span class="comment">## Initialize model.</span></div><div class="line">    model = Sequential()</div><div class="line"></div><div class="line">    <span class="comment">## 1st Layer</span></div><div class="line">    <span class="comment">## Dense' means fully-connected.</span></div><div class="line">    <span class="comment">#model.add(Dense(2000, input_dim=37, W_regularizer=weight_regularizer,weights = weight_layer1))</span></div><div class="line">    model.add(Dense(<span class="number">2000</span>, input_dim=<span class="number">37</span>, W_regularizer=weight_regularizer))</div><div class="line">    model.add(Activation(activation_func))</div><div class="line">    model.add(Dropout(<span class="number">0.7</span>))</div><div class="line">    </div><div class="line">    <span class="comment">## 2nd Layer</span></div><div class="line">    <span class="comment">#model.add(Dense(1000, W_regularizer=weight_regularizer,weights = weight_layer2))</span></div><div class="line">    model.add(Dense(<span class="number">1000</span>, W_regularizer=weight_regularizer))</div><div class="line">    model.add(Activation(activation_func))</div><div class="line">    model.add(Dropout(<span class="number">0.7</span>))</div><div class="line">    </div><div class="line">    <span class="comment">## 3th Layer</span></div><div class="line">    <span class="comment">#model.add(Dense(500, W_regularizer=weight_regularizer,weights = weight_layer3))</span></div><div class="line">    model.add(Dense(<span class="number">500</span>, W_regularizer=weight_regularizer))</div><div class="line">    model.add(Activation(activation_func))</div><div class="line">    model.add(Dropout(dropout_rate))</div><div class="line">    </div><div class="line">    <span class="comment">## 4th Layer</span></div><div class="line">    <span class="comment">#model.add(Dense(128, W_regularizer=weight_regularizer,weights = weight_layer4))</span></div><div class="line">    model.add(Dense(<span class="number">128</span>, W_regularizer=weight_regularizer))</div><div class="line">    model.add(Activation(activation_func))</div><div class="line">    model.add(Dropout(dropout_rate))</div><div class="line">    </div><div class="line">    <span class="comment">## 5th Layer</span></div><div class="line">    <span class="comment">#model.add(Dense(64, W_regularizer=weight_regularizer,weights = weight_layer5))</span></div><div class="line">    model.add(Dense(<span class="number">64</span>, W_regularizer=weight_regularizer))</div><div class="line">    model.add(Activation(activation_func))</div><div class="line">    model.add(Dropout(<span class="number">0.3</span>))</div><div class="line"></div><div class="line">    <span class="comment">## Adding Softmax Layer</span></div><div class="line">    <span class="comment">## Last layer has the same dimension as the number of classes</span></div><div class="line">    </div><div class="line">    <span class="comment">#model.add(Dense(2,weights = weight_layer6))</span></div><div class="line">    model.add(Dense(<span class="number">2</span>))</div><div class="line">    </div><div class="line">    <span class="comment">## For classification, the activation is softmax</span></div><div class="line">    model.add(Activation(<span class="string">'softmax'</span>))</div><div class="line">    </div><div class="line">    <span class="comment">## Define optimizer. we select Adam</span></div><div class="line">    opt = Adam(lr=learning_rate, beta_1=<span class="number">0.9</span>, beta_2=<span class="number">0.999</span>, epsilon=<span class="number">1e-08</span>, decay=<span class="number">0.0</span>)</div><div class="line">    <span class="comment">#opt = SGD(lr=learning_rate, clipnorm=5.)</span></div><div class="line">    </div><div class="line">    <span class="comment">## Define loss function = 'categorical_crossentropy' or 'mean_squared_error'</span></div><div class="line">    model.compile(loss=loss_function, optimizer=opt, metrics=[<span class="string">"fpr"</span>,<span class="string">"accuracy"</span>])</div><div class="line"></div><div class="line">    <span class="keyword">return</span> model</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">TrainModel</span><span class="params">(data=None, epochs=<span class="number">20</span>)</span>:</span></div><div class="line"></div><div class="line">    batch = <span class="number">256</span></div><div class="line">    start_time = time.time()</div><div class="line">    model = DefineModel()</div><div class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide data."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    x_train, x_test, y_train, y_test = data</div><div class="line">    print(<span class="string">'Start training.'</span>)</div><div class="line"></div><div class="line">    history = model.fit(x_train[:<span class="number">32000</span>], y_train[:<span class="number">32000</span>], nb_epoch=epochs, batch_size=batch,class_weight=&#123;<span class="number">0</span>:<span class="number">3</span>,<span class="number">1</span>:<span class="number">1</span>&#125;,</div><div class="line">              validation_data=(x_train[<span class="number">32000</span>:], y_train[<span class="number">32000</span>:]))</div><div class="line">    print(<span class="string">"Training took &#123;0&#125; seconds."</span>.format(time.time() - start_time))</div><div class="line">    <span class="keyword">return</span> model, history</div></pre></td></tr></table></figure>
+<h3 id="Start-Training"><a href="#Start-Training" class="headerlink" title="Start Training"></a>Start Training</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">trained_model, training_history = TrainModel(data=[x_train, x_test, y_train, y_test],epochs = <span class="number">20</span>)</div></pre></td></tr></table></figure>
+<h3 id="Observe-Training-Process"><a href="#Observe-Training-Process" class="headerlink" title="Observe Training Process"></a>Observe Training Process</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">PlotHistory</span><span class="params">(train_value, test_value, value_is_loss_or_acc)</span>:</span></div><div class="line">    f, ax = plt.subplots()</div><div class="line">    ax.plot([<span class="keyword">None</span>] + train_value, <span class="string">'o-'</span>)</div><div class="line">    ax.plot([<span class="keyword">None</span>] + test_value, <span class="string">'x-'</span>)</div><div class="line">    <span class="comment">## Plot legend and use the best location automatically: loc = 0.</span></div><div class="line">    ax.legend([<span class="string">'Train '</span> + value_is_loss_or_acc, <span class="string">'Validation '</span> + value_is_loss_or_acc], loc = <span class="number">0</span>) </div><div class="line">    ax.set_title(<span class="string">'Training/Validation '</span> + value_is_loss_or_acc + <span class="string">' per Epoch'</span>)</div><div class="line">    ax.set_xlabel(<span class="string">'Epoch'</span>)</div><div class="line">    ax.set_ylabel(value_is_loss_or_acc)  </div><div class="line">    </div><div class="line">    </div><div class="line">PlotHistory(training_history.history[<span class="string">'loss'</span>], training_history.history[<span class="string">'val_loss'</span>], <span class="string">'Loss'</span>)</div><div class="line">PlotHistory(training_history.history[<span class="string">'acc'</span>], training_history.history[<span class="string">'val_acc'</span>], <span class="string">'Accuracy'</span>)</div></pre></td></tr></table></figure>
+<img src="/2017/03/01/credit_prediction/output_21_0.png" alt="output_21_0.png" title="">
+<img src="/2017/03/01/credit_prediction/output_21_1.png" alt="output_21_1.png" title="">
+<h3 id="Observe-Weight-Distribution"><a href="#Observe-Weight-Distribution" class="headerlink" title="Observe Weight Distribution"></a>Observe Weight Distribution</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">drawWeightHistogram</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="comment">## the histogram of the data</span></div><div class="line">    fig = plt.subplots()</div><div class="line">    n, bins, patches = plt.hist(x, <span class="number">50</span>)</div><div class="line">    plt.xlim(<span class="number">-0.5</span>, <span class="number">0.5</span>)</div><div class="line">    plt.xlabel(<span class="string">'Weight'</span>)</div><div class="line">    plt.ylabel(<span class="string">'Count'</span>)</div><div class="line">    zero_counts = (x == <span class="number">0.0</span>).sum()</div><div class="line">    plt.title(<span class="string">"Weight Histogram. Num of '0's: %d"</span> % zero_counts)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">## Observe First Layer Weight</span></div><div class="line"></div><div class="line">w1 = trained_model.layers[<span class="number">0</span>].get_weights()[<span class="number">0</span>].flatten()</div><div class="line">drawWeightHistogram(w1)</div></pre></td></tr></table></figure>
+<img src="/2017/03/01/credit_prediction/output_24_0.png" alt="output_24_0.png" title="">
+<h3 id="Define-Testing-Procedure"><a href="#Define-Testing-Procedure" class="headerlink" title="Define Testing Procedure"></a>Define Testing Procedure</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">TestModel</span><span class="params">(model=None, data=None)</span>:</span></div><div class="line">    <span class="keyword">if</span> model <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide a trained model."</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">        print(<span class="string">"Must provide data."</span>)</div><div class="line">        </div><div class="line">        <span class="keyword">return</span></div><div class="line">    x_test, y_test = data</div><div class="line">    scores = model.evaluate(x_test, y_test)</div><div class="line">    <span class="keyword">return</span> scores</div><div class="line"></div><div class="line">test_score = TestModel(model=trained_model, data=[x_test, y_test])</div><div class="line"></div><div class="line">print(<span class="string">"Test loss &#123;:.4f&#125;, fpr &#123;:.2f&#125;%,Accuracy &#123;:.2f&#125;%"</span>.format(test_score[<span class="number">0</span>], test_score[<span class="number">1</span>] * <span class="number">100</span>,test_score[<span class="number">2</span>]*<span class="number">100</span>))</div></pre></td></tr></table></figure>
+<p>3890/3890 [==============================] - 0s<br>Test loss 0.5015, fpr 14.86%,Accuracy 85.14%</p>
+<h2 id="Algorithm-4-AutoEncoder-pre-trained-Deep-FNN"><a href="#Algorithm-4-AutoEncoder-pre-trained-Deep-FNN" class="headerlink" title="Algorithm 4: AutoEncoder pre-trained Deep FNN"></a>Algorithm 4: AutoEncoder pre-trained Deep FNN</h2><ul>
+<li>Using the same FNN with pre-trained neural network weights</li>
+</ul>
+<h3 id="Auto-encoder-Pre-training"><a href="#Auto-encoder-Pre-training" class="headerlink" title="Auto-encoder Pre-training"></a>Auto-encoder Pre-training</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Input, Dense</div><div class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Model</div><div class="line"></div><div class="line"><span class="comment">########################################################</span></div><div class="line"><span class="comment">##################AutoEncoder Stack Model###############</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">aeModel</span><span class="params">()</span>:</span></div><div class="line">    input_size = Input(shape=(<span class="number">37</span>,))</div><div class="line">    encoded = Dense(<span class="number">2000</span>, activation=<span class="string">'relu'</span>)(input_size)</div><div class="line">    encoded = Dense(<span class="number">1000</span>, activation=<span class="string">'relu'</span>)(encoded)</div><div class="line">    encoded = Dense(<span class="number">500</span>, activation=<span class="string">'relu'</span>)(encoded)</div><div class="line">    encoded = Dense(<span class="number">128</span>, activation=<span class="string">'relu'</span>)(encoded)</div><div class="line">    encoded = Dense(<span class="number">64</span>, activation=<span class="string">'relu'</span>)(encoded)</div><div class="line">    encoded = Dense(<span class="number">2</span>, activation=<span class="string">'softmax'</span>)(encoded)</div><div class="line">    decoded = Dense(<span class="number">1000</span>, activation=<span class="string">'relu'</span>)(encoded)</div><div class="line">    decoded = Dense(<span class="number">128</span>, activation=<span class="string">'relu'</span>)(decoded)</div><div class="line">    decoded = Dense(<span class="number">500</span>, activation=<span class="string">'relu'</span>)(decoded)</div><div class="line">    decoded = Dense(<span class="number">1000</span>, activation=<span class="string">'relu'</span>)(decoded)</div><div class="line">    decoded = Dense(<span class="number">2000</span>, activation=<span class="string">'relu'</span>)(decoded)</div><div class="line">    decoded = Dense(<span class="number">37</span>, activation=<span class="string">'sigmoid'</span>)(decoded)</div><div class="line">    </div><div class="line">    ae = Model(input=input_size, output=decoded)</div><div class="line">    ae.compile(optimizer=<span class="string">'adadelta'</span>, loss= <span class="string">'mean_squared_error'</span>)</div><div class="line">               </div><div class="line"></div><div class="line">    <span class="keyword">return</span> ae</div><div class="line"></div><div class="line">autoencoder = aeModel()</div><div class="line"></div><div class="line"><span class="comment">########################################################</span></div><div class="line"><span class="comment">#################AutoEncoder Pre-training###############</span></div><div class="line">autoencoder.fit(x_train, x_train,</div><div class="line">                nb_epoch=<span class="number">20</span>,</div><div class="line">                batch_size=<span class="number">512</span>,</div><div class="line">                shuffle=<span class="keyword">True</span>,</div><div class="line">                validation_data=(x_test, x_test))</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">########################################################</span></div><div class="line"><span class="comment">################Saving Pre-trained Weight###############</span></div><div class="line"></div><div class="line">weight_layer1 = autoencoder.layers[<span class="number">1</span>].get_weights()</div><div class="line">weight_layer2 = autoencoder.layers[<span class="number">2</span>].get_weights()</div><div class="line">weight_layer3 = autoencoder.layers[<span class="number">3</span>].get_weights()</div><div class="line">weight_layer4 = autoencoder.layers[<span class="number">4</span>].get_weights()</div><div class="line">weight_layer5 = autoencoder.layers[<span class="number">5</span>].get_weights()</div><div class="line">weight_layer6 = autoencoder.layers[<span class="number">6</span>].get_weights()</div></pre></td></tr></table></figure>
+<h3 id="Observe-Training-Process-1"><a href="#Observe-Training-Process-1" class="headerlink" title="Observe Training Process"></a>Observe Training Process</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">    </div><div class="line">PlotHistory(training_history.history[<span class="string">'loss'</span>], training_history.history[<span class="string">'val_loss'</span>], <span class="string">'Loss'</span>)</div><div class="line">PlotHistory(training_history.history[<span class="string">'acc'</span>], training_history.history[<span class="string">'val_acc'</span>], <span class="string">'Accuracy'</span>)</div></pre></td></tr></table></figure>
+<img src="/2017/03/01/credit_prediction/output_25_0.png" alt="output_25_0.png" title="">
+<img src="/2017/03/01/credit_prediction/output_25_1.png" alt="output_25_1.png" title="">
+<h3 id="Observe-Weight-Distribution-1"><a href="#Observe-Weight-Distribution-1" class="headerlink" title="Observe Weight Distribution"></a>Observe Weight Distribution</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">w1 = trained_model.layers[<span class="number">0</span>].get_weights()[<span class="number">0</span>].flatten()</div><div class="line">drawWeightHistogram(w1)</div></pre></td></tr></table></figure>
+<img src="/2017/03/01/credit_prediction/output_28_0.png" alt="output_28_0.png" title="">
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">test_score = TestModel(model=trained_model, data=[x_test, y_test])</div><div class="line">print(<span class="string">"Test loss &#123;:.4f&#125;, fpr &#123;:.2f&#125;%,Accuracy &#123;:.2f&#125;%"</span>.format(test_score[<span class="number">0</span>], test_score[<span class="number">1</span>] * <span class="number">100</span>,test_score[<span class="number">2</span>]*<span class="number">100</span>))</div></pre></td></tr></table></figure>
+<p>3744/3890 [===========================&gt;..] - ETA: 0sTest loss 0.4829, fpr 13.73%,Accuracy 86.27%</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/23/gdelt/" rel="next" title="Gdelt Global News Tone Analysis and Visualization">
+                <i class="fa fa-chevron-left"></i> Gdelt Global News Tone Analysis and Visualization
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/dw_image.jpg"
+               alt="Dawei Wang" />
+          <p class="site-author-name" itemprop="name">Dawei Wang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Credit-modelling-using-linancial-lending-data-from-Lending-Club"><span class="nav-number">1.</span> <span class="nav-text">Credit modelling using linancial lending data from Lending Club</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Results"><span class="nav-number">2.</span> <span class="nav-text">Results</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background-Information"><span class="nav-number">3.</span> <span class="nav-text">Background Information</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">4.</span> <span class="nav-text">Usage</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Index"><span class="nav-number"></span> <span class="nav-text">Index</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reading-Raw-Data"><span class="nav-number">1.</span> <span class="nav-text">Reading Raw Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cleaning-Data"><span class="nav-number">2.</span> <span class="nav-text">Cleaning Data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cleaning-redundent-features-and-features-leak-future-information"><span class="nav-number">2.1.</span> <span class="nav-text">Cleaning redundent features and features leak future information</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cleaning-target-Column"><span class="nav-number">2.2.</span> <span class="nav-text">Cleaning target Column</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remove-Single-Value-Columns"><span class="nav-number">2.3.</span> <span class="nav-text">Remove Single Value Columns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handing-Missing-Value"><span class="nav-number">2.4.</span> <span class="nav-text">Handing Missing Value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Converting-the-Object-Columns-to-Numerical"><span class="nav-number">2.5.</span> <span class="nav-text">Converting the Object Columns to Numerical</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exporting-the-processed-Data"><span class="nav-number">3.</span> <span class="nav-text">Exporting the processed Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm-1-Logistic-Regression"><span class="nav-number">4.</span> <span class="nav-text">Algorithm 1: Logistic Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-weight-with-balanced-penality-to-solve-the-imbalance-target-columbn"><span class="nav-number">4.1.</span> <span class="nav-text">Class weight with balanced penality to solve the imbalance target columbn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-weight-with-self-defined-penality-to-solve-the-imbalance-target-columbn"><span class="nav-number">4.2.</span> <span class="nav-text">Class weight with self-defined penality to solve the imbalance target columbn</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm-2-Random-Forest"><span class="nav-number">5.</span> <span class="nav-text">Algorithm 2: Random Forest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm-3-Deep-FNN"><span class="nav-number">6.</span> <span class="nav-text">Algorithm 3: Deep FNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pre-processing"><span class="nav-number">6.1.</span> <span class="nav-text">Pre-processing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recipes-for-Neural-Nets"><span class="nav-number">7.</span> <span class="nav-text">Recipes for Neural Nets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-Training"><span class="nav-number">7.1.</span> <span class="nav-text">Start Training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observe-Training-Process"><span class="nav-number">7.2.</span> <span class="nav-text">Observe Training Process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observe-Weight-Distribution"><span class="nav-number">7.3.</span> <span class="nav-text">Observe Weight Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Define-Testing-Procedure"><span class="nav-number">7.4.</span> <span class="nav-text">Define Testing Procedure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm-4-AutoEncoder-pre-trained-Deep-FNN"><span class="nav-number">8.</span> <span class="nav-text">Algorithm 4: AutoEncoder pre-trained Deep FNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Auto-encoder-Pre-training"><span class="nav-number">8.1.</span> <span class="nav-text">Auto-encoder Pre-training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observe-Training-Process-1"><span class="nav-number">8.2.</span> <span class="nav-text">Observe Training Process</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observe-Weight-Distribution-1"><span class="nav-number">8.3.</span> <span class="nav-text">Observe Weight Distribution</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
+
+<body>
+<a href="https://github.com/demoninpiano"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+<body>
