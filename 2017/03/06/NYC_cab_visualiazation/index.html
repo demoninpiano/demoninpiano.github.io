@@ -92,7 +92,7 @@ The analysis is doen by D3.js and Canvas">
 <meta property="og:site_name" content="David's Blog">
 <meta property="og:description" content="Flyingline Visualiazation of NYC Public Cab data based on the pick and drop Geojson Information
 The analysis is doen by D3.js and Canvas">
-<meta property="og:updated_time" content="2017-03-06T23:15:36.615Z">
+<meta property="og:updated_time" content="2017-03-06T23:20:18.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NYC Cab Geojson Data Flyingline Visualiazation">
 <meta name="twitter:description" content="Flyingline Visualiazation of NYC Public Cab data based on the pick and drop Geojson Information
@@ -292,7 +292,7 @@ The analysis is doen by D3.js and Canvas">
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T15:15:36-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T15:20:18-08:00">
                 2017-03-06
               </time>
             
@@ -361,6 +361,11 @@ The analysis is doen by D3.js and Canvas">
 <head>
 
 <meta charset="utf-8">
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css">
+
+<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 <style>
 
    #map{
@@ -390,10 +395,35 @@ The analysis is doen by D3.js and Canvas">
   }
 
 </style>
+
+
+<style>
+    #map1 { width: 800px; 
+            height: 500px; 
+            transform: translate(50px,0px);
+    }
+    .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+    .legend {
+        line-height: 20px;
+        color: #555;
+    }
+    .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+    }
+</style>
 </head>
 
 
 <body>
+
+<br>
+<br>
+<h3 style="text-align:center"> New York Cab Geojson Data Flyingline Visualization</h3>
+<br>
 
 <div style="position: relative" id="map">
   <div style="position: absolute" class="container" id="canvas-container"></div>
@@ -585,7 +615,6 @@ The analysis is doen by D3.js and Canvas">
 </body>
 </html>
 
-
       
     </div>
 
@@ -735,7 +764,7 @@ The analysis is doen by D3.js and Canvas">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text"> New York Cab Geojson Data Flyingline Visualization</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text"> New York Cab Geojson Data Flyingline Visualization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text"> New York Cab Geojson Data Flyingline Visualization</span></a></li></ol></div>
             
 
           </div>
