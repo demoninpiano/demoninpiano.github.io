@@ -92,7 +92,7 @@ The analysis is doen by D3.js and Canvas">
 <meta property="og:site_name" content="David's Blog">
 <meta property="og:description" content="Flyingline Visualiazation of NYC Public Cab data based on the pick and drop Geojson Information
 The analysis is doen by D3.js and Canvas">
-<meta property="og:updated_time" content="2017-03-06T23:14:31.647Z">
+<meta property="og:updated_time" content="2017-03-06T23:15:36.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NYC Cab Geojson Data Flyingline Visualiazation">
 <meta name="twitter:description" content="Flyingline Visualiazation of NYC Public Cab data based on the pick and drop Geojson Information
@@ -292,7 +292,7 @@ The analysis is doen by D3.js and Canvas">
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T15:14:31-08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-06T15:15:36-08:00">
                 2017-03-06
               </time>
             
@@ -356,8 +356,234 @@ The analysis is doen by D3.js and Canvas">
 <h3 style="text-align:center"> New York Cab Geojson Data Flyingline Visualization</h3>
 
 
-<p>&lt;!DOCTYPE html&gt;</p>
-<html><br><head><br><br><meta charset="utf-8"><br><style><br><br>   #map{<br>    width: 800px;<br>    height: 500px;<br>    transform: translate(50px,0px);<br>    z-index:2;<br><br>   }.container{<br>    width: 100%;<br>    height: 100%;<br>    top: 0%;<br>    left: 0%;<br>    position: relative;<br><br>   }<br>   #canvas-container{<br>    width: 800px;<br>    height: 500px;<br>    z-index: 4;<br>    pointer-events: none; /<em>注意这很重要， 如果缺少pointer-events，前面的canvas会遮挡后面的交互</em>/<br>  }<br>   #map-container{<br>    width: 800px;<br>    height: 500px;<br>    z-index: 3;<br>  }<br><br></style><br></head><br><br><br><body><br><br><div style="position: relative" id="map"><br>  <div style="position: absolute" class="container" id="canvas-container"></div><br>  <div style="position: absolute" class="container" id="map-container"></div><br><br>  <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script><br>  <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script><br>  <script type="text/javascript"><br><br>  //New York Taxi Data Visualization<br>  var map;<br>  var createMap = () =&gt; {<br>    map = L.map(‘map-container’, {“center”:[40.743485405490695,-74.00407791137695],”zoom”:12});<br>    L.tileLayer(‘//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png’).addTo(map);<br>    setTimeout(() =&gt; {<br>      document.querySelector(‘.leaflet-tile-pane’).style.opacity = 0.2;<br>    });<br>    //<br>    map<br>    .on(‘moveend’, function(e){<br>      var center = map.getCenter();<br>      var zoom = map.getZoom();<br>      console.log(JSON.stringify({<br>        center: [center.lat, center.lng],<br>        zoom: zoom<br>      }));<br>    });<br>  };<br><br>  var darken = (ctx, alpha) =&gt; {<br>    var {width, height} = ctx.canvas;<br>    var globalCompositeOperation = ctx.globalCompositeOperation;<br>    var fillStyle = ctx.fillStyle;<br>    ctx.globalCompositeOperation = ‘destination-out’;<br>    ctx.fillStyle = <code>rgba(255,255,255,${1 - alpha})</code>;<br>    ctx.fillRect(0, 0, width, height);<br>    ctx.globalCompositeOperation = globalCompositeOperation;<br>    ctx.fillStyle = fillStyle;<br>  }<br><br>  class Particle{<br>    constructor(ctx, map, id){<br>      this.map = map;<br>      this.id = id;<br>      this.ctx = ctx;<br>      this.r  = 1;<br>      ctx.fillStyle = ‘rgba(0,156,189,.4)’;<br>      this.life = 0;<br>      this.lifeMax = 1;<br>      this.lifeSpeed = 0.002;<br>      this.hMax = 1.2;<br>    }<br>    render(data){<br>      this.data = data;<br>      this.updatePos();<br>    }<br>    updatePos(){<br>      var {data, map} = this;<br>      var {from, to} = data;<br>      this.from = map.latLngToContainerPoint(from);<br>      this.to = map.latLngToContainerPoint(to);<br>      //console.log(this.to)<br>    }<br>    draw(){<br>      var {ctx} = this;<br>      ctx.beginPath();<br>      ctx.arc(this.x, this.y, this.r, 0, 2 <em> Math.PI);<br>      ctx.fill();<br>      ctx.closePath();<br>    }<br>    update(){<br>      this.life += this.lifeSpeed;<br>      if (this.life &gt;= this.lifeMax) return false;<br>      var {from, to, life} = this;<br>      this.x = from.x + (to.x - from.x) </em> life;<br>      var dx  = -Math.abs(to.x - from.x);<br>      //Flyingline Function<br>      this.y = from.y + (to.y - from.y) <em> life + this.hMax </em> dx <em> 4 </em> life <em> (1 - life);<br>      return true;<br>    }<br>  }<br><br>  class Particles{<br>    constructor(container, map){<br>      this.map = map;<br>      this.container = container;<br>      this.init();<br>    }<br>    init(){<br>      this.initCanvas();<br>      this.particles = {};<br>      this.initEvents();<br>    }<br>    clean(){<br>      const{ctx, canvas} = this;<br>      darken(ctx, 0.95);<br>    }<br>    clear(){<br>      const{ctx, canvas} = this;<br>      ctx.clearRect(0, 0, canvas.width, canvas.height);<br>    }<br>    updatePos(){<br>      var {particles} = this;<br>      for(var i in particles){<br>        particles[i].updatePos();<br>      }<br>    }<br>    initCanvas(){<br>      var {container} = this;<br>      var canvas = this.canvas = document.createElement(‘canvas’);<br>      canvas.width  = container.offsetWidth;<br>      canvas.height = container.offsetHeight;<br>      container.appendChild(canvas);<br>      this.ctx = canvas.getContext(‘2d’);<br>    }<br>    render(ds){<br>      this.data = ds;<br>      this.loop();<br>    }<br>    updateParticles(){<br>      this.clean();<br>      var {particles} = this;<br>      for(var i in particles){<br>        var particle = particles[i];<br>        var isRemain = particle.update();<br>        if(!isRemain) {<br>          var id = particle.id;<br>          delete this.particles[id];<br>          continue;<br>        }<br>        particle.draw();<br>      }<br>    }<br>    initEvents(){<br>      this.map<br>      .on(‘move’, () =&gt; {<br>        this.updatePos();<br>        this.clear();<br>      })<br>      .on(‘moveend’, () =&gt; {<br>        this.updatePos();<br>        this.clear();<br>      });<br>    }<br>    emit(){<br>      this.dataIndex = this.dataIndex || 0;<br>      for(var i = 0; i &lt; 2; i++){<br>        this.dataIndex = (this.dataIndex + 1) % this.data.length;<br>        var d  = this.data[this.dataIndex];<br>        var id  = ‘id_’ + Math.floor(Math.random() </em> 1000000);<br>        var p = new Particle(this.ctx, this.map, id);<br>        p.render(d);<br>        this.particles[id] = p;<br>      }<br>    }<br>    loop(){<br>      this.emit();<br>      this.updateParticles();<br>      window.requestAnimationFrame(() =&gt; this.loop())<br>    }<br>  }<br><br>  createMap();<br>  var container = document.querySelector(‘#canvas-container’);<br>  var ps = new Particles(container, map);<br><br>  var toFloat = txt =&gt; parseFloat(txt, 10);//把字符串转成浮点数<br>  d3.csv(‘/about/index/small.csv’, (ds) =&gt; {<br>    console.log(ds)<br>    ds = ds<br>    .filter(d =&gt; d &amp;&amp; d.lpep_pickup_datetime &amp;&amp; d.Pickup_latitude &amp;&amp; d.Dropoff_latitude)<br>    .map(d =&gt; ({<br>      from: {<br>        lat: toFloat(d.Pickup_latitude),<br>        lng: toFloat(d.Pickup_longitude)<br>      },<br>      to: {<br>        lat: toFloat(d.Dropoff_latitude),<br>        lng: toFloat(d.Dropoff_longitude)<br>      },<br>      time: new Date(d.lpep_pickup_datetime)<br>    }));<br>    ps.render(ds);<br>  });<br><br>  </script><br><br></div><br></body><br></html>
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<style>
+
+   #map{
+    width: 800px;
+    height: 500px;
+    transform: translate(50px,0px);
+    z-index:2;
+
+   }.container{
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    position: relative;
+
+   }
+   #canvas-container{
+    width: 800px;
+    height: 500px;
+    z-index: 4;
+    pointer-events: none; /*注意这很重要， 如果缺少pointer-events，前面的canvas会遮挡后面的交互*/
+  }
+   #map-container{
+    width: 800px;
+    height: 500px;
+    z-index: 3;
+  }
+
+</style>
+</head>
+
+
+<body>
+
+<div style="position: relative" id="map">
+  <div style="position: absolute" class="container" id="canvas-container"></div>
+  <div style="position: absolute" class="container" id="map-container"></div>
+
+  <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+  <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+  <script type="text/javascript">
+
+  //New York Taxi Data Visualization
+  var map;
+  var createMap = () => {
+    map = L.map('map-container', {"center":[40.743485405490695,-74.00407791137695],"zoom":12});
+    L.tileLayer('//{s}.tile.stamen.com/toner/{z}/{x}/{y}.png').addTo(map);
+    setTimeout(() => {
+      document.querySelector('.leaflet-tile-pane').style.opacity = 0.2;
+    });
+    //
+    map
+    .on('moveend', function(e){
+      var center = map.getCenter();
+      var zoom = map.getZoom();
+      console.log(JSON.stringify({
+        center: [center.lat, center.lng],
+        zoom: zoom
+      }));
+    });
+  };
+
+  var darken = (ctx, alpha) => {
+    var {width, height} = ctx.canvas;
+    var globalCompositeOperation = ctx.globalCompositeOperation;
+    var fillStyle = ctx.fillStyle;
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = `rgba(255,255,255,${1 - alpha})`;
+    ctx.fillRect(0, 0, width, height);
+    ctx.globalCompositeOperation = globalCompositeOperation;
+    ctx.fillStyle = fillStyle;
+  }
+
+  class Particle{
+    constructor(ctx, map, id){
+      this.map = map;
+      this.id = id;
+      this.ctx = ctx;
+      this.r  = 1;
+      ctx.fillStyle = 'rgba(0,156,189,.4)';
+      this.life = 0;
+      this.lifeMax = 1;
+      this.lifeSpeed = 0.002;
+      this.hMax = 1.2;
+    }
+    render(data){
+      this.data = data;
+      this.updatePos();
+    }
+    updatePos(){
+      var {data, map} = this;
+      var {from, to} = data;
+      this.from = map.latLngToContainerPoint(from);
+      this.to = map.latLngToContainerPoint(to);
+      //console.log(this.to)
+    }
+    draw(){
+      var {ctx} = this;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.closePath();
+    }
+    update(){
+      this.life += this.lifeSpeed;
+      if (this.life >= this.lifeMax) return false;
+      var {from, to, life} = this;
+      this.x = from.x + (to.x - from.x) * life;
+      var dx  = -Math.abs(to.x - from.x);
+      //Flyingline Function
+      this.y = from.y + (to.y - from.y) * life + this.hMax * dx * 4 * life * (1 - life);
+      return true;
+    }
+  }
+
+  class Particles{
+    constructor(container, map){
+      this.map = map;
+      this.container = container;
+      this.init();
+    }
+    init(){
+      this.initCanvas();
+      this.particles = {};
+      this.initEvents();
+    }
+    clean(){
+      const{ctx, canvas} = this;
+      darken(ctx, 0.95);
+    }
+    clear(){
+      const{ctx, canvas} = this;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    updatePos(){
+      var {particles} = this;
+      for(var i in particles){
+        particles[i].updatePos();
+      }
+    }
+    initCanvas(){
+      var {container} = this;
+      var canvas = this.canvas = document.createElement('canvas');
+      canvas.width  = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+      container.appendChild(canvas);
+      this.ctx = canvas.getContext('2d');
+    }
+    render(ds){
+      this.data = ds;
+      this.loop();
+    }
+    updateParticles(){
+      this.clean();
+      var {particles} = this;
+      for(var i in particles){
+        var particle = particles[i];
+        var isRemain = particle.update();
+        if(!isRemain) {
+          var id = particle.id;
+          delete this.particles[id];
+          continue;
+        }
+        particle.draw();
+      }
+    }
+    initEvents(){
+      this.map
+      .on('move', () => {
+        this.updatePos();
+        this.clear();
+      })
+      .on('moveend', () => {
+        this.updatePos();
+        this.clear();
+      });
+    }
+    emit(){
+      this.dataIndex = this.dataIndex || 0;
+      for(var i = 0; i < 2; i++){
+        this.dataIndex = (this.dataIndex + 1) % this.data.length;
+        var d  = this.data[this.dataIndex];
+        var id  = 'id_' + Math.floor(Math.random() * 1000000);
+        var p = new Particle(this.ctx, this.map, id);
+        p.render(d);
+        this.particles[id] = p;
+      }
+    }
+    loop(){
+      this.emit();
+      this.updateParticles();
+      window.requestAnimationFrame(() => this.loop())
+    }
+  }
+
+  createMap();
+  var container = document.querySelector('#canvas-container');
+  var ps = new Particles(container, map);
+
+  var toFloat = txt => parseFloat(txt, 10);//把字符串转成浮点数
+  d3.csv('/about/index/small.csv', (ds) => {
+    console.log(ds)
+    ds = ds
+    .filter(d => d && d.lpep_pickup_datetime && d.Pickup_latitude && d.Dropoff_latitude)
+    .map(d => ({
+      from: {
+        lat: toFloat(d.Pickup_latitude),
+        lng: toFloat(d.Pickup_longitude)
+      },
+      to: {
+        lat: toFloat(d.Dropoff_latitude),
+        lng: toFloat(d.Dropoff_longitude)
+      },
+      time: new Date(d.lpep_pickup_datetime)
+    }));
+    ps.render(ds);
+  });
+
+  </script>
+
+</div>
+</body>
+</html>
 
 
       
